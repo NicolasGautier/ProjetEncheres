@@ -24,7 +24,7 @@ public class UtilisateurServlet extends HttpServlet {
 	
 protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {	
-
+System.out.println("hello");
 		UtilisateurModel model= null;
 		try {
 			model = new UtilisateurModel (new Utilisateur(), manager.selectAll());
@@ -58,18 +58,18 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			}
 			
 			
+	}
 		
 	request.setAttribute("model" , model);
 	request.getRequestDispatcher("/WEB-INF/insertion.jsp").forward(request, response);
 
-	}
 
 }
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		System.out.println(req.getParameter("Pseudo"));
 	}
 
 }
