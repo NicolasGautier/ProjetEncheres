@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
-import fr.eni.ecole.projet_enchere.bll.UtilisateurManagerFact;
+import fr.eni.ecole.projet_enchere.bll.UtilisateurManagerSingl;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 /**
@@ -23,7 +23,7 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 @WebFilter("/")
 public class LoginFilter implements Filter {
 
-	private UtilisateurManager utilisateurManager = UtilisateurManagerFact.getInstance();
+	private UtilisateurManager utilisateurManager = UtilisateurManagerSingl.getInstance();
 
 	/**
 	 * Default constructor.
