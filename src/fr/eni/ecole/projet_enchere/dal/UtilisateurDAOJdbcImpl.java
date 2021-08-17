@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
+import fr.eni.ecole.projet_enchere.dal.jdbc.JdbcTools;
 
-public class UtilisateurDAOImpl implements UtilisateurDAO {
+public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private final String INSERT = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur = ?";
 	private final String DELETE = "DELETE FROM utilisateurs WHERE no_utilisateur =?";
@@ -19,7 +20,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	
 	@Override
 	public void insert(Utilisateur utilisateur) throws DALException {
-		try (Connection con = ConnectionProvider.getConnection()) { 
+		try (Connection con = JdbcTools.getConnection()) { 
 			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, utilisateur.getPseudo());
 			stmt.setString(2, utilisateur.getNom());
@@ -47,7 +48,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	@Override
 	public void update(Utilisateur utilisateur) throws DALException {
-		try (Connection con = ConnectionProvider.getConnection()) { 
+		try (Connection con = JdbcTools.getConnection()) { 
 			PreparedStatement stmt = con.prepareStatement(UPDATE);
 			stmt.setString(1, utilisateur.getPseudo());
 			stmt.setString(2, utilisateur.getNom());
@@ -70,7 +71,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	@Override
 	public void delete(Integer id) throws DALException {
-		try (Connection con = ConnectionProvider.getConnection()) { 
+		try (Connection con = JdbcTools.getConnection()) { 
 			PreparedStatement stmt = con.prepareStatement(DELETE);
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
@@ -83,7 +84,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	@Override
 	public List<Utilisateur> selectAll() throws DALException {
 		List<Utilisateur> result = new ArrayList<Utilisateur>();
-		try (Connection con = ConnectionProvider.getConnection()) { 
+		try (Connection con = JdbcTools.getConnection()) { 
 			PreparedStatement stmt = con.prepareStatement(SELECT);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
@@ -112,7 +113,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	@Override
 	public Utilisateur selectById(Integer id) throws DALException {
 		Utilisateur utilisateur = new Utilisateur();
-		try (Connection con = ConnectionProvider.getConnection()) { 
+		try (Connection con = JdbcTools.getConnection()) { 
 			PreparedStatement stmt = con.prepareStatement(FROM);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
