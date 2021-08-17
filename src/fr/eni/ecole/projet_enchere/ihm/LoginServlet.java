@@ -44,7 +44,6 @@ public class LoginServlet extends HttpServlet {
 		String nextPage = "/WEB-INF/login.jsp";
 
 		if ("Connexion".equals(request.getParameter("formulaireLogin"))) {
-			// TODO Vérifier si l'identifiant est un pseudo ou un email
 			if(request.getParameter("identifiant").matches("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+")) {
 				logModel.getUtilisateur().setEmail(request.getParameter("identifiant"));
 			} else {
@@ -75,7 +74,7 @@ public class LoginServlet extends HttpServlet {
 		if ("Creer".equals(request.getParameter("formulaireCreate"))) {
 
 		}
-		System.out.println(logModel);
+		
 		request.setAttribute("errModel", errModel);
 		request.getSession().setAttribute("logModel", logModel);
 

@@ -31,9 +31,9 @@ public class ModifierProfilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		UtilisateurModel model= null;
+		InsererUtilisateurModel model= null;
 		try {
-			model = new UtilisateurModel (new Utilisateur(), manager.getAllUtilisateurs());
+			model = new InsererUtilisateurModel (new Utilisateur(), manager.getAllUtilisateurs());
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
