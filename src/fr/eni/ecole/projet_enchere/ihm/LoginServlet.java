@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.ecole.projet_enchere.bll.BLLException;
+import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
+import fr.eni.ecole.projet_enchere.bll.UtilisateurManagerFact;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 /**
@@ -16,7 +19,8 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private UtilisateurManager utilisateurManager = UtilisateurManagerFact.getInstanceManager(); 
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -41,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 			logModel.getUtilisateur().setMotDePasse(request.getParameter("password"));
 			
 			/*try {
-				if(loginManager.authentification(logModel.getUtilisateur()))
+				if(utilisateurManager.logAndPassChecked(logModel.getUtilisateur()))
 				nextPage = "/AjouterTodoServlet";
 			} catch (BLLException e) {
 				errModel.setErrMessage("ErrLog",e.getMessage());

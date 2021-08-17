@@ -3,70 +3,96 @@ package fr.eni.ecole.projet_enchere.bll;
 import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
+import fr.eni.ecole.projet_enchere.dal.DALException;
 import fr.eni.ecole.projet_enchere.dal.UtilisateurDAO;
 import fr.eni.ecole.projet_enchere.dal.UtilisateurDAOFact;
 
 public class UtilisateurManagerImpl implements UtilisateurManager {
 
 	private UtilisateurDAO dao = UtilisateurDAOFact.getInstance();
-	private boolean areInDatabase = false;
 
 	@Override
-	public void insert(Utilisateur utilisateur) throws Exception {
+	public void insert(Utilisateur utilisateur) throws BLLException {
 		// test de l'existence du pseudo et du mail dans la liste utilisateur
 
-		for (Utilisateur element : dao.selectAll()) {
-			if (element.getPseudo().equals(utilisateur.getPseudo())
-					&& element.getEmail().equals(utilisateur.getEmail())) {
-				System.out.println("utilisateurmanagerbll : verif login et mail");
-				throw new BLLException("Login ou mail déjà en base de donnée,merci de changer de login ou de mail");
-
+		try {
+			for (Utilisateur element : dao.selectAll()) {
+				if (element.getPseudo().equals(utilisateur.getPseudo())
+						|| element.getEmail().equals(utilisateur.getEmail())) {
+					System.out.println("utilisateurmanagerbll : verif login et mail");
+					throw new BLLException("Login ou mail déjà en base de donnée,merci de changer de login ou de mail");
+				}
 			}
-		}
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		} 
 		// test de l'existence de caractères uniquement alaphanumérique
 		if (utilisateur.getPseudo().matches("[a-zA-Z0-9]*$")) {
 			System.out.println("utilisateurmanagerbll : verif caract alphanumerique du login");
-			dao.insert(utilisateur);
+			try {
+				dao.insert(utilisateur);
+			}  catch (DALException e) {
+				throw new BLLException(e.getMessage());
+			}
 		} else {
-			throw new BLLException("N'utilisez que des caractères alphanumériques, s'il vous plaît");
+			throw new BLLException("Ne rentrez que des caractères alphanumériques");
 		}
 	}
 
 	@Override
-	public void update(Utilisateur utilisateur) throws Exception {
-		dao.update(utilisateur);
-
+	public void update(Utilisateur utilisateur) throws BLLException {
+		try {
+			dao.update(utilisateur);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
 	}
 
 	@Override
-	public void delete(Integer id) throws Exception {
-		dao.delete(id);
-
+	public void delete(Integer id) throws BLLException {
+		try {
+			dao.delete(id);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
 	}
 
 	@Override
-	public List<Utilisateur> selectAll() throws Exception {
+	public List<Utilisateur> selectAll() throws BLLException {
 
-		return dao.selectAll();
+		try {
+			return dao.selectAll();
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
 	}
 
 	@Override
-	public Utilisateur selectById(Integer id) throws Exception {
+	public Utilisateur selectById(Integer id) throws BLLException {
 		
-		return dao.selectById(id); 
+		try {
+			return dao.selectById(id);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		} 
 	}
 	
 	@Override
-	public boolean logAndPassChecked(Utilisateur utilisateur) throws Exception {
+	public boolean logAndPassChecked(Utilisateur utilisateur) throws BLLException {
+		boolean areInDatabase = false;
 
 		// test de l'existence du pseudo et du mail dans la liste utilisateur
-		for (Utilisateur element : dao.selectAll()) {
-			if (element.getPseudo().equals(utilisateur.getPseudo())
-					&& element.getEmail().equals(utilisateur.getEmail())) {
-				System.out.println("utilisateurmanagerbll : verif login et mail en base de donnée");
+		try {
+			for (Utilisateur element : dao.selectAll()) {
+				if ((element.getPseudo().equals(utilisateur.getPseudo()) || element.getEmail().equals(utilisateur.getEmail()))
+						&& element.getMotDePasse().equals(utilisateur.getMotDePasse())) {
+					System.out.println("utilisateurmanagerbll : verif login et mail en base de donnée");
 
-				areInDatabase = true;
+					areInDatabase = true;
+				}
 			}
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
 		}
 		return areInDatabase;
 	}
