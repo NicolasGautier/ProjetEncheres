@@ -11,16 +11,16 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
  */
 public interface UtilisateurManager {
 	
-	public void insert(Utilisateur utilisateur) throws Exception;
+	public void addUtilisateur(Utilisateur utilisateur) throws BLLException;
 	
-	public void update(Utilisateur utilisateur) throws Exception;
+	public void setUtilisateur(Utilisateur utilisateur) throws BLLException;
 
-	public void delete(Integer id) throws Exception;
+	public void removeUtilisateur(Utilisateur utilisateur) throws BLLException;
 	
-	public List<Utilisateur> selectAll() throws Exception;
+	public List<Utilisateur> getAllUtilisateurs() throws BLLException;
 	
-	public Utilisateur selectById(Integer id) throws Exception;
+	public Utilisateur getUtilisateur(Utilisateur utilisateur) throws BLLException;
 
-	boolean logAndPassChecked(Utilisateur utilisateur) throws Exception;
+	boolean logAndPassChecked(Utilisateur utilisateur) throws BLLException;
 
 }
