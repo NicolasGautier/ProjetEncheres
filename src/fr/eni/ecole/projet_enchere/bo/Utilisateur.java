@@ -15,7 +15,8 @@ public class Utilisateur {
 	private String codePostal;
 	private String ville;
 	private String motDePasse;
-	private Integer credit;
+	//initialisation du crédit à 0
+	private Integer credit=0;
 	private Boolean administrateur;
 
 	private List<ArticleVendu> achats = new ArrayList<ArticleVendu>();
