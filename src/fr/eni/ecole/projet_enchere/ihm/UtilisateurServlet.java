@@ -44,6 +44,7 @@ System.out.println("hello");
 			model.getUtilisateur().setRue(request.getParameter("rue"));
 			model.getUtilisateur().setVille(request.getParameter("Ville"));
 			//model.getUtilisateur().setConfirmation(request.getParameter("Confirmation"));
+			//
 			try {
 				manager.insert(model.getUtilisateur());
 			} catch (Exception e1) {
