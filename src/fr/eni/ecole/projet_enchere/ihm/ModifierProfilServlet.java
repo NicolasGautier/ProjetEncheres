@@ -33,7 +33,7 @@ public class ModifierProfilServlet extends HttpServlet {
 		
 		UtilisateurModel model= null;
 		try {
-			model = new UtilisateurModel (new Utilisateur(), manager.selectAll());
+			model = new UtilisateurModel (new Utilisateur(), manager.getAllUtilisateurs());
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -52,13 +52,13 @@ public class ModifierProfilServlet extends HttpServlet {
 			model.getModifier().setVille(request.getParameter("Ville"));
 			//model.getUtilisateur().setConfirmation(request.getParameter("Confirmation"));
 			try {
-				manager.insert(model.getModifier());
+				manager.addUtilisateur(model.getModifier());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			try {
-				model.setLstUtilisateur(manager.selectAll());
+				model.setLstUtilisateur(manager.getAllUtilisateurs());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

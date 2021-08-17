@@ -20,7 +20,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	
 	@Override
 	public void insert(Utilisateur utilisateur) throws DALException {
-		try (Connection con = JdbcTools.getConnection()) {//ConnectionProvider.getConnection()) { //TODO Penser à repasser en connectionProvider
+		try (Connection con = ConnectionProvider.getConnection()) { //TODO Penser à repasser en connectionProvider JdbcTools.getConnection()) {//
 			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, utilisateur.getPseudo());
 			stmt.setString(2, utilisateur.getNom());
@@ -48,7 +48,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	@Override
 	public void update(Utilisateur utilisateur) throws DALException {
-		try (Connection con = JdbcTools.getConnection()) {//ConnectionProvider.getConnection()) { //TODO Penser à repasser en connectionProvider
+		try (Connection con = ConnectionProvider.getConnection()) { //TODO Penser à repasser en connectionProvider
 			PreparedStatement stmt = con.prepareStatement(UPDATE);
 			stmt.setString(1, utilisateur.getPseudo());
 			stmt.setString(2, utilisateur.getNom());
@@ -71,7 +71,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	@Override
 	public void delete(Integer id) throws DALException {
-		try (Connection con = JdbcTools.getConnection()) {//ConnectionProvider.getConnection()) { //TODO Penser à repasser en connectionProvider
+		try (Connection con = ConnectionProvider.getConnection()) { //TODO Penser à repasser en connectionProvider
 			PreparedStatement stmt = con.prepareStatement(DELETE);
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
@@ -84,7 +84,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	@Override
 	public List<Utilisateur> selectAll() throws DALException {
 		List<Utilisateur> result = new ArrayList<Utilisateur>();
-		try (Connection con = JdbcTools.getConnection()) {//ConnectionProvider.getConnection()) { //TODO Penser à repasser en connectionProvider
+		try (Connection con = ConnectionProvider.getConnection()) { //TODO Penser à repasser en connectionProvider
 			PreparedStatement stmt = con.prepareStatement(SELECT);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
@@ -113,7 +113,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	@Override
 	public Utilisateur selectById(Integer id) throws DALException {
 		Utilisateur utilisateur = new Utilisateur();
-		try (Connection con = JdbcTools.getConnection()) {//ConnectionProvider.getConnection()) { //TODO Penser à repasser en connectionProvider
+		try (Connection con = ConnectionProvider.getConnection()) { //TODO Penser à repasser en connectionProvider
 			PreparedStatement stmt = con.prepareStatement(FROM);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();

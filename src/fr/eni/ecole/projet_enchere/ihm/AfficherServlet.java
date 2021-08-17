@@ -33,7 +33,7 @@ public class AfficherServlet extends HttpServlet {
 
 	AfficherModel model= null;
 		try {
-			model = new AfficherModel (new AfficherModel(), manager.selectAll());
+			model = new AfficherModel (new AfficherModel(), manager.getAllUtilisateurs());
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -49,13 +49,13 @@ public class AfficherServlet extends HttpServlet {
 			model.getafficher().setVille(request.getParameter("Ville"));
 		
 			try {
-				manager.insert(model.getafficher());
+				manager.addUtilisateur(model.getafficher());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			try {
-				model.setLstUtilisateur(manager.selectAll());
+				model.setLstUtilisateur(manager.getAllUtilisateurs());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

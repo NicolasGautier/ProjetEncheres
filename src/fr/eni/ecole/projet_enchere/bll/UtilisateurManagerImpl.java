@@ -12,26 +12,26 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	private UtilisateurDAO dao = UtilisateurDAOFact.getInstance();
 
 	@Override
-	public void insert(Utilisateur utilisateur) throws BLLException {
+	public void addUtilisateur(Utilisateur utilisateur) throws BLLException {
 		// test de l'existence du pseudo et du mail dans la liste utilisateur
 
 		try {
-			for (Utilisateur element : dao.selectAll()) {
-				if (element.getPseudo().equals(utilisateur.getPseudo())
-						|| element.getEmail().equals(utilisateur.getEmail())) {
+			for (Utilisateur util : dao.selectAll()) {
+				if (util.getPseudo().equals(utilisateur.getPseudo())
+						|| util.getEmail().equals(utilisateur.getEmail())) {
 					System.out.println("utilisateurmanagerbll : verif login et mail");
 					throw new BLLException("Login ou mail déjà en base de donnée,merci de changer de login ou de mail");
 				}
 			}
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
-		} 
+		}
 		// test de l'existence de caractères uniquement alaphanumérique
 		if (utilisateur.getPseudo().matches("[a-zA-Z0-9]*$")) {
 			System.out.println("utilisateurmanagerbll : verif caract alphanumerique du login");
 			try {
 				dao.insert(utilisateur);
-			}  catch (DALException e) {
+			} catch (DALException e) {
 				throw new BLLException(e.getMessage());
 			}
 		} else {
@@ -40,7 +40,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	}
 
 	@Override
-	public void update(Utilisateur utilisateur) throws BLLException {
+	public void setUtilisateur(Utilisateur utilisateur) throws BLLException {
 		try {
 			dao.update(utilisateur);
 		} catch (DALException e) {
@@ -49,16 +49,16 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	}
 
 	@Override
-	public void delete(Integer id) throws BLLException {
+	public void removeUtilisateur(Utilisateur utilisateur) throws BLLException {
 		try {
-			dao.delete(id);
+			dao.delete(utilisateur.getNoUtilisateur());
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
 	}
 
 	@Override
-	public List<Utilisateur> selectAll() throws BLLException {
+	public List<Utilisateur> getAllUtilisateurs() throws BLLException {
 
 		try {
 			return dao.selectAll();
@@ -68,32 +68,29 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	}
 
 	@Override
-	public Utilisateur selectById(Integer id) throws BLLException {
-		
+	public Utilisateur getUtilisateur(Utilisateur utilisateur) throws BLLException {
+
 		try {
-			return dao.selectById(id);
+			return dao.selectById(utilisateur.getNoUtilisateur());
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
-		} 
+		}
 	}
-	
+
 	@Override
 	public boolean logAndPassChecked(Utilisateur utilisateur) throws BLLException {
-		boolean areInDatabase = false;
-
 		// test de l'existence du pseudo et du mail dans la liste utilisateur
 		try {
-			for (Utilisateur element : dao.selectAll()) {
-				if ((element.getPseudo().equals(utilisateur.getPseudo()) || element.getEmail().equals(utilisateur.getEmail()))
-						&& element.getMotDePasse().equals(utilisateur.getMotDePasse())) {
-					System.out.println("utilisateurmanagerbll : verif login et mail en base de donnée");
-
-					areInDatabase = true;
+			for (Utilisateur util : dao.selectAll()) {
+				if ((util.getPseudo().equals(utilisateur.getPseudo()) || util.getEmail().equals(utilisateur.getEmail()))
+						&& util.getMotDePasse().equals(utilisateur.getMotDePasse())) {
+					utilisateur.setNoUtilisateur(util.getNoUtilisateur());
+					return true;
 				}
 			}
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
-		return areInDatabase;
+		throw new BLLException("Identifiant ou mot de passe incorrecte(s)");
 	}
 }
