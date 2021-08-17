@@ -12,47 +12,44 @@ import fr.eni.ecole.projet_enchere.bll.UtilisateurManagerSingl;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 /**
- * Servlet implementation class afficherProfilServlet
+ * Servlet implementation class AfficherServlet
  */
-@WebServlet("/ModifierProfilServlet")
-public class ModifierProfilServlet extends HttpServlet {
+@WebServlet("/AfficherProfilServlet")
+public class AfficherProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurManager manager = UtilisateurManagerSingl.getInstance();
+    private UtilisateurManager manager  = UtilisateurManagerSingl.getInstance();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModifierProfilServlet() {
+    public AfficherProfilServlet() {
         super();
-       
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		InsererProfilModel model= null;
+
+	AfficherProfilModel model= null;
 		try {
-			model = new InsererProfilModel (new Utilisateur(), manager.getAllUtilisateurs());
+			model = new AfficherProfilModel (new AfficherProfilModel(), manager.getAllUtilisateurs());
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-	
 		if (request.getParameter("nom") != null) {
-			model.getModifier().setPseudo(request.getParameter("Pseudo"));
-			model.getModifier().setPrenom(request.getParameter("Prenom"));
-			model.getModifier().setTelephone(request.getParameter("Telephone"));
-			model.getModifier().setCodePostal(request.getParameter("CodePostal"));
-			model.getModifier().setMotDePasse(request.getParameter("MotDePasse"));
-			model.getModifier().setMotDePasse(request.getParameter("NouveauMotDePasse"));
-			model.getModifier().setNom(request.getParameter("Nom"));
-			model.getModifier().setEmail(request.getParameter("Email"));
-			model.getModifier().setRue(request.getParameter("rue"));
-			model.getModifier().setVille(request.getParameter("Ville"));
-			//model.getUtilisateur().setConfirmation(request.getParameter("Confirmation"));
+			model.getafficher().setPseudo(request.getParameter("Pseudo"));
+			model.getafficher().setPrenom(request.getParameter("Prenom"));
+			model.getafficher().setTelephone(request.getParameter("Telephone"));
+			model.getafficher().setCodePostal(request.getParameter("CodePostal"));
+			model.getafficher().setNom(request.getParameter("Nom"));
+			model.getafficher().setEmail(request.getParameter("Email"));
+			model.getafficher().setRue(request.getParameter("rue"));
+			model.getafficher().setVille(request.getParameter("Ville"));
+		
 			try {
-				manager.addUtilisateur(model.getModifier());
+				manager.addUtilisateur(model.getafficher());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -64,16 +61,11 @@ public class ModifierProfilServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			
-	}
+				}
 		
 	request.setAttribute("model" , model);
-	request.getRequestDispatcher("/WEB-INF/ModifierProfil.jsp").forward(request, response);
-
-
-		
-		
-	}
+	request.getRequestDispatcher("/WEB-INF/Afficher.jsp").forward(request, response);
+			}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
