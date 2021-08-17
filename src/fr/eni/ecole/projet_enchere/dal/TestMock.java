@@ -7,16 +7,14 @@ public class TestMock {
 	public static void main(String[] args) throws DALException {
 		UtilisateurDAO dao = UtilisateurDAOFact.getInstance();
 		
-		Utilisateur user1 = new Utilisateur();
-		Utilisateur user2 = new Utilisateur();
-		Utilisateur user3 = new Utilisateur();
-		Utilisateur user4 = new Utilisateur();
-		Utilisateur user5 = new Utilisateur();
-		
+		Utilisateur user1 = new Utilisateur("pseudo1", "nom1","prenom1","email1","telephone1","rue1","cp1","ville1","mot_de_passe1",0,false);
+		Utilisateur user2 = new Utilisateur("pseudo2", "nom2","prenom2","email2","telephone2","rue2","cp2","ville2","mot_de_passe2",0,false);
+		Utilisateur user3 = new Utilisateur("pseudo3", "nom3","prenom3","email3","telephone3","rue3","cp3","ville3","mot_de_passe3",0,false);
+		Utilisateur user4 = new Utilisateur("pseudo4", "nom4","prenom4","email4","telephone4","rue4","cp4","ville4","mot_de_passe4",0,false);
+				
 		dao.insert(user1);
 		dao.insert(user2);
 		dao.insert(user3);
-		dao.insert(user4);
 		
 		System.out.println(dao.selectAll());
 		
@@ -31,11 +29,7 @@ public class TestMock {
 		dao.delete(user1.getNoUtilisateur());
 		
 		System.out.println(dao.selectAll());
-		
-		dao.update(user5);
-		
-		dao.delete(user5.getNoUtilisateur());
-		
+				
 	}
 		
 }
