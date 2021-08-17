@@ -14,14 +14,14 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 /**
  * Servlet implementation class AfficherServlet
  */
-@WebServlet("/AfficherServlet")
-public class AfficherServlet extends HttpServlet {
+@WebServlet("/AfficherProfilServlet")
+public class AfficherProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UtilisateurManager manager  = UtilisateurManagerSingl.getInstance();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AfficherServlet() {
+    public AfficherProfilServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,9 +31,9 @@ public class AfficherServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	AfficherModel model= null;
+	AfficherProfilModel model= null;
 		try {
-			model = new AfficherModel (new AfficherModel(), manager.getAllUtilisateurs());
+			model = new AfficherProfilModel (new AfficherProfilModel(), manager.getAllUtilisateurs());
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();

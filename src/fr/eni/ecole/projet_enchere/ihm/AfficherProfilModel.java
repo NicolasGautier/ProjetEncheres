@@ -4,13 +4,13 @@ import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
-public class AfficherModel {
+public class AfficherProfilModel {
 
-	public AfficherModel(AfficherModel afficherModel, List<Utilisateur> selectAll) {
+	public AfficherProfilModel(AfficherProfilModel afficherModel, List<Utilisateur> selectAll) {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AfficherModel() {
+	public AfficherProfilModel() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -5,18 +5,23 @@ import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
-public class InsererUtilisateurModel {
+public class InsererProfilModel {
 
 	private Utilisateur utilisateur;
 	private List<Utilisateur> lstUtilisateur = new ArrayList<Utilisateur>();
+	
+	public InsererProfilModel(Utilisateur utilisateur) {
+		super();
+		this.utilisateur = utilisateur;
+	}
 
-	public InsererUtilisateurModel(Utilisateur utilisateur, List<Utilisateur> lstutilisateur) {
+	public InsererProfilModel(Utilisateur utilisateur, List<Utilisateur> lstutilisateur) {
 		super();
 		this.utilisateur = utilisateur;
 		this.lstUtilisateur = lstutilisateur;
 	}
 
-	public InsererUtilisateurModel() {
+	public InsererProfilModel() {
 		super();
 	}
 
