@@ -25,11 +25,11 @@ public class TestBll {
 //		System.out.println("TEST 2 : INSERTION D'un user avec le même login et mail");
 //		manager.insert(new Utilisateur(4,"jaja", "Dupont", "Jeannine", "jaja43@omail.com", "0650505050", "rue du port", "44400","reze", "123456", 0, false));
 //		
-//		System.out.println("TEST 3 : INSERTION D'un user avec un login non alphanumérique");
-//		manager.insert(new Utilisateur(5,"§/%/", "DOpont", "JeanninOe", "jajOa43@omail.com", "06505505050", "rOue du port", "40400","rezOe", "1234567", 0, false));
+		System.out.println("TEST 3 : INSERTION D'un user avec un login non alphanumérique");
+		manager.insert(new Utilisateur(5,"§/%/", "DOpont", "JeanninOe", "jajOa43@omail.com", "06505505050", "rOue du port", "40400","rezOe", "1234567", 0, false));
 //		
-		System.out.println("TEST 4 : verif de l'existence du login et du mot de passe en base de donnée");
-		System.out.println(manager.logAndPassChecked(user3));
+//		System.out.println("TEST 4 : verif de l'existence du login et du mot de passe en base de donnée");
+//		System.out.println(manager.logAndPassChecked(user3));
 		
 		System.out.println("TEST 5 : vérif de l'existence d'identifiant utilisateur et mot de passe base de donnée");
 		System.out.println(manager.logAndPassChecked(user3));

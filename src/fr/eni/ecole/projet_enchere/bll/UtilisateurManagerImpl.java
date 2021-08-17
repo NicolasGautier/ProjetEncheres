@@ -31,10 +31,12 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 			System.out.println("utilisateurmanagerbll : verif caract alphanumerique du login");
 			try {
 				dao.insert(utilisateur);
-			} catch (DALException e) {
+			}  catch (DALException e) {
 				throw new BLLException(e.getMessage());
 			}
-		} 
+		} else {
+			throw new BLLException("Ne rentrez que des caractères alphanumériques");
+		}
 	}
 
 	@Override
