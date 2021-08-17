@@ -2,7 +2,7 @@ package fr.eni.ecole.projet_enchere.dal;
 
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
-public class TestMock {
+public class TestUtilisateurMock {
 	
 	public static void main(String[] args) throws DALException {
 		UtilisateurDAO dao = UtilisateurDAOFact.getInstance();

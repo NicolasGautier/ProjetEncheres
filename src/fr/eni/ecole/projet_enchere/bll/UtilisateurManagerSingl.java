@@ -2,10 +2,9 @@ package fr.eni.ecole.projet_enchere.bll;
 
 public class UtilisateurManagerSingl {
 
-	private static UtilisateurManagerImpl instance;
+	private static UtilisateurManager instance;
 
-	public static UtilisateurManagerImpl getInstance() {
-
+	public static UtilisateurManager getInstance() {
 		if (instance == null) {
 			instance = new UtilisateurManagerImpl();
 		}
