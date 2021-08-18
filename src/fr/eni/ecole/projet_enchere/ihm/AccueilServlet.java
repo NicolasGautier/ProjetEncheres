@@ -32,15 +32,15 @@ public class AccueilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Pour travailler la vue : initialisation du mock (il faudra impérativement supprimer pour passer par bll qui passera par DAL finie par EB
-		EnchereDAO dao = EnchereDAOFact.getInstance();
+		//EnchereDAO dao = EnchereDAOFact.getInstance();
 		
 		
 		// Initialisation du model
-		try {
-			AccueilModel model = new AccueilModel(dao.getAllEnchere());
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			AccueilModel model = new AccueilModel(dao.getAllEnchere());
+//		} catch (DALException e) {
+//			e.printStackTrace();
+//		}
 
 		
 		
