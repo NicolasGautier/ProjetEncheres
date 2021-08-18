@@ -1,13 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Login</title>
-</head>
-<body>
+<jsp:include page="header.jsp">  
+<jsp:param name="titre" value="login" />  
+</jsp:include>
+
 	<c:forEach var="key" items="${errModel.err}">
 		<c:if test="${key == 'ErrLog'}">
 		<p style="color:red">${errModel.errMessage.get('ErrLog')}</p>
@@ -22,5 +16,5 @@
 	</form>
 	
 	<a href="#">Créer un compte</a>
-</body>
-</html>
+	
+<jsp:include page="footer.jsp"/> 
