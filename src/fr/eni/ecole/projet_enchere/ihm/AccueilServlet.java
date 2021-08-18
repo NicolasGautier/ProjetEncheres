@@ -8,10 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.ecole.projet_enchere.dal.DALException;
-import fr.eni.ecole.projet_enchere.dal.EnchereDAO;
-import fr.eni.ecole.projet_enchere.dal.EnchereDAOFact;
-
 /**
  * Servlet implementation class AccueilServlet
  */
