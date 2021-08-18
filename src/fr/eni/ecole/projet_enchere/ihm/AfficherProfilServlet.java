@@ -1,6 +1,7 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManagerSingl;
-import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 /**
  * Servlet implementation class AfficherServlet

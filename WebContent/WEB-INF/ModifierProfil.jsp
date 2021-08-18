@@ -1,14 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>AfficherProfils</title>
-</head>
-<body>
+<jsp:include page="header.jsp">  
+<jsp:param name="titre" value="profil" />  
+</jsp:include>
+
+<jsp:include page="navbar.jsp"/>
+
 <p style="color:red">${erreur}</p>
-<h1>ENI-ENCHERES</h1>
+
 <h2>Mon profil</h2>
 	<form action="ModifierProfilServlet" method="POST">
 	
@@ -29,5 +26,5 @@
 		<input type="submit" value="Enregistrer"/>
 		<input type="submit" value="Supprimer mon compte" />
 	</form>
-</body>
-</html>
+
+<jsp:include page="footer.jsp"/> 

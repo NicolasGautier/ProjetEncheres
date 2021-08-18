@@ -1,8 +1,6 @@
 package fr.eni.ecole.projet_enchere.bll;
 
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
-import fr.eni.ecole.projet_enchere.dal.UtilisateurDAO;
-import fr.eni.ecole.projet_enchere.dal.UtilisateurDAOFact;
 
 public class TestBll {
 
