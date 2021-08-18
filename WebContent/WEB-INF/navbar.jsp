@@ -1,4 +1,4 @@
 <nav>
-	<a>ENI-Encheres</a>
-    <a>S'incrire</a> - <a>Se connecter</a>
+	<a href="#">ENI-Encheres</a>
+    <a href="#">S'incrire</a> - <a href="#">Se connecter</a>
 </nav>

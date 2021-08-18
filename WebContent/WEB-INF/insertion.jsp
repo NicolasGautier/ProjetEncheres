@@ -1,5 +1,5 @@
 <jsp:include page="header.jsp">  
-<jsp:param name="inscription" value="profil" />  
+<jsp:param name="titre" value="inscription" />  
 </jsp:include>
 
 <jsp:include page="navbar.jsp"/>
