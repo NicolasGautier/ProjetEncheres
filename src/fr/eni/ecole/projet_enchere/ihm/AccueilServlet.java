@@ -32,7 +32,6 @@ public class AccueilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//Initialisation du modèle
-		AccueilModel model = 
 		
 
 		
