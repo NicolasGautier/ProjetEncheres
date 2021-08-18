@@ -1,4 +1,4 @@
-package fr.eni.ecole.projet_enchere.dal;
+package fr.eni.ecole.projet_enchere.dal.jdbc;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,7 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
-import fr.eni.ecole.projet_enchere.dal.jdbc.JdbcTools;
+import fr.eni.ecole.projet_enchere.dal.ArticleVenduDAO;
+import fr.eni.ecole.projet_enchere.dal.CategorieDAO;
+import fr.eni.ecole.projet_enchere.dal.CategorieDAOFact;
+import fr.eni.ecole.projet_enchere.dal.DALException;
+import fr.eni.ecole.projet_enchere.dal.UtilisateurDAO;
+import fr.eni.ecole.projet_enchere.dal.UtilisateurDAOFact;
 
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private final String INSERT = "INSERT INTO articles_vendus(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?)";
