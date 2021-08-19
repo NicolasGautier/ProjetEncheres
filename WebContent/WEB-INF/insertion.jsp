@@ -21,10 +21,13 @@
 		Email : <input type="email" name="email" value="${insModel.utilisateur.email}" required="required"/><br>
 		Rue : <input type="text" name="rue" value="${insModel.utilisateur.rue}" required="required"/><br>
 		Ville : <input type="text" name="ville" value="${insModel.utilisateur.ville}" required="required"/><br>
-<%-- 		Confirmation : <input type="password" name="Pseudo" value="${model.utilisateur.confirmation}"/><br> --%>
+		Confirmation : <input type="password" name="confirmation" value=""/><br>
+		
 		<button type="submit" name="formulaireInscription" value="creer">Creer</button>
 		<button type="submit" name="formulaireInscription" value="annuler" >Annuler</button>
 		
 </form>	
 				
 <jsp:include page="footer.jsp"/>
+
+

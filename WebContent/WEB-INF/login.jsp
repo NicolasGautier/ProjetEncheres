@@ -12,6 +12,8 @@
 		<p>Mot de passe: <input type="password" name="password" required="required"/></p>
 		<button type="submit" name="formulaireLogin" value="Connexion">Connexion</button>
 		<input type="checkbox" name="checkRememberMe" value="true"/>
+		Se souvenir de moi
+		</p>
 		<a href="#">Mot de passe oublié</a>
 	</form>
 	
