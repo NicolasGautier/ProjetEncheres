@@ -37,7 +37,7 @@ public class InsererProfilServlet extends HttpServlet {
 		InsererProfilModel insModel = null;
 		String nextPage = "/WEB-INF/insertion.jsp";
 		
-		insModel = new InsererProfilModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false));
+		insModel = new InsererProfilModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false,true));
 
 		if ("creer".equals(request.getParameter("formulaireInscription"))) {
 			insModel.getUtilisateur().setPseudo(request.getParameter("pseudo"));

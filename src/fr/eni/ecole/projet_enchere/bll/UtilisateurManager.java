@@ -22,5 +22,9 @@ public interface UtilisateurManager {
 	public Utilisateur getUtilisateur(Utilisateur utilisateur) throws BLLException;
 
 	boolean logAndPassChecked(Utilisateur utilisateur) throws BLLException;
+	
+	boolean passChecked(Utilisateur utilisateur) throws BLLException;
+	
+	boolean newPassChecked(String newPass, String confPass) throws BLLException;
 
 }

@@ -46,9 +46,4 @@ public class InsererProfilModel {
 		return "UtilisateurModel [utilisateur=" + utilisateur + ", lstUtilisateur=" + lstUtilisateur + "]";
 	}
 
-	public Utilisateur getModifier() {
-		// TODO A faire
-		return null;
-	}
-
 }

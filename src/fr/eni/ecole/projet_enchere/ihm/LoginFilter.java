@@ -20,7 +20,7 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter("/")
+@WebFilter("/ModifierProfilServlet")
 public class LoginFilter implements Filter {
 
 	private UtilisateurManager utilisateurManager = UtilisateurManagerSingl.getInstance();
@@ -45,12 +45,16 @@ public class LoginFilter implements Filter {
 		Cookie[] tabCookies = ((HttpServletRequest) request).getCookies();
 
 		// TODO Tester les cookies avec deux fenêtres
-		
 		String servletName = ((HttpServletRequest) request).getServletPath();
 		if (((HttpServletRequest) request).getSession().getAttribute("logModel") == null) {
-
-			if (tabCookies != null) {
-				LoginModel logModel = new LoginModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false));
+			Boolean identifiant = false;
+			Boolean password = false;
+			for(Cookie cookie : tabCookies) {
+				if("identifiant".equals(cookie.getName())) identifiant = true;
+				if("password".equals(cookie.getName())) password = true;
+			}
+			if (identifiant && password) {
+				LoginModel logModel = new LoginModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false,true));
 				//On récupère nos identifiant et mot de passe dans les cookies
 				for (Cookie cookie : tabCookies) {
 					if ("identifiant".equals(cookie.getName())) {

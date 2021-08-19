@@ -18,7 +18,7 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 @WebServlet("/ModifierProfilServlet")
 public class ModifierProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurManager manager = UtilisateurManagerSingl.getInstance();
+	private UtilisateurManager utilManager = UtilisateurManagerSingl.getInstance();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -35,38 +35,60 @@ public class ModifierProfilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		InsererProfilModel model = null;
+		ErreurModel errModel = new ErreurModel();
+		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
+		ModifierProfilModel modProfModel = new ModifierProfilModel(logModel.getUtilisateur());
+		String nextPage = "/WEB-INF/ModifierProfil.jsp";
 
-		try {
-			model = new InsererProfilModel(new Utilisateur(), manager.getAllUtilisateurs());
-		} catch (BLLException e2) {
-			e2.printStackTrace();
-		}
-
-		if (request.getParameter("nom") != null) {
-			model.getModifier().setPseudo(request.getParameter("Pseudo"));
-			model.getModifier().setPrenom(request.getParameter("Prenom"));
-			model.getModifier().setTelephone(request.getParameter("Telephone"));
-			model.getModifier().setCodePostal(request.getParameter("CodePostal"));
-			model.getModifier().setMotDePasse(request.getParameter("MotDePasse"));
-			model.getModifier().setMotDePasse(request.getParameter("NouveauMotDePasse"));
-			model.getModifier().setNom(request.getParameter("Nom"));
-			model.getModifier().setEmail(request.getParameter("Email"));
-			model.getModifier().setRue(request.getParameter("rue"));
-			model.getModifier().setVille(request.getParameter("Ville"));
-			// model.getUtilisateur().setConfirmation(request.getParameter("Confirmation"));
+		if ("enregistrer".equals(request.getParameter("formuaireProfil"))) {
+			modProfModel.getUtilisateur().setPseudo(request.getParameter("pseudo"));
+			modProfModel.getUtilisateur().setPrenom(request.getParameter("prenom"));
+			modProfModel.getUtilisateur().setTelephone(request.getParameter("telephone"));
+			modProfModel.getUtilisateur().setCodePostal(request.getParameter("cp"));
+			modProfModel.getUtilisateur().setMotDePasse(request.getParameter("password"));
+			modProfModel.getUtilisateur().setNom(request.getParameter("nom"));
+			modProfModel.getUtilisateur().setEmail(request.getParameter("email"));
+			modProfModel.getUtilisateur().setRue(request.getParameter("rue"));
+			modProfModel.getUtilisateur().setVille(request.getParameter("ville"));
 
 			try {
-				manager.addUtilisateur(model.getModifier());
-				model.setLstUtilisateur(manager.getAllUtilisateurs());
+				if (utilManager.passChecked(modProfModel.getUtilisateur())) {
+					if (!"".equals(request.getParameter("newPassword"))
+							|| !"".equals(request.getParameter("confPassword"))) {
+						if (utilManager.newPassChecked(request.getParameter("newPassword"),
+								request.getParameter("confPassword"))) {
+							modProfModel.getUtilisateur().setMotDePasse(request.getParameter("newPassword"));
+						}
+					}
+				}
+				utilManager.setUtilisateur(modProfModel.getUtilisateur());
+				logModel.setUtilisateur(utilManager.getUtilisateur(modProfModel.getUtilisateur()));
 			} catch (BLLException e) {
-				e.printStackTrace();
+				errModel.setErrMessage("ErrLog", e.getMessage());
 			}
-
 		}
 
-		request.setAttribute("model", model);
-		request.getRequestDispatcher("/WEB-INF/ModifierProfil.jsp").forward(request, response);
+		if ("supprimer".equals(request.getParameter("formuaireProfil"))) {
+			try {
+				if (utilManager.passChecked(modProfModel.getUtilisateur())) {
+					try {
+						utilManager.removeUtilisateur(logModel.getUtilisateur());
+					} catch (BLLException e) {
+						logModel.getUtilisateur().setActif(false);
+						utilManager.setUtilisateur(logModel.getUtilisateur());
+					}
+					nextPage = "/AccueilServlet";
+				}
+			} catch (BLLException e) {
+				errModel.setErrMessage("ErrLog", e.getMessage());
+			}
+		}
+
+		request.setAttribute("errModel", errModel);
+		request.setAttribute("model", modProfModel);
+		request.getSession().setAttribute("logModel", logModel);
+
+		request.getRequestDispatcher(nextPage).forward(request, response);
 
 	}
 
