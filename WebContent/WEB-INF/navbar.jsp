@@ -12,7 +12,7 @@
 				<c:if test="${!empty logModel}">
 					<a href="#">Enchères</a>
 					<a href="#">Vendre un article</a>
-					<a href="#">Mon profil</a>
+					<a href="ModifierProfilServlet">Mon profil</a>
 					<a href="#">Déconnexion</a>	
 				</c:if>
 			</c:if>
