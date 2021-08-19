@@ -1,7 +1,7 @@
-<jsp:include page="header.jsp">
-	<jsp:param name="titre" value="accueil" />
-</jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="header.jsp">  
+<jsp:param name="titre" value="accueil" />  
+</jsp:include>
 
 <jsp:include page="navbar.jsp" />
 

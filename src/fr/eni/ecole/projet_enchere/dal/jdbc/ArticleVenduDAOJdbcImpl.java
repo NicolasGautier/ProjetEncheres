@@ -37,8 +37,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			stmt.setDate(4, Date.valueOf(articlevendu.getDateFinEncheres()));
 			stmt.setInt(5, articlevendu.getMiseAPrix());
 			stmt.setInt(6, articlevendu.getPrixVente());
-			stmt.setInt(7, articlevendu.getUtilisateurVend().getNoUtilisateur()); // TODO utilisateur achet ou
-																					// utilisateur vend?
+			stmt.setInt(7, articlevendu.getUtilisateurVend().getNoUtilisateur()); 
 			stmt.setInt(8, articlevendu.getCategorie().getNoCategorie());
 			int nb = stmt.executeUpdate();
 			if (nb > 0) {
@@ -63,8 +62,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			stmt.setDate(4, Date.valueOf(articlevendu.getDateFinEncheres()));
 			stmt.setInt(5, articlevendu.getMiseAPrix());
 			stmt.setInt(6, articlevendu.getPrixVente());
-			stmt.setInt(7, articlevendu.getUtilisateurVend().getNoUtilisateur()); // TODO utilisateur achet ou
-																					// utilisateur vend?
+			stmt.setInt(7, articlevendu.getUtilisateurVend().getNoUtilisateur()); 
 			stmt.setInt(8, articlevendu.getCategorie().getNoCategorie());
 			stmt.setInt(9, articlevendu.getNoArticle());
 			stmt.executeUpdate();

@@ -16,28 +16,25 @@ public class EnchereManagerImpl implements EnchereManager {
 	@Override
 	public void addEnchere(Enchere enchere) throws BLLException {
 		try {
-			// Parcours de la liste
-			//for (Enchere ench : dao.selectAll()) {
-				//Si l'article cncerné par l'enchère existe dans la base de donnée
-				//if (ench.getArticleConcerne().getNoArticle().equals(enchere.getArticleConcerne().getNoArticle())
-					//	&& ench.getUtilisateurEncherit().getNoUtilisateur().equals(enchere.getUtilisateurEncherit().getNoUtilisateur())) {
-					//Update de l'enchere
-				//	dao.update(enchere);
-
-				//} else {
-					//Sinon, on insert une nouvelle enchère
-					dao.insert(enchere);
-				//}
-			//}
+			Boolean insert = true;
+			for (Enchere ench : dao.selectAll()) {
+				if (ench.getArticleConcerne().getNoArticle().equals(enchere.getArticleConcerne().getNoArticle())
+						&& ench.getUtilisateurEncherit().getNoUtilisateur()
+								.equals(enchere.getUtilisateurEncherit().getNoUtilisateur())) {
+					setEnchere(enchere);
+					insert = false;
+				}
+			}
+			if (insert) {
+				dao.insert(enchere);
+			}
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
-
 	}
 
 	@Override
 	public void setEnchere(Enchere enchere) throws BLLException {
-
 		try {
 			dao.update(enchere);
 		} catch (DALException e) {
@@ -48,10 +45,8 @@ public class EnchereManagerImpl implements EnchereManager {
 	@Override
 	public void removeEnchere(Enchere enchere) throws BLLException {
 		try {
-
 			dao.delete(enchere.getUtilisateurEncherit().getNoUtilisateur(),
 					enchere.getArticleConcerne().getNoArticle());
-
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
@@ -59,30 +54,22 @@ public class EnchereManagerImpl implements EnchereManager {
 
 	@Override
 	public List<Enchere> getAllEnchere() throws BLLException {
-
 		try {
-
 			return dao.selectAll();
-
 		} catch (DALException e) {
 
 			throw new BLLException(e.getMessage());
-
 		}
 	}
 
 	@Override
 	public Enchere getEnchere(Enchere enchere) throws BLLException {
-
 		try {
-			dao.selectById(enchere.getUtilisateurEncherit().getNoUtilisateur(),
+			return dao.selectById(enchere.getUtilisateurEncherit().getNoUtilisateur(),
 					enchere.getArticleConcerne().getNoArticle());
-			return enchere;
-
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
-
 	}
 
 	@Override

@@ -1,5 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="header.jsp">  
 <jsp:param name="titre" value="login" />  
+</jsp:include>
+
+<jsp:include page="navbar.jsp">  
+<jsp:param name="hidden" value="true" />  
 </jsp:include>
 
 	<c:forEach var="key" items="${errModel.err}">
