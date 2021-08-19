@@ -14,7 +14,7 @@ import fr.eni.ecole.projet_enchere.bll.EnchereManagerSingl;
 /**
  * Servlet implementation class AccueilServlet
  */
-@WebServlet("/AccueilServlet")
+@WebServlet({"/","/AccueilServlet"})
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EnchereManager manager = EnchereManagerSingl.getInstance();

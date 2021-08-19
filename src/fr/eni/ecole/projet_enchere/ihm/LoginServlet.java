@@ -76,7 +76,6 @@ public class LoginServlet extends HttpServlet {
 		
 		request.setAttribute("errModel", errModel);
 		request.getSession().setAttribute("logModel", logModel);
-
 		request.getRequestDispatcher(nextPage).forward(request, response);
 	}
 
