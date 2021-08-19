@@ -18,7 +18,7 @@ import fr.eni.ecole.projet_enchere.bll.EnchereManagerSingl;
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EnchereManager manager = EnchereManagerSingl.getInstance();
-
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,6 +33,8 @@ public class AccueilServlet extends HttpServlet {
 		ErreurModel errModel = new ErreurModel();
 		//Initialisation de model
 		AccueilModel model = null;
+		String nextPage = "/WEB-INF/accueil.jsp";
+		
 		try {
 			model = new AccueilModel(manager.getAllEnchere());
 		} catch (BLLException e) {
@@ -41,7 +43,8 @@ public class AccueilServlet extends HttpServlet {
 		
 		request.setAttribute("model", model);
 		request.setAttribute("errModel", errModel);
-		request.getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
+		request.getSession().setAttribute("previousPage", nextPage);
+		request.getRequestDispatcher(nextPage).forward(request, response);
 
 	}
 
@@ -49,7 +52,6 @@ public class AccueilServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
