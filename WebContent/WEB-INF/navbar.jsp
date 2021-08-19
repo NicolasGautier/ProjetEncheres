@@ -13,7 +13,7 @@
 					<a href="#">Enchères</a>
 					<a href="#">Vendre un article</a>
 					<a href="ModifierProfilServlet">Mon profil</a>
-					<a href="#">Déconnexion</a>	
+					<a href="LogoutServlet">Déconnexion</a>	
 				</c:if>
 			</c:if>
 		</div>
