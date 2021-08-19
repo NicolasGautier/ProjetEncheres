@@ -11,11 +11,11 @@ import java.util.List;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO {
-	private final String INSERT = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-	private final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur = ?";
+	private final String INSERT = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur, actif) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+	private final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=?, actif=? WHERE no_utilisateur = ?";
 	private final String DELETE = "DELETE FROM utilisateurs WHERE no_utilisateur =?";
-	private final String SELECT = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs";
-	private final String FROM = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur = ?";
+	private final String SELECT = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur, actif FROM utilisateurs";
+	private final String FROM = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur, actif FROM utilisateurs WHERE no_utilisateur = ?";
 	
 	@Override
 	public void insert(Utilisateur utilisateur) throws DALException {
@@ -32,6 +32,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			stmt.setString(9, utilisateur.getMotDePasse());
 			stmt.setInt(10, utilisateur.getCredit());
 			stmt.setBoolean(11, utilisateur.getAdministrateur());
+			stmt.setBoolean(12, utilisateur.getActif());
 			int nb = stmt.executeUpdate();
 			if (nb > 0) {
 				ResultSet rs = stmt.getGeneratedKeys();
@@ -60,7 +61,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			stmt.setString(9, utilisateur.getMotDePasse());
 			stmt.setInt(10, utilisateur.getCredit());
 			stmt.setBoolean(11, utilisateur.getAdministrateur());
-			stmt.setInt(12, utilisateur.getNoUtilisateur());
+			stmt.setBoolean(12, utilisateur.getActif());
+			stmt.setInt(13, utilisateur.getNoUtilisateur());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -100,6 +102,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 				utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
 				utilisateur.setCredit(rs.getInt("credit"));
 				utilisateur.setAdministrateur(rs.getBoolean("administrateur"));
+				utilisateur.setActif(rs.getBoolean("actif"));
 				result.add(utilisateur);
 			}
 		} catch (SQLException e) {
@@ -129,6 +132,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 				utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
 				utilisateur.setCredit(rs.getInt("credit"));
 				utilisateur.setAdministrateur(rs.getBoolean("administrateur"));
+				utilisateur.setActif(rs.getBoolean("actif"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
