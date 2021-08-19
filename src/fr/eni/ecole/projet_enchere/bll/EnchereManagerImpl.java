@@ -1,7 +1,9 @@
 package fr.eni.ecole.projet_enchere.bll;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.ecole.projet_enchere.bo.Categorie;
 import fr.eni.ecole.projet_enchere.bo.Enchere;
 import fr.eni.ecole.projet_enchere.dal.DALException;
 import fr.eni.ecole.projet_enchere.dal.EnchereDAO;
@@ -9,8 +11,8 @@ import fr.eni.ecole.projet_enchere.dal.EnchereDAOFact;
 
 public class EnchereManagerImpl implements EnchereManager {
 	private EnchereDAO dao = EnchereDAOFact.getInstance();
-
-
+	List<Enchere> lstCategorie = new ArrayList<Enchere>();
+	
 	@Override
 	public void addEnchere(Enchere enchere) throws BLLException {
 		try {
@@ -82,5 +84,21 @@ public class EnchereManagerImpl implements EnchereManager {
 		}
 
 	}
+
+	@Override
+	public List<Enchere> getAllEnchereCategorie(Categorie categorie) throws BLLException {
+		try {
+			for (Enchere encheres : dao.selectAll()) {	
+				if(encheres.getArticleConcerne().getCategorie().equals(categorie)) {
+					lstCategorie.add(encheres);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+		return lstCategorie;
+	}
+
+	
 
 }
