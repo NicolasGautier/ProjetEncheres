@@ -8,8 +8,7 @@
 <div class="row mb-3">
 	<div class="justify-content-center">
 		<h2>
-			Liste des enchères<img alt="image enchere"
-				src="<%=request.getContextPath()%>/image/image_enchere.png">
+			Liste des enchères<img alt="image enchere" src="<%=request.getContextPath()%>/image/image_enchere.png">
 		</h2>
 	</div>
 	<c:forEach var="key" items="${errModel.err}">
@@ -23,8 +22,8 @@
 	<form action="AccueilServlet" method="post">
 		<div class="col-3 themed-grid-col">
 			<label for="filtre">Filtres :</label> 
-			<input type="search" value="" /> 
-			<label for="categorie">Catégorie :</label> 
+			<input type="search" name="filtre" value="${accModel.filtre}" /> 
+			<label for="categorieSelect">Catégorie :</label> 
 			<select name="categorieSelect">
 				<option value="Toutes">Toutes</option>
 				<c:forEach var="categorie" items="${accModel.lstCategorie}">

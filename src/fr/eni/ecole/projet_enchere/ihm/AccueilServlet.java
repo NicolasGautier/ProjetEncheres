@@ -46,24 +46,42 @@ public class AccueilServlet extends HttpServlet {
 		AccueilModel accModel = (AccueilModel) request.getAttribute("accModel");
 		if (accModel == null) {
 			try {
-				accModel = new AccueilModel(new Categorie(), catManager.getAllCategorie());
+				accModel = new AccueilModel("", new Categorie(), catManager.getAllCategorie());
 			} catch (BLLException e) {
 				errModel.setErrMessage("ErrAcc", e.getMessage());
 			}
 		}
-
+		if (request.getParameter("filtre") != null) {
+			accModel.setFiltre(request.getParameter("filtre"));
+		}
+		
 		if (logModel.getUtilisateur().getNoUtilisateur() == null) {
 			try {
 				Boolean catChoisie = false;
 				for(Categorie categorie : accModel.getLstCategorie()) {
 					if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
-						accModel.setLstEnchere(enchManager.getAllEnchereCategorie(categorie));
+						accModel.setLstEnchere(enchManager.getEnchereCategorieFiltre(categorie, accModel.getFiltre()));
 						accModel.setCategorie(categorie);
 						catChoisie = true;
 						break;
 					}
 				}
-				if(!catChoisie) accModel.setLstEnchere(enchManager.getAllEnchere());
+				if(!catChoisie) accModel.setLstEnchere(enchManager.getEnchereFiltre(accModel.getFiltre()));
+			} catch (BLLException e) {
+				errModel.setErrMessage("ErrAcc", e.getMessage());
+			}
+		} else {	// TODO Faire la fenêtre en connexion
+			try {
+				Boolean catChoisie = false;
+				for(Categorie categorie : accModel.getLstCategorie()) {
+					if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
+						accModel.setLstEnchere(enchManager.getEnchereCategorieFiltre(categorie, accModel.getFiltre()));
+						accModel.setCategorie(categorie);
+						catChoisie = true;
+						break;
+					}
+				}
+				if(!catChoisie) accModel.setLstEnchere(enchManager.getEnchereFiltre(accModel.getFiltre()));
 			} catch (BLLException e) {
 				errModel.setErrMessage("ErrAcc", e.getMessage());
 			}

@@ -5,7 +5,6 @@ import java.util.List;
 import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.CategorieManager;
 import fr.eni.ecole.projet_enchere.bo.Categorie;
-import fr.eni.ecole.projet_enchere.bo.Enchere;
 import fr.eni.ecole.projet_enchere.dal.CategorieDAO;
 import fr.eni.ecole.projet_enchere.dal.DALException;
 import fr.eni.ecole.projet_enchere.dal.DalFactory;

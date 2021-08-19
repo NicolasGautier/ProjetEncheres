@@ -8,24 +8,35 @@ import fr.eni.ecole.projet_enchere.bo.Enchere;
 
 public class AccueilModel {
 
+	private String filtre;
 	private Categorie categorie;
 	private List<Categorie> lstCategorie = new ArrayList<Categorie>();
 	private List<Enchere> lstEnchere = new ArrayList<Enchere>();
 
 	public AccueilModel() {
 	}
-
-	public AccueilModel(Categorie categorie, List<Categorie> lstCategorie) {
+	
+	public AccueilModel(String filtre, Categorie categorie, List<Categorie> lstCategorie) {
 		super();
+		this.filtre = filtre;
 		this.categorie = categorie;
 		this.lstCategorie = lstCategorie;
 	}
 
-	public AccueilModel(Categorie categorie, List<Categorie> lstCategorie, List<Enchere> lstEnchere) {
+	public AccueilModel(String filtre, Categorie categorie, List<Categorie> lstCategorie, List<Enchere> lstEnchere) {
 		super();
+		this.filtre = filtre;
 		this.categorie = categorie;
 		this.lstCategorie = lstCategorie;
 		this.lstEnchere = lstEnchere;
+	}
+
+	public String getFiltre() {
+		return filtre;
+	}
+
+	public void setFiltre(String filtre) {
+		this.filtre = filtre;
 	}
 
 	public Categorie getCategorie() {
