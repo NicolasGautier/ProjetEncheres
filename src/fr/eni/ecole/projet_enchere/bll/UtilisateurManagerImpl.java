@@ -20,7 +20,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 				if (util.getPseudo().equals(utilisateur.getPseudo())
 						|| util.getEmail().equals(utilisateur.getEmail())) {
 					System.out.println("utilisateurmanagerbll : verif login et mail");
-					throw new BLLException("Login ou mail déjà en base de donnée,merci de changer de login ou de mail");
+					throw new BLLException("Login ou mail déjà utilisé,merci de changer de login ou de mail");
 				}
 			}
 		} catch (DALException e) {
@@ -28,7 +28,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		}
 		// test de l'existence de caractères uniquement alaphanumérique
 		if (utilisateur.getPseudo().matches("[a-zA-Z0-9]*$")) {
-			System.out.println("utilisateurmanagerbll : verif caract alphanumerique du login");
 			try {
 				dao.insert(utilisateur);
 			} catch (DALException e) {
@@ -79,11 +78,10 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
 	@Override
 	public boolean logAndPassChecked(Utilisateur utilisateur) throws BLLException {
-		// test de l'existence du pseudo et du mail dans la liste utilisateur
 		try {
 			for (Utilisateur util : dao.selectAll()) {
 				if ((util.getPseudo().equals(utilisateur.getPseudo()) || util.getEmail().equals(utilisateur.getEmail()))
-						&& util.getMotDePasse().equals(utilisateur.getMotDePasse())) {
+						&& util.getMotDePasse().equals(utilisateur.getMotDePasse()) && util.getActif()) {
 					utilisateur.setNoUtilisateur(util.getNoUtilisateur());
 					return true;
 				}
@@ -92,5 +90,29 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 			throw new BLLException(e.getMessage());
 		}
 		throw new BLLException("Identifiant ou mot de passe incorrecte(s)");
+	}
+
+	@Override
+	public boolean passChecked(Utilisateur utilisateur) throws BLLException {
+		try {
+			for (Utilisateur util : dao.selectAll()) {
+				if (util.getMotDePasse().equals(utilisateur.getMotDePasse())
+						&& util.getNoUtilisateur().equals(utilisateur.getNoUtilisateur()) && util.getActif()) {
+					return true;
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+		throw new BLLException("Mot de passe incorrecte(s)");
+	}
+
+	@Override
+	public boolean newPassChecked(String newPass, String confPass) throws BLLException {
+		if (newPass.equals(confPass)) {
+			return true;
+		} else {
+			throw new BLLException("Le nouveau mot de passe ne correspond pas à la confirmation");
+		}
 	}
 }

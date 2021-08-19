@@ -15,9 +15,10 @@ public class Utilisateur {
 	private String codePostal;
 	private String ville;
 	private String motDePasse;
-	//initialisation du crédit à 0
-	private Integer credit=0;
+	// initialisation du crédit à 0
+	private Integer credit = 0;
 	private Boolean administrateur;
+	private Boolean actif;
 
 	private List<ArticleVendu> achats = new ArrayList<ArticleVendu>();
 	private List<ArticleVendu> ventes = new ArrayList<ArticleVendu>();
@@ -28,7 +29,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostal, String ville, String motDePasse, Integer credit, Boolean administrateur) {
+			String codePostal, String ville, String motDePasse, Integer credit, Boolean administrateur, Boolean actif) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -41,10 +42,12 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
+		this.actif = actif;
 	}
 
 	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, Integer credit, Boolean administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, Integer credit, Boolean administrateur,
+			Boolean actif) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -58,6 +61,7 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
+		this.actif = actif;
 	}
 
 	public Integer getNoUtilisateur() {
@@ -154,6 +158,14 @@ public class Utilisateur {
 
 	public void setAdministrateur(Boolean administrateur) {
 		this.administrateur = administrateur;
+	}
+
+	public Boolean getActif() {
+		return actif;
+	}
+
+	public void setActif(Boolean actif) {
+		this.actif = actif;
 	}
 
 	public void addArticleAchats(ArticleVendu articleVendu) {

@@ -35,11 +35,10 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		ErreurModel errModel = new ErreurModel();
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("modelLog");
 		if (logModel == null) {
-			logModel = new LoginModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false));
+			logModel = new LoginModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false,true));
 		}
 		String nextPage = "/WEB-INF/login.jsp";
 
@@ -54,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 
 			try {
 				if (utilisateurManager.logAndPassChecked(logModel.getUtilisateur())) {
-					nextPage = "#"; // TODO Renvoyer à la page d'acceuille
+					nextPage = (String) request.getSession().getAttribute("previousPage");
 					logModel.setUtilisateur(utilisateurManager.getUtilisateur(logModel.getUtilisateur()));
 					if ("true".equals(request.getParameter("checkRememberMe"))) {
 						Cookie identCookie = new Cookie("identifiant", request.getParameter("identifiant"));

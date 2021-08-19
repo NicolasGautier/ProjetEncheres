@@ -9,7 +9,7 @@ public class TestEnchereDAO {
 	public static void main(String[] args) throws DALException {
 		EnchereDAO enchDao = EnchereDAOFact.getInstance();
 		UtilisateurDAO utilDao = UtilisateurDAOFact.getInstance();
-		ArticleVenduDAO artDao = ArticleVenduDAOFact.getInstance(); //TODO Changer les factories
+		ArticleVenduDAO artDao = ArticleVenduDAOFact.getInstance();
 		
 		Enchere ench1 = new Enchere(LocalDate.now(),200,utilDao.selectById(13),artDao.selectById(1));
 		/*Enchere ench2 = new Enchere(LocalDate.now(),350,utilDao.selectById(13),artDao.selectById(1));
