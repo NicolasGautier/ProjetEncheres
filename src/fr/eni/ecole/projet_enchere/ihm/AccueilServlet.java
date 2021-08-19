@@ -10,49 +10,78 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.BllFactory;
+import fr.eni.ecole.projet_enchere.bll.CategorieManager;
 import fr.eni.ecole.projet_enchere.bll.EnchereManager;
+import fr.eni.ecole.projet_enchere.bo.Categorie;
+import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 /**
  * Servlet implementation class AccueilServlet
  */
-@WebServlet({"/AccueilServlet"})
+@WebServlet({ "/AccueilServlet" })
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EnchereManager manager = BllFactory.getUniqueEnchereManager();
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AccueilServlet() {
-        super();
-    }
+	private EnchereManager enchManager = BllFactory.getUniqueEnchereManager();
+	private CategorieManager catManager = BllFactory.getUniqueCategorieManager();
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ErreurModel errModel = new ErreurModel();
-		//Initialisation de model
-		AccueilModel model = null;
+	public AccueilServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String nextPage = "/WEB-INF/accueil.jsp";
-		
-		try {
-			model = new AccueilModel(manager.getAllEnchere());
-		} catch (BLLException e) {
-			errModel.setErrMessage("ErrAcc", e.getMessage());
+		ErreurModel errModel = new ErreurModel();
+		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
+		if (logModel == null) {
+			logModel = new LoginModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false, true));
 		}
-		
-		request.setAttribute("model", model);
+		AccueilModel accModel = (AccueilModel) request.getAttribute("accModel");
+		if (accModel == null) {
+			try {
+				accModel = new AccueilModel(new Categorie(), catManager.getAllCategorie());
+			} catch (BLLException e) {
+				errModel.setErrMessage("ErrAcc", e.getMessage());
+			}
+		}
+
+		if (logModel.getUtilisateur().getNoUtilisateur() == null) {
+			try {
+				Boolean catChoisie = false;
+				for(Categorie categorie : accModel.getLstCategorie()) {
+					if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
+						accModel.setLstEnchere(enchManager.getAllEnchereCategorie(categorie));
+						accModel.setCategorie(categorie);
+						catChoisie = true;
+						break;
+					}
+				}
+				if(!catChoisie) accModel.setLstEnchere(enchManager.getAllEnchere());
+			} catch (BLLException e) {
+				errModel.setErrMessage("ErrAcc", e.getMessage());
+			}
+		}
+
+		request.setAttribute("accModel", accModel);
 		request.setAttribute("errModel", errModel);
-		request.getSession().setAttribute("previousPage", nextPage);
+		request.getSession().setAttribute("previousPage", "AccueilServlet");
 		request.getRequestDispatcher(nextPage).forward(request, response);
 
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

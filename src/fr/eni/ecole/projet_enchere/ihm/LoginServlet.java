@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ErreurModel errModel = new ErreurModel();
-		LoginModel logModel = (LoginModel) request.getSession().getAttribute("modelLog");
+		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
 		if (logModel == null) {
 			logModel = new LoginModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false,true));
 		}

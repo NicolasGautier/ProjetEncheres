@@ -12,17 +12,15 @@ import fr.eni.ecole.projet_enchere.bo.Enchere;
  *Création d'un algo de tri par catégorie
  */
 
-public interface EnchereManager {
+public interface CategorieManager {
 
-	public void addEnchere(Enchere enchere) throws BLLException;
+	public void addCategorie(Categorie categorie) throws BLLException;
 
-	public void setEnchere(Enchere enchere) throws BLLException;
+	public void setCategorie(Categorie categorie) throws BLLException;
 
-	public void removeEnchere(Enchere enchere) throws BLLException;
+	public void removeCategorie(Categorie categorie) throws BLLException;
 
-	public List<Enchere> getAllEnchere() throws BLLException;
+	public List<Categorie> getAllCategorie() throws BLLException;
 
-	public Enchere getEnchere(Enchere enchere) throws BLLException;
-
-	public List<Enchere> getAllEnchereCategorie(Categorie categorie) throws BLLException;
+	public Categorie getCategorie(Categorie categorie) throws BLLException;
 }

@@ -1,5 +1,6 @@
 package fr.eni.ecole.projet_enchere.bll;
 
+import fr.eni.ecole.projet_enchere.bll.client0.CategorieManagerImpl;
 import fr.eni.ecole.projet_enchere.bll.client0.EnchereManagerImpl;
 import fr.eni.ecole.projet_enchere.bll.client0.UtilisateurManagerImpl;
 
@@ -7,6 +8,7 @@ public abstract class BllFactory {
 
 	private static UtilisateurManager utilisateurManager;
 	private static EnchereManager enchereManager;
+	private static CategorieManager categorieManager;
 
 	public static UtilisateurManager getUniqueUtilisateurManager() {
 		if (utilisateurManager == null) {
@@ -22,4 +24,10 @@ public abstract class BllFactory {
 		return enchereManager;
 	}
 
+	public static CategorieManager getUniqueCategorieManager() {
+		if (categorieManager == null) {
+			categorieManager = new CategorieManagerImpl();
+		}
+		return categorieManager;
+	}
 }
