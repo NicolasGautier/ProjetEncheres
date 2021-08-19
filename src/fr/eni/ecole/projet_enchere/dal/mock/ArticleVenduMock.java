@@ -1,4 +1,4 @@
-package fr.eni.ecole.projet_enchere.dal;
+package fr.eni.ecole.projet_enchere.dal.mock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
+import fr.eni.ecole.projet_enchere.dal.ArticleVenduDAO;
+import fr.eni.ecole.projet_enchere.dal.DALException;
 
 public class ArticleVenduMock implements ArticleVenduDAO{
 	private static int cpt = 1;

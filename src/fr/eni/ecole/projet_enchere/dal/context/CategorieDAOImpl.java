@@ -1,4 +1,4 @@
-package fr.eni.ecole.projet_enchere.dal;
+package fr.eni.ecole.projet_enchere.dal.context;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.Categorie;
+import fr.eni.ecole.projet_enchere.dal.CategorieDAO;
+import fr.eni.ecole.projet_enchere.dal.DALException;
 
 public class CategorieDAOImpl implements CategorieDAO {
 	private final String INSERT = "INSERT INTO categories(libelle) VALUES (?)";

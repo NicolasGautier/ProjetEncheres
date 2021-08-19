@@ -7,9 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import fr.eni.ecole.projet_enchere.bll.BLLException;
+import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.EnchereManager;
-import fr.eni.ecole.projet_enchere.bll.EnchereManagerSingl;
 
 /**
  * Servlet implementation class AccueilServlet
@@ -17,7 +18,7 @@ import fr.eni.ecole.projet_enchere.bll.EnchereManagerSingl;
 @WebServlet({"/AccueilServlet"})
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EnchereManager manager = EnchereManagerSingl.getInstance();
+	private EnchereManager manager = BllFactory.getUniqueEnchereManager();
 	
     /**
      * @see HttpServlet#HttpServlet()

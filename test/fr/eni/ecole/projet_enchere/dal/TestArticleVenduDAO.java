@@ -8,9 +8,9 @@ import fr.eni.ecole.projet_enchere.bo.EtatsVente;
 public class TestArticleVenduDAO {
 
 	public static void main(String[] args) throws DALException {
-		ArticleVenduDAO artVenDao = ArticleVenduDAOFact.getInstance();
-		UtilisateurDAO utilDao = UtilisateurDAOFact.getInstance();
-		CategorieDAO catDao = CategorieDAOFact.getInstance();
+		ArticleVenduDAO artVenDao = DalFactory.getArticleVenduDAO();
+		UtilisateurDAO utilDao = DalFactory.getUtilisateurDAO();
+		CategorieDAO catDao = DalFactory.getCategorieDAO();
 
 		ArticleVendu art1 = new ArticleVendu("nom1", "description1", LocalDate.now(), LocalDate.now(), 50, 150,
 				EtatsVente.CREEE, utilDao.selectById(1), utilDao.selectById(13), catDao.selectById(1), null);

@@ -13,8 +13,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import fr.eni.ecole.projet_enchere.bll.BLLException;
+import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
-import fr.eni.ecole.projet_enchere.bll.UtilisateurManagerSingl;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 /**
@@ -23,7 +23,7 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 @WebFilter("/ModifierProfilServlet")
 public class LoginFilter implements Filter {
 
-	private UtilisateurManager utilisateurManager = UtilisateurManagerSingl.getInstance();
+	private UtilisateurManager utilisateurManager = BllFactory.getUniqueUtilisateurManager();
 
 	/**
 	 * Default constructor.

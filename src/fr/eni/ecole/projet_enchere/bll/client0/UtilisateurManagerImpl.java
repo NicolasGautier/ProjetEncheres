@@ -1,15 +1,17 @@
-package fr.eni.ecole.projet_enchere.bll;
+package fr.eni.ecole.projet_enchere.bll.client0;
 
 import java.util.List;
 
+import fr.eni.ecole.projet_enchere.bll.BLLException;
+import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 import fr.eni.ecole.projet_enchere.dal.DALException;
+import fr.eni.ecole.projet_enchere.dal.DalFactory;
 import fr.eni.ecole.projet_enchere.dal.UtilisateurDAO;
-import fr.eni.ecole.projet_enchere.dal.UtilisateurDAOFact;
 
 public class UtilisateurManagerImpl implements UtilisateurManager {
 
-	private UtilisateurDAO dao = UtilisateurDAOFact.getInstance();
+	private UtilisateurDAO dao = DalFactory.getUtilisateurDAO();
 
 	@Override
 	public void addUtilisateur(Utilisateur utilisateur) throws BLLException {

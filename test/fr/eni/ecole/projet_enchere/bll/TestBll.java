@@ -6,7 +6,7 @@ public class TestBll {
 
 	public static void main(String[] args) throws Exception {
 		
-		UtilisateurManager manager = UtilisateurManagerSingl.getInstance();
+		UtilisateurManager manager = BllFactory.getUniqueUtilisateurManager();
 		
 		System.out.println("TEST 1 : INSERTION DE 3 USERS");
 		Utilisateur user1 = new Utilisateur(1,"jaja", "Dupont", "Jeannine", "jaja43@omail.com", "0650505050", "rue du port", "44400","reze", "123456", 0, false, true);

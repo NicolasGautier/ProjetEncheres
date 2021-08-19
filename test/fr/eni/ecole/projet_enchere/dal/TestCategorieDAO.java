@@ -5,7 +5,7 @@ import fr.eni.ecole.projet_enchere.bo.Categorie;
 public class TestCategorieDAO {
 
 	public static void main(String[] args) throws DALException {
-		CategorieDAO catDao = CategorieDAOFact.getInstance();
+		CategorieDAO catDao = DalFactory.getCategorieDAO();
 
 		Categorie cat1 = new Categorie("Categorie1");
 		Categorie cat2 = new Categorie("Categorie2");

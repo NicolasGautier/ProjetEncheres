@@ -1,16 +1,18 @@
-package fr.eni.ecole.projet_enchere.bll;
+package fr.eni.ecole.projet_enchere.bll.client0;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.ecole.projet_enchere.bll.BLLException;
+import fr.eni.ecole.projet_enchere.bll.EnchereManager;
 import fr.eni.ecole.projet_enchere.bo.Categorie;
 import fr.eni.ecole.projet_enchere.bo.Enchere;
 import fr.eni.ecole.projet_enchere.dal.DALException;
+import fr.eni.ecole.projet_enchere.dal.DalFactory;
 import fr.eni.ecole.projet_enchere.dal.EnchereDAO;
-import fr.eni.ecole.projet_enchere.dal.EnchereDAOFact;
 
 public class EnchereManagerImpl implements EnchereManager {
-	private EnchereDAO dao = EnchereDAOFact.getInstance();
+	private EnchereDAO dao = DalFactory.getEnchereDAO();
 	List<Enchere> lstCategorie = new ArrayList<Enchere>();
 	
 	@Override

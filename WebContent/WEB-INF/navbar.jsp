@@ -6,10 +6,10 @@
 		</div>
 		<div class="col-6 col-md-4 themed-grid-col">
 			<c:if test="${empty param.hidden}">
-				<c:if test="${empty logModel}">
+				<c:if test="${empty logModel.utilisateur.noUtilisateur}">
 					<a href="InsererProfilServlet">S'incrire</a> - <a href="LoginServlet">Se connecter</a>	
 				</c:if>	
-				<c:if test="${!empty logModel}">
+				<c:if test="${!empty logModel.utilisateur.noUtilisateur}">
 					<a href="#">Enchères</a>
 					<a href="#">Vendre un article</a>
 					<a href="ModifierProfilServlet">Mon profil</a>
