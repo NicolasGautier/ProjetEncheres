@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.projet_enchere.bll.BLLException;
+import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
-import fr.eni.ecole.projet_enchere.bll.UtilisateurManagerSingl;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 /**
@@ -20,7 +20,7 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurManager utilisateurManager = UtilisateurManagerSingl.getInstance();
+	private UtilisateurManager utilisateurManager = BllFactory.getUniqueUtilisateurManager();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -76,7 +76,6 @@ public class LoginServlet extends HttpServlet {
 		
 		request.setAttribute("errModel", errModel);
 		request.getSession().setAttribute("logModel", logModel);
-
 		request.getRequestDispatcher(nextPage).forward(request, response);
 	}
 

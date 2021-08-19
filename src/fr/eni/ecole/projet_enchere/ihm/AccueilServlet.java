@@ -7,18 +7,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import fr.eni.ecole.projet_enchere.bll.BLLException;
+import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.EnchereManager;
-import fr.eni.ecole.projet_enchere.bll.EnchereManagerSingl;
 
 /**
  * Servlet implementation class AccueilServlet
  */
-@WebServlet("/AccueilServlet")
+@WebServlet({"/AccueilServlet"})
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EnchereManager manager = EnchereManagerSingl.getInstance();
-
+	private EnchereManager manager = BllFactory.getUniqueEnchereManager();
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,6 +34,8 @@ public class AccueilServlet extends HttpServlet {
 		ErreurModel errModel = new ErreurModel();
 		//Initialisation de model
 		AccueilModel model = null;
+		String nextPage = "/WEB-INF/accueil.jsp";
+		
 		try {
 			model = new AccueilModel(manager.getAllEnchere());
 		} catch (BLLException e) {
@@ -41,7 +44,8 @@ public class AccueilServlet extends HttpServlet {
 		
 		request.setAttribute("model", model);
 		request.setAttribute("errModel", errModel);
-		request.getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
+		request.getSession().setAttribute("previousPage", nextPage);
+		request.getRequestDispatcher(nextPage).forward(request, response);
 
 	}
 
@@ -49,7 +53,6 @@ public class AccueilServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

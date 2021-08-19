@@ -12,10 +12,10 @@ import fr.eni.ecole.projet_enchere.dal.DALException;
 public class TestEnchereManager {
 	public static void main(String[] args) throws DALException, BLLException {
 
-		EnchereManager manager = EnchereManagerSingl.getInstance();
+		EnchereManager manager = BllFactory.getUniqueEnchereManager();
 		Categorie informatique = new Categorie("Informatique");
 		Categorie ameublement = new Categorie("Ameublement");
-		EnchereManager enchMan = EnchereManagerSingl.getInstance();
+		EnchereManager enchMan = BllFactory.getUniqueEnchereManager();
 //		UtilisateurDAO utilDao = UtilisateurDAOFact.getInstance();
 //		ArticleVenduDAO artDao = ArticleVenduDAOFact.getInstance();
 

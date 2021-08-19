@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.projet_enchere.bll.BLLException;
+import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
-import fr.eni.ecole.projet_enchere.bll.UtilisateurManagerSingl;
 
 /**
  * Servlet implementation class AfficherServlet
@@ -18,7 +18,7 @@ import fr.eni.ecole.projet_enchere.bll.UtilisateurManagerSingl;
 @WebServlet("/AfficherProfilServlet")
 public class AfficherProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurManager manager = UtilisateurManagerSingl.getInstance();
+	private UtilisateurManager manager = BllFactory.getUniqueUtilisateurManager();
 
 	/**
 	 * @see HttpServlet#HttpServlet()

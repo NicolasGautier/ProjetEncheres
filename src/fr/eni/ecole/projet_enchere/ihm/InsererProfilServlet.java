@@ -1,6 +1,7 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.projet_enchere.bll.BLLException;
+import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
-import fr.eni.ecole.projet_enchere.bll.UtilisateurManagerSingl;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 /**
@@ -18,7 +19,7 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 @WebServlet("/InsererProfilServlet")
 public class InsererProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurManager utilisateurManager = UtilisateurManagerSingl.getInstance();
+	private UtilisateurManager utilisateurManager = BllFactory.getUniqueUtilisateurManager();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -54,7 +55,7 @@ public class InsererProfilServlet extends HttpServlet {
 			try {
 				utilisateurManager.addUtilisateur(insModel.getUtilisateur());
 				insModel.setLstUtilisateur(utilisateurManager.getAllUtilisateurs());
-				nextPage = "AccueilServlet"; //TODO S'assurer que ça marche
+				nextPage = "/AccueilServlet"; //TODO S'assurer que ça marche
 			} catch (BLLException e) {
 				errModel.setErrMessage("ErrIns", e.getMessage());
 

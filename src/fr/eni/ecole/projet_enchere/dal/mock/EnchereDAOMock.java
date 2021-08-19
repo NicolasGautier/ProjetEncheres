@@ -1,4 +1,4 @@
-package fr.eni.ecole.projet_enchere.dal;
+package fr.eni.ecole.projet_enchere.dal.mock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import fr.eni.ecole.projet_enchere.bo.Enchere;
+import fr.eni.ecole.projet_enchere.dal.DALException;
+import fr.eni.ecole.projet_enchere.dal.EnchereDAO;
 
 public class EnchereDAOMock implements EnchereDAO {
 	public static List<Enchere> lst = new ArrayList<>();

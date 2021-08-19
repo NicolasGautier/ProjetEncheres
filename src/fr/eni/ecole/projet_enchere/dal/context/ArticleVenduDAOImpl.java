@@ -1,4 +1,4 @@
-package fr.eni.ecole.projet_enchere.dal;
+package fr.eni.ecole.projet_enchere.dal.context;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
+import fr.eni.ecole.projet_enchere.dal.ArticleVenduDAO;
+import fr.eni.ecole.projet_enchere.dal.CategorieDAO;
+import fr.eni.ecole.projet_enchere.dal.DALException;
+import fr.eni.ecole.projet_enchere.dal.DalFactory;
+import fr.eni.ecole.projet_enchere.dal.UtilisateurDAO;
 
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	private final String INSERT = "INSERT INTO articles_vendus(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?)";
@@ -18,8 +23,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	private final String SELECT = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM articles_vendus";
 	private final String FROM = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM articles_vendus WHERE no_article = ?";
 
-	UtilisateurDAO utilisateurDao = UtilisateurDAOFact.getInstance();
-	CategorieDAO categorieDao = CategorieDAOFact.getInstance();
+	UtilisateurDAO utilisateurDao = DalFactory.getUtilisateurDAO();
+	CategorieDAO categorieDao = DalFactory.getCategorieDAO();
 
 	@Override
 	public void insert(ArticleVendu articlevendu) throws DALException {

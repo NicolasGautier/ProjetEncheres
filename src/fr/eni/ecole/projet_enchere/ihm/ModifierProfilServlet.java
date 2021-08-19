@@ -1,6 +1,7 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,9 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.projet_enchere.bll.BLLException;
+import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
-import fr.eni.ecole.projet_enchere.bll.UtilisateurManagerSingl;
-import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 /**
  * Servlet implementation class afficherProfilServlet
@@ -18,7 +18,7 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 @WebServlet("/ModifierProfilServlet")
 public class ModifierProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurManager utilManager = UtilisateurManagerSingl.getInstance();
+	private UtilisateurManager utilManager = BllFactory.getUniqueUtilisateurManager();
 
 	/**
 	 * @see HttpServlet#HttpServlet()

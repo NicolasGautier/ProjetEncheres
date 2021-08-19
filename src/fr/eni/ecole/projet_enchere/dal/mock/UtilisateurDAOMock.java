@@ -1,4 +1,4 @@
-package fr.eni.ecole.projet_enchere.dal;
+package fr.eni.ecole.projet_enchere.dal.mock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
+import fr.eni.ecole.projet_enchere.dal.DALException;
+import fr.eni.ecole.projet_enchere.dal.UtilisateurDAO;
 
 public class UtilisateurDAOMock implements UtilisateurDAO {
 	private static int cpt = 1;

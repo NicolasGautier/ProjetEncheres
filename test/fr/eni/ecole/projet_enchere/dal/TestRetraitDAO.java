@@ -7,9 +7,9 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 public class TestRetraitDAO {
 
 	public static void main(String[] args) throws DALException {
-		RetraitDAO retDao = RetraitDAOFact.getInstance();
-		ArticleVenduDAO artDao = ArticleVenduDAOFact.getInstance();
-		UtilisateurDAO utilDao = UtilisateurDAOFact.getInstance();
+		RetraitDAO retDao = DalFactory.getRetraitDAO();
+		ArticleVenduDAO artDao = DalFactory.getArticleVenduDAO();
+		UtilisateurDAO utilDao = DalFactory.getUtilisateurDAO();
 		
 		ArticleVendu art = artDao.selectById(1);
 		Utilisateur util = utilDao.selectById(13);

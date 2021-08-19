@@ -10,11 +10,10 @@ import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.Enchere;
 import fr.eni.ecole.projet_enchere.dal.ArticleVenduDAO;
-import fr.eni.ecole.projet_enchere.dal.ArticleVenduDAOFact;
 import fr.eni.ecole.projet_enchere.dal.DALException;
+import fr.eni.ecole.projet_enchere.dal.DalFactory;
 import fr.eni.ecole.projet_enchere.dal.EnchereDAO;
 import fr.eni.ecole.projet_enchere.dal.UtilisateurDAO;
-import fr.eni.ecole.projet_enchere.dal.UtilisateurDAOFact;
 
 public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private final String INSERT = "INSERT INTO encheres(no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,?,?)";
@@ -23,8 +22,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private final String SELECT = "SELECT no_utilisateur, no_article, date_enchere, montant_enchere FROM encheres";
 	private final String FROM = "SELECT no_utilisateur, no_article, date_enchere, montant_enchere FROM encheres WHERE no_utilisateur=? AND no_article=?";
 	
-	private UtilisateurDAO utilDao = UtilisateurDAOFact.getInstance();
-	private ArticleVenduDAO artDao = ArticleVenduDAOFact.getInstance();
+	private UtilisateurDAO utilDao = DalFactory.getUtilisateurDAO();
+	private ArticleVenduDAO artDao = DalFactory.getArticleVenduDAO();
 	
 	@Override
 	public void insert(Enchere enchere) throws DALException {

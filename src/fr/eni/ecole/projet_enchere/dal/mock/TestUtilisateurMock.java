@@ -1,11 +1,14 @@
-package fr.eni.ecole.projet_enchere.dal;
+package fr.eni.ecole.projet_enchere.dal.mock;
 
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
+import fr.eni.ecole.projet_enchere.dal.DALException;
+import fr.eni.ecole.projet_enchere.dal.DalFactory;
+import fr.eni.ecole.projet_enchere.dal.UtilisateurDAO;
 
 public class TestUtilisateurMock {
 	
 	public static void main(String[] args) throws DALException {
-		UtilisateurDAO dao = UtilisateurDAOFact.getInstance();
+		UtilisateurDAO dao = DalFactory.getUtilisateurDAO();
 		
 		Utilisateur user1 = new Utilisateur("pseudo1", "nom1","prenom1","email1","telephone1","rue1","cp1","ville1","mot_de_passe1",0,false,true);
 		Utilisateur user2 = new Utilisateur("pseudo2", "nom2","prenom2","email2","telephone2","rue2","cp2","ville2","mot_de_passe2",0,false,true);

@@ -1,14 +1,17 @@
-package fr.eni.ecole.projet_enchere.dal;
+package fr.eni.ecole.projet_enchere.dal.mock;
 
 import java.time.LocalDate;
 
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 import fr.eni.ecole.projet_enchere.bo.EtatsVente;
+import fr.eni.ecole.projet_enchere.dal.ArticleVenduDAO;
+import fr.eni.ecole.projet_enchere.dal.DALException;
+import fr.eni.ecole.projet_enchere.dal.DalFactory;
 
 public class TestArticleVenduMock {
 	public static void main(String[] args) throws DALException {
 
-		ArticleVenduDAO dao = ArticleVenduDAOFact.getInstance();
+		ArticleVenduDAO dao = DalFactory.getArticleVenduDAO();
 
 		ArticleVendu article1 = new ArticleVendu(1, "PC Gamer", "PC Gamer pour travailler", LocalDate.now().plusDays(5),
 				LocalDate.now().plusDays(20), 210, null, EtatsVente.CREEE, null, null, null, null);

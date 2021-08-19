@@ -1,4 +1,4 @@
-package fr.eni.ecole.projet_enchere.dal;
+package fr.eni.ecole.projet_enchere.dal.context;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.Retrait;
+import fr.eni.ecole.projet_enchere.dal.ArticleVenduDAO;
+import fr.eni.ecole.projet_enchere.dal.DALException;
+import fr.eni.ecole.projet_enchere.dal.DalFactory;
+import fr.eni.ecole.projet_enchere.dal.RetraitDAO;
 
 public class RetraitDAOImpl implements RetraitDAO {
 	private final String INSERT = "INSERT INTO retraits(no_article, rue, code_postal, ville) VALUES (?,?,?,?)";
@@ -16,7 +20,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 	private final String SELECT = "SELECT no_article, rue, code_postal, ville FROM retraits";
 	private final String FROM = "SELECT no_article, rue, code_postal, ville FROM retraits WHERE no_article=?";
 	
-	private ArticleVenduDAO artDao = ArticleVenduDAOFact.getInstance();
+	private ArticleVenduDAO artDao = DalFactory.getArticleVenduDAO();
 	
 	@Override
 	public void insert(Retrait retrait) throws DALException {

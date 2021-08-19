@@ -9,8 +9,8 @@ import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.Retrait;
 import fr.eni.ecole.projet_enchere.dal.ArticleVenduDAO;
-import fr.eni.ecole.projet_enchere.dal.ArticleVenduDAOFact;
 import fr.eni.ecole.projet_enchere.dal.DALException;
+import fr.eni.ecole.projet_enchere.dal.DalFactory;
 import fr.eni.ecole.projet_enchere.dal.RetraitDAO;
 
 public class RetraitDAOJdbcImpl implements RetraitDAO {
@@ -20,7 +20,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 	private final String SELECT = "SELECT no_article, rue, code_postal, ville FROM retraits";
 	private final String FROM = "SELECT no_article, rue, code_postal, ville FROM retraits WHERE no_article=?";
 	
-	private ArticleVenduDAO artDao = ArticleVenduDAOFact.getInstance();
+	private ArticleVenduDAO artDao = DalFactory.getArticleVenduDAO();
 	
 	@Override
 	public void insert(Retrait retrait) throws DALException {
