@@ -13,7 +13,6 @@ import fr.eni.ecole.projet_enchere.dal.EnchereDAO;
 
 public class EnchereManagerImpl implements EnchereManager {
 	private EnchereDAO dao = DalFactory.getEnchereDAO();
-	List<Enchere> lstCategorie = new ArrayList<Enchere>();
 	
 	@Override
 	public void addEnchere(Enchere enchere) throws BLLException {
@@ -73,12 +72,13 @@ public class EnchereManagerImpl implements EnchereManager {
 			throw new BLLException(e.getMessage());
 		}
 	}
-
+	
 	@Override
-	public List<Enchere> getAllEnchereCategorie(Categorie categorie) throws BLLException {
+	public List<Enchere> getEnchereFiltre(String filtre) throws BLLException {
+		List<Enchere> lstCategorie = new ArrayList<Enchere>();
 		try {
 			for (Enchere encheres : dao.selectAll()) {	
-				if(encheres.getArticleConcerne().getCategorie().equals(categorie)) {
+				if(encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1) {
 					lstCategorie.add(encheres);
 				}
 			}
@@ -88,6 +88,20 @@ public class EnchereManagerImpl implements EnchereManager {
 		return lstCategorie;
 	}
 
-	
+	@Override
+	public List<Enchere> getEnchereCategorieFiltre(Categorie categorie, String filtre) throws BLLException {
+		List<Enchere> lstCategorie = new ArrayList<Enchere>();
+		try {
+			for (Enchere encheres : dao.selectAll()) {	
+				if(encheres.getArticleConcerne().getCategorie().getNoCategorie().equals(categorie.getNoCategorie())
+						&& encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1) {
+					lstCategorie.add(encheres);
+				}
+			}
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+		return lstCategorie;
+	}	
 
 }
