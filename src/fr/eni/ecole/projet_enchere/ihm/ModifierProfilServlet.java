@@ -59,7 +59,7 @@ public class ModifierProfilServlet extends HttpServlet {
 								request.getParameter("confPassword"))) {
 							modProfModel.getUtilisateur().setMotDePasse(request.getParameter("newPassword"));
 						}
-					}
+					} 
 				}
 				utilManager.setUtilisateur(modProfModel.getUtilisateur());
 				logModel.setUtilisateur(utilManager.getUtilisateur(modProfModel.getUtilisateur()));

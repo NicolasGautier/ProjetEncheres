@@ -19,7 +19,7 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 @WebServlet("/InsererProfilServlet")
 public class InsererProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurManager utilisateurManager = BllFactory.getUniqueUtilisateurManager();
+	private UtilisateurManager utilManager = BllFactory.getUniqueUtilisateurManager();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,21 +45,28 @@ public class InsererProfilServlet extends HttpServlet {
 			insModel.getUtilisateur().setPrenom(request.getParameter("prenom"));
 			insModel.getUtilisateur().setTelephone(request.getParameter("telephone"));
 			insModel.getUtilisateur().setCodePostal(request.getParameter("cp"));
-			insModel.getUtilisateur().setMotDePasse(request.getParameter("password"));
+			insModel.getUtilisateur().setMotDePasse(request.getParameter("newPassword"));
 			insModel.getUtilisateur().setNom(request.getParameter("nom"));
 			insModel.getUtilisateur().setEmail(request.getParameter("email"));
 			insModel.getUtilisateur().setRue(request.getParameter("rue"));
 			insModel.getUtilisateur().setVille(request.getParameter("ville"));
-			// model.getUtilisateur().setConfirmation(request.getParameter("Confirmation"));
-
+	
 			try {
-				utilisateurManager.addUtilisateur(insModel.getUtilisateur());
-				insModel.setLstUtilisateur(utilisateurManager.getAllUtilisateurs());
-				nextPage = "/AccueilServlet"; //TODO S'assurer que ça marche
+				if (utilManager.newPassChecked(request.getParameter("newPassword"),
+						request.getParameter("confPassword"))) {
+					utilManager.addUtilisateur(insModel.getUtilisateur());
+					nextPage = "/AccueilServlet";
+				}
+				
 			} catch (BLLException e) {
 				errModel.setErrMessage("ErrIns", e.getMessage());
 
 			}
+		}
+		
+		if ("annuler".equals(request.getParameter("formulaireAnnulation"))) {
+			insModel = null;
+			nextPage = "/AccueilServlet";
 		}
 
 		request.setAttribute("errModel", errModel);
