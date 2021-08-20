@@ -29,12 +29,12 @@ public interface EnchereManager {
 
 	public List<Enchere> getEnchereCategorieFiltre(Categorie categorie, String filtre) throws BLLException;
 
-	public List<Enchere> getEnchereFiltreAchats(String filtre, String enchOuv, String enchCour, String enchRemp, Utilisateur utilisateur) throws BLLException;
+	public List<Enchere> getEnchereFiltreAchats(String filtre, Boolean enchOuv, Boolean enchCour, Boolean enchRemp, Utilisateur utilisateur) throws BLLException;
 
-	public List<Enchere> getEnchereCategorieFiltreAchats(Categorie categorie, String filtre, String enchOuv, String enchCour, String enchRemp, Utilisateur utilisateur) throws BLLException;
+	public List<Enchere> getEnchereCategorieFiltreAchats(Categorie categorie, String filtre, Boolean enchOuv, Boolean enchCour, Boolean enchRemp, Utilisateur utilisateur) throws BLLException;
 
-	public List<Enchere> getEnchereFiltreVentes(String filtre, String ventCour, String ventDeb, String ventTer, Utilisateur utilisateur) throws BLLException;
+	public List<Enchere> getEnchereFiltreVentes(String filtre, Boolean ventCour, Boolean ventDeb, Boolean ventTer, Utilisateur utilisateur) throws BLLException;
 
-	public List<Enchere> getEnchereCategorieFiltreVentes(Categorie categorie, String filtre, String ventCour, String ventDeb, String ventTer, Utilisateur utilisateur) throws BLLException;
+	public List<Enchere> getEnchereCategorieFiltreVentes(Categorie categorie, String filtre, Boolean ventCour, Boolean ventDeb, Boolean ventTer, Utilisateur utilisateur) throws BLLException;
 
 }

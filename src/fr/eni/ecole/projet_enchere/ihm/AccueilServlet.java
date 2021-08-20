@@ -43,14 +43,58 @@ public class AccueilServlet extends HttpServlet {
 		if (logModel == null) {
 			logModel = new LoginModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false, true));
 		}
-		AccueilModel accModel = (AccueilModel) request.getAttribute("accModel");
-		if (accModel == null) {
-			try {
-				accModel = new AccueilModel("", new Categorie(), catManager.getAllCategorie());
-			} catch (BLLException e) {
-				errModel.setErrMessage("ErrAcc", e.getMessage());
-			}
+		AccueilModel accModel = null;
+		try {
+			accModel = new AccueilModel("", new Categorie(), catManager.getAllCategorie());
+		} catch (BLLException e) {
+			errModel.setErrMessage("ErrAcc", e.getMessage());
 		}
+
+		if ("radioAchats".equals(request.getParameter("menuRadio")))
+			accModel.setLstRadio("radioAchats", true);
+		else
+			accModel.setLstRadio("radioAchats", false);
+
+		if ("on".equals(request.getParameter("enchOuv")))
+			accModel.setLstCheckbox("enchOuv", true);
+		else
+			accModel.setLstCheckbox("enchOuv", false);
+
+		if ("on".equals(request.getParameter("enchCour")))
+			accModel.setLstCheckbox("enchCour", true);
+		else
+			accModel.setLstCheckbox("enchCour", false);
+
+		if ("on".equals(request.getParameter("enchRemp")))
+			accModel.setLstCheckbox("enchRemp", true);
+		else
+			accModel.setLstCheckbox("enchRemp", false);
+
+		if ("radioVentes".equals(request.getParameter("menuRadio")))
+			accModel.setLstRadio("radioVentes", true);
+		else
+			accModel.setLstRadio("radioVentes", false);
+
+		if ("on".equals(request.getParameter("ventCour")))
+			accModel.setLstCheckbox("ventCour", true);
+		else
+			accModel.setLstCheckbox("ventCour", false);
+
+		if ("on".equals(request.getParameter("ventDeb")))
+			accModel.setLstCheckbox("ventDeb", true);
+		else
+			accModel.setLstCheckbox("ventDeb", false);
+
+		if ("on".equals(request.getParameter("ventTer")))
+			accModel.setLstCheckbox("ventTer", true);
+		else
+			accModel.setLstCheckbox("ventTer", false);
+
+		if (request.getParameter("menuRadio") == null && request.getParameter("enchOuv") == null) {
+			accModel.setLstRadio("radioAchats", true);
+			accModel.setLstCheckbox("enchOuv", true);
+		}
+
 		if (request.getParameter("filtre") != null) {
 			accModel.setFiltre(request.getParameter("filtre"));
 		}
@@ -71,16 +115,16 @@ public class AccueilServlet extends HttpServlet {
 			} catch (BLLException e) {
 				errModel.setErrMessage("ErrAcc", e.getMessage());
 			}
-		} else { // TODO Faire la fenêtre en connexion
-			try {
-				if ("radioAchats".equals(request.getParameter("menuRadio"))) {
+		} else { 
+			try {	
+				if (accModel.getLstRadio().get("radioAchats")) {
 					Boolean catChoisie = false;
 					for (Categorie categorie : accModel.getLstCategorie()) {
 						if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
-							accModel.setLstEnchere(
-									enchManager.getEnchereCategorieFiltreAchats(categorie, accModel.getFiltre(),
-											request.getParameter("enchOuv"), request.getParameter("enchCour"),
-											request.getParameter("enchRemp"), logModel.getUtilisateur()));
+							accModel.setLstEnchere(enchManager.getEnchereCategorieFiltreAchats(categorie,
+									accModel.getFiltre(), accModel.getLstCheckbox().get("enchOuv"),
+									accModel.getLstCheckbox().get("enchCour"),
+									accModel.getLstCheckbox().get("enchRemp"), logModel.getUtilisateur()));
 							accModel.setCategorie(categorie);
 							catChoisie = true;
 							break;
@@ -88,17 +132,17 @@ public class AccueilServlet extends HttpServlet {
 					}
 					if (!catChoisie)
 						accModel.setLstEnchere(enchManager.getEnchereFiltreAchats(accModel.getFiltre(),
-								request.getParameter("enchOuv"), request.getParameter("enchCour"),
-								request.getParameter("enchRemp"), logModel.getUtilisateur()));
+								accModel.getLstCheckbox().get("enchOuv"), accModel.getLstCheckbox().get("enchCour"),
+								accModel.getLstCheckbox().get("enchRemp"), logModel.getUtilisateur()));
 				}
-				if ("radioVentes".equals(request.getParameter("menuRadio"))) {
+				if (accModel.getLstRadio().get("radioVentes")) {
 					Boolean catChoisie = false;
 					for (Categorie categorie : accModel.getLstCategorie()) {
 						if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
-							accModel.setLstEnchere(
-									enchManager.getEnchereCategorieFiltreVentes(categorie, accModel.getFiltre(),
-											request.getParameter("ventCour"), request.getParameter("ventDeb"),
-											request.getParameter("ventTer"), logModel.getUtilisateur()));
+							accModel.setLstEnchere(enchManager.getEnchereCategorieFiltreVentes(categorie,
+									accModel.getFiltre(), accModel.getLstCheckbox().get("ventCour"),
+									accModel.getLstCheckbox().get("ventDeb"), accModel.getLstCheckbox().get("ventTer"),
+									logModel.getUtilisateur()));
 							accModel.setCategorie(categorie);
 							catChoisie = true;
 							break;
@@ -106,8 +150,8 @@ public class AccueilServlet extends HttpServlet {
 					}
 					if (!catChoisie)
 						accModel.setLstEnchere(enchManager.getEnchereFiltreVentes(accModel.getFiltre(),
-								request.getParameter("ventCour"), request.getParameter("ventDeb"),
-								request.getParameter("ventTer"), logModel.getUtilisateur()));
+								accModel.getLstCheckbox().get("ventCour"), accModel.getLstCheckbox().get("ventDeb"),
+								accModel.getLstCheckbox().get("ventTer"), logModel.getUtilisateur()));
 				}
 
 			} catch (BLLException e) {

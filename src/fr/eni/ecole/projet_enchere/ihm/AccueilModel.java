@@ -1,7 +1,9 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fr.eni.ecole.projet_enchere.bo.Categorie;
 import fr.eni.ecole.projet_enchere.bo.Enchere;
@@ -12,10 +14,12 @@ public class AccueilModel {
 	private Categorie categorie;
 	private List<Categorie> lstCategorie = new ArrayList<Categorie>();
 	private List<Enchere> lstEnchere = new ArrayList<Enchere>();
+	private Map<String, Boolean> lstRadio = new HashMap<String, Boolean>();
+	private Map<String, Boolean> lstCheckbox = new HashMap<String, Boolean>();
 
 	public AccueilModel() {
 	}
-	
+
 	public AccueilModel(String filtre, Categorie categorie, List<Categorie> lstCategorie) {
 		super();
 		this.filtre = filtre;
@@ -63,10 +67,26 @@ public class AccueilModel {
 		this.lstEnchere = lstEnchere;
 	}
 
+	public Map<String, Boolean> getLstRadio() {
+		return lstRadio;
+	}
+
+	public void setLstRadio(String key, Boolean etat) {
+		this.lstRadio.put(key, etat);
+	}
+
+	public Map<String, Boolean> getLstCheckbox() {
+		return lstCheckbox;
+	}
+
+	public void setLstCheckbox(String key, Boolean etat) {
+		this.lstCheckbox.put(key, etat);
+	}
+
 	@Override
 	public String toString() {
-		return "AccueilModel [categorie=" + categorie + ", lstCategorie=" + lstCategorie + ", lstEnchere=" + lstEnchere
-				+ "]";
+		return "AccueilModel [filtre=" + filtre + ", categorie=" + categorie + ", lstCategorie=" + lstCategorie
+				+ ", lstEnchere=" + lstEnchere + ", lstRadio=" + lstRadio + ", lstCheckbox=" + lstCheckbox + "]";
 	}
 
 }
