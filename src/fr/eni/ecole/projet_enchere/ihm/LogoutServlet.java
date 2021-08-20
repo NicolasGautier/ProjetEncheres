@@ -27,6 +27,8 @@ public class LogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nextPage = "/AccueilServlet";
 		
+		// TODO Trouver un moyen d'écraser les cookies
+		
 		request.getSession().setAttribute("logModel", null);
 		request.getRequestDispatcher(nextPage).forward(request, response);
 	}

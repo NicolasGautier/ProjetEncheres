@@ -14,15 +14,17 @@ import fr.eni.ecole.projet_enchere.bo.Enchere;
 
 public interface EnchereManager {
 
-public void addEnchere(Enchere enchere) throws BLLException;
-	
+	public void addEnchere(Enchere enchere) throws BLLException;
+
 	public void setEnchere(Enchere enchere) throws BLLException;
 
 	public void removeEnchere(Enchere enchere) throws BLLException;
-	
+
 	public List<Enchere> getAllEnchere() throws BLLException;
-	
+
 	public Enchere getEnchere(Enchere enchere) throws BLLException;
 	
-	public List<Enchere> getAllEnchereCategorie(Categorie categorie) throws BLLException;
+	public List<Enchere> getEnchereFiltre(String filtre) throws BLLException;
+	
+	public List<Enchere> getEnchereCategorieFiltre(Categorie categorie, String filtre) throws BLLException;
 }

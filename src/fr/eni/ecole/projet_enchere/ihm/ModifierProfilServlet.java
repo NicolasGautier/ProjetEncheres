@@ -38,7 +38,7 @@ public class ModifierProfilServlet extends HttpServlet {
 		ErreurModel errModel = new ErreurModel();
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
 		ModifierProfilModel modProfModel = new ModifierProfilModel(logModel.getUtilisateur());
-		String nextPage = "/WEB-INF/ModifierProfil.jsp";
+		String nextPage = "/WEB-INF/modifierProfil.jsp";
 
 		if ("enregistrer".equals(request.getParameter("formuaireProfil"))) {
 			modProfModel.getUtilisateur().setPseudo(request.getParameter("pseudo"));

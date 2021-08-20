@@ -35,7 +35,7 @@ public class TestEnchereManager {
 //		Enchere enchere3 = new Enchere(LocalDate.of(2018, 8, 10), 210, utilDao.selectById(13), artDao.selectById(1));
 
 		System.out.println("TEST 2 : TRI PAR CATEGORIE (MOCK)");
-		System.out.println(manager.getAllEnchereCategorie(ameublement));
+		System.out.println(manager.getEnchereCategorieFiltre(ameublement, ""));
 		enchMan.addEnchere(enchere1);
 		enchMan.addEnchere(enchere1);
 		System.out.println(enchMan.getAllEnchere());
