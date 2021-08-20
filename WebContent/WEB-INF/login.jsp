@@ -17,9 +17,9 @@
 		<p>Mot de passe: <input type="password" name="password" required="required"/></p>
 		<button type="submit" name="formulaireLogin" value="Connexion">Connexion</button>
 		<input type="checkbox" name="checkRememberMe" value="true"/> Se souvenir de moi
-		<a href="#">Mot de passe oublié</a>
+		<a href="#">Mot de passe oublié</a> <% //TODO Faire une page dédié au mot de passe oublié %>
 	</form>
 	
-	<a href="#">Créer un compte</a>
+	<a href="InsererProfilServlet">Créer un compte</a>
 	
 <jsp:include page="footer.jsp"/> 

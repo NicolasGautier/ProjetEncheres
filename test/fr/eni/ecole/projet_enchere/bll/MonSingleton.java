@@ -4,7 +4,6 @@ public class MonSingleton {
 
 	private MonSingleton() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	private static MonSingleton instance;

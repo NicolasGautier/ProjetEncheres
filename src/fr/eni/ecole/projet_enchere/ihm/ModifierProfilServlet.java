@@ -85,7 +85,7 @@ public class ModifierProfilServlet extends HttpServlet {
 		}
 
 		request.setAttribute("errModel", errModel);
-		request.setAttribute("model", modProfModel);
+		request.setAttribute("modProfModel", modProfModel);
 		request.getSession().setAttribute("logModel", logModel);
 
 		request.getRequestDispatcher(nextPage).forward(request, response);

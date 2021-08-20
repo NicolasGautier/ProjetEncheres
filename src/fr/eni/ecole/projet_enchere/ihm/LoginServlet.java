@@ -59,8 +59,8 @@ public class LoginServlet extends HttpServlet {
 						Cookie identCookie = new Cookie("identifiant", request.getParameter("identifiant"));
 						Cookie passwCookie = new Cookie("password", request.getParameter("password"));
 
-						identCookie.setMaxAge(30); // TODO augmenter le temps de vie des cookies
-						passwCookie.setMaxAge(30);
+						identCookie.setMaxAge(3600); // TODO augmenter le temps de vie des cookies
+						passwCookie.setMaxAge(3600);
 
 						response.addCookie(identCookie);
 						response.addCookie(passwCookie);

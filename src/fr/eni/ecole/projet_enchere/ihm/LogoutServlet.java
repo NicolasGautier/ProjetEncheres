@@ -3,6 +3,7 @@ package fr.eni.ecole.projet_enchere.ihm;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,12 +26,18 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nextPage = "/AccueilServlet";
+		String nextPage = "AccueilServlet";
 		
-		// TODO Trouver un moyen d'écraser les cookies
+		Cookie identCookie = new Cookie("identifiant", "");
+		Cookie passwCookie = new Cookie("password", "");
+		identCookie.setMaxAge(1); // TODO augmenter le temps de vie des cookies
+		passwCookie.setMaxAge(1);
+		response.addCookie(identCookie);
+		response.addCookie(passwCookie);
 		
 		request.getSession().setAttribute("logModel", null);
-		request.getRequestDispatcher(nextPage).forward(request, response);
+		//request.getRequestDispatcher(nextPage).forward(request, response);
+		response.sendRedirect(nextPage);
 	}
 
 	/**

@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.BllFactory;
@@ -20,10 +21,10 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter("/ModifierProfilServlet")
+@WebFilter({"/AccueilServlet","/AfficherProfilServlet","/LogoutServlet","/ModifierProfilServlet","/NewArticleServlet"})
 public class LoginFilter implements Filter {
 
-	private UtilisateurManager utilisateurManager = BllFactory.getUniqueUtilisateurManager();
+	private UtilisateurManager utilManager = BllFactory.getUniqueUtilisateurManager();
 
 	/**
 	 * Default constructor.
@@ -47,13 +48,7 @@ public class LoginFilter implements Filter {
 		// TODO Tester les cookies avec deux fenêtres
 		String servletName = ((HttpServletRequest) request).getServletPath();
 		if (((HttpServletRequest) request).getSession().getAttribute("logModel") == null) {
-			Boolean identifiant = false;
-			Boolean password = false;
-			for(Cookie cookie : tabCookies) {
-				if("identifiant".equals(cookie.getName())) identifiant = true;
-				if("password".equals(cookie.getName())) password = true;
-			}
-			if (identifiant && password) {
+			if (tabCookies != null) {
 				LoginModel logModel = new LoginModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false,true));
 				//On récupère nos identifiant et mot de passe dans les cookies
 				for (Cookie cookie : tabCookies) {
@@ -74,21 +69,36 @@ public class LoginFilter implements Filter {
 						&& !"".equals(logModel.getUtilisateur().getMotDePasse())) {
 					try {
 						//On se log et on charge le model
-						if(utilisateurManager.logAndPassChecked(logModel.getUtilisateur())) {
-							logModel.setUtilisateur(utilisateurManager.getUtilisateur(logModel.getUtilisateur()));
+						if(utilManager.logAndPassChecked(logModel.getUtilisateur())) {
+							logModel.setUtilisateur(utilManager.getUtilisateur(logModel.getUtilisateur()));
 							((HttpServletRequest) request).getSession().setAttribute("logModel", logModel);
 							chain.doFilter(request, response);
 						} else { //Sinon on renvois sur la page login
-							((HttpServletRequest) request).getSession().setAttribute("previousPage", servletName);
-							request.getRequestDispatcher("/LoginServlet").forward(request, response);
+							if(servletName.equals("/AccueilServlet")) {
+								chain.doFilter(request, response);
+							} else {
+								((HttpServletRequest) request).getSession().setAttribute("previousPage", servletName);
+								request.getRequestDispatcher("/LoginServlet").forward(request, response);
+							}
 						}
 					} catch (BLLException e) {
 						e.printStackTrace();
 					}
-				}
+				} else {
+					if(servletName.equals("/AccueilServlet")) {
+						chain.doFilter(request, response);
+					} else {
+						((HttpServletRequest) request).getSession().setAttribute("previousPage", servletName);
+						request.getRequestDispatcher("/LoginServlet").forward(request, response);
+					}
+				} 
 			} else {
-				((HttpServletRequest) request).getSession().setAttribute("previousPage", servletName);
-				request.getRequestDispatcher("/LoginServlet").forward(request, response);
+				if(servletName.equals("/AccueilServlet")) {
+					chain.doFilter(request, response);
+				} else {
+					((HttpServletRequest) request).getSession().setAttribute("previousPage", servletName);
+					request.getRequestDispatcher("/LoginServlet").forward(request, response);
+				}
 			}
 		} else {
 			chain.doFilter(request, response);

@@ -89,7 +89,7 @@ public class AccueilServlet extends HttpServlet {
 
 		request.setAttribute("accModel", accModel);
 		request.setAttribute("errModel", errModel);
-		request.getSession().setAttribute("previousPage", "AccueilServlet");
+		request.getSession().setAttribute("previousPage", "/AccueilServlet");
 		request.getRequestDispatcher(nextPage).forward(request, response);
 
 	}
