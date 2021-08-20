@@ -11,7 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.BllFactory;
@@ -21,7 +20,7 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter({"/AccueilServlet","/AfficherProfilServlet","/LogoutServlet","/ModifierProfilServlet","/NewArticleServlet"})
+@WebFilter({"/AccueilServlet","/AfficherProfilServlet","/LogoutServlet","/ModifierProfilServlet","/NewArticleServlet","/OubliPasswordServlet"})
 public class LoginFilter implements Filter {
 
 	private UtilisateurManager utilManager = BllFactory.getUniqueUtilisateurManager();

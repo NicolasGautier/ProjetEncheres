@@ -54,11 +54,11 @@ public class AccueilServlet extends HttpServlet {
 		if (request.getParameter("filtre") != null) {
 			accModel.setFiltre(request.getParameter("filtre"));
 		}
-		
+
 		if (logModel.getUtilisateur().getNoUtilisateur() == null) {
 			try {
 				Boolean catChoisie = false;
-				for(Categorie categorie : accModel.getLstCategorie()) {
+				for (Categorie categorie : accModel.getLstCategorie()) {
 					if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
 						accModel.setLstEnchere(enchManager.getEnchereCategorieFiltre(categorie, accModel.getFiltre()));
 						accModel.setCategorie(categorie);
@@ -66,22 +66,50 @@ public class AccueilServlet extends HttpServlet {
 						break;
 					}
 				}
-				if(!catChoisie) accModel.setLstEnchere(enchManager.getEnchereFiltre(accModel.getFiltre()));
+				if (!catChoisie)
+					accModel.setLstEnchere(enchManager.getEnchereFiltre(accModel.getFiltre()));
 			} catch (BLLException e) {
 				errModel.setErrMessage("ErrAcc", e.getMessage());
 			}
-		} else {	// TODO Faire la fenêtre en connexion
+		} else { // TODO Faire la fenêtre en connexion
 			try {
-				Boolean catChoisie = false;
-				for(Categorie categorie : accModel.getLstCategorie()) {
-					if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
-						accModel.setLstEnchere(enchManager.getEnchereCategorieFiltre(categorie, accModel.getFiltre()));
-						accModel.setCategorie(categorie);
-						catChoisie = true;
-						break;
+				if ("radioAchats".equals(request.getParameter("menuRadio"))) {
+					Boolean catChoisie = false;
+					for (Categorie categorie : accModel.getLstCategorie()) {
+						if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
+							accModel.setLstEnchere(
+									enchManager.getEnchereCategorieFiltreAchats(categorie, accModel.getFiltre(),
+											request.getParameter("enchOuv"), request.getParameter("enchCour"),
+											request.getParameter("enchRemp"), logModel.getUtilisateur()));
+							accModel.setCategorie(categorie);
+							catChoisie = true;
+							break;
+						}
 					}
+					if (!catChoisie)
+						accModel.setLstEnchere(enchManager.getEnchereFiltreAchats(accModel.getFiltre(),
+								request.getParameter("enchOuv"), request.getParameter("enchCour"),
+								request.getParameter("enchRemp"), logModel.getUtilisateur()));
 				}
-				if(!catChoisie) accModel.setLstEnchere(enchManager.getEnchereFiltre(accModel.getFiltre()));
+				if ("radioVentes".equals(request.getParameter("menuRadio"))) {
+					Boolean catChoisie = false;
+					for (Categorie categorie : accModel.getLstCategorie()) {
+						if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
+							accModel.setLstEnchere(
+									enchManager.getEnchereCategorieFiltreVentes(categorie, accModel.getFiltre(),
+											request.getParameter("ventCour"), request.getParameter("ventDeb"),
+											request.getParameter("ventTer"), logModel.getUtilisateur()));
+							accModel.setCategorie(categorie);
+							catChoisie = true;
+							break;
+						}
+					}
+					if (!catChoisie)
+						accModel.setLstEnchere(enchManager.getEnchereFiltreVentes(accModel.getFiltre(),
+								request.getParameter("ventCour"), request.getParameter("ventDeb"),
+								request.getParameter("ventTer"), logModel.getUtilisateur()));
+				}
+
 			} catch (BLLException e) {
 				errModel.setErrMessage("ErrAcc", e.getMessage());
 			}

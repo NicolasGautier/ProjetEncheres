@@ -34,6 +34,9 @@
 		<div class="col-9 themed-grid-col">
 			<input type="submit" value="Rechercher" />
 		</div>
+		<c:if test="${!empty logModel.utilisateur.noUtilisateur}">
+			<jsp:include page="achatsMesVentesMenu.jsp" />
+		</c:if>
 	</form>
 </div>
 <c:if test="${accModel.lstEnchere.size() > 0}">
