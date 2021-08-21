@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 import fr.eni.ecole.projet_enchere.bo.Categorie;
-import fr.eni.ecole.projet_enchere.bo.Enchere;
 
 public class AccueilModel {
 
 	private String filtre;
 	private Categorie categorie;
 	private List<Categorie> lstCategorie = new ArrayList<Categorie>();
-	private List<Enchere> lstEnchere = new ArrayList<Enchere>();
+	private List<ArticleVendu> lstArticleVendu = new ArrayList<ArticleVendu>();
 	private Map<String, Boolean> lstRadio = new HashMap<String, Boolean>();
 	private Map<String, Boolean> lstCheckbox = new HashMap<String, Boolean>();
 
@@ -27,12 +27,13 @@ public class AccueilModel {
 		this.lstCategorie = lstCategorie;
 	}
 
-	public AccueilModel(String filtre, Categorie categorie, List<Categorie> lstCategorie, List<Enchere> lstEnchere) {
+	public AccueilModel(String filtre, Categorie categorie, List<Categorie> lstCategorie,
+			List<ArticleVendu> lstArticleVendu) {
 		super();
 		this.filtre = filtre;
 		this.categorie = categorie;
 		this.lstCategorie = lstCategorie;
-		this.lstEnchere = lstEnchere;
+		this.lstArticleVendu = lstArticleVendu;
 	}
 
 	public String getFiltre() {
@@ -59,12 +60,12 @@ public class AccueilModel {
 		this.lstCategorie = lstCategorie;
 	}
 
-	public List<Enchere> getLstEnchere() {
-		return lstEnchere;
+	public List<ArticleVendu> getLstArticleVendu() {
+		return lstArticleVendu;
 	}
 
-	public void setLstEnchere(List<Enchere> lstEnchere) {
-		this.lstEnchere = lstEnchere;
+	public void setLstArticleVendu(List<ArticleVendu> lstArticleVendu) {
+		this.lstArticleVendu = lstArticleVendu;
 	}
 
 	public Map<String, Boolean> getLstRadio() {
@@ -83,10 +84,6 @@ public class AccueilModel {
 		this.lstCheckbox.put(key, etat);
 	}
 
-	@Override
-	public String toString() {
-		return "AccueilModel [filtre=" + filtre + ", categorie=" + categorie + ", lstCategorie=" + lstCategorie
-				+ ", lstEnchere=" + lstEnchere + ", lstRadio=" + lstRadio + ", lstCheckbox=" + lstCheckbox + "]";
-	}
+	
 
 }

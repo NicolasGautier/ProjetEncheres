@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.ecole.projet_enchere.bll.ArticleVenduManager;
 import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.CategorieManager;
-import fr.eni.ecole.projet_enchere.bll.EnchereManager;
 import fr.eni.ecole.projet_enchere.bo.Categorie;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
@@ -21,7 +21,7 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 @WebServlet({ "/AccueilServlet" })
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EnchereManager enchManager = BllFactory.getUniqueEnchereManager();
+	private ArticleVenduManager artVendManager = BllFactory.getUniqueArticleVenduManager();
 	private CategorieManager catManager = BllFactory.getUniqueCategorieManager();
 
 	/**
@@ -107,14 +107,14 @@ public class AccueilServlet extends HttpServlet {
 				Boolean catChoisie = false;
 				for (Categorie categorie : accModel.getLstCategorie()) {
 					if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
-						accModel.setLstEnchere(enchManager.getEnchereCategorieFiltre(categorie, accModel.getFiltre()));
+						accModel.setLstArticleVendu(artVendManager.getArticleVenduCategorieFiltre(categorie, accModel.getFiltre()));
 						accModel.setCategorie(categorie);
 						catChoisie = true;
 						break;
 					}
 				}
 				if (!catChoisie)
-					accModel.setLstEnchere(enchManager.getEnchereFiltre(accModel.getFiltre()));
+					accModel.setLstArticleVendu(artVendManager.getArticleVenduFiltre(accModel.getFiltre()));
 
 			} else {
 
@@ -122,7 +122,7 @@ public class AccueilServlet extends HttpServlet {
 					Boolean catChoisie = false;
 					for (Categorie categorie : accModel.getLstCategorie()) {
 						if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
-							accModel.setLstEnchere(enchManager.getEnchereCategorieFiltreAchats(categorie,
+							accModel.setLstArticleVendu(artVendManager.getArticleVenduCategorieFiltreAchats(categorie,
 									accModel.getFiltre(), accModel.getLstCheckbox().get("enchOuv"),
 									accModel.getLstCheckbox().get("enchCour"),
 									accModel.getLstCheckbox().get("enchRemp"), logModel.getUtilisateur()));
@@ -132,7 +132,7 @@ public class AccueilServlet extends HttpServlet {
 						}
 					}
 					if (!catChoisie)
-						accModel.setLstEnchere(enchManager.getEnchereFiltreAchats(accModel.getFiltre(),
+						accModel.setLstArticleVendu(artVendManager.getArticleVenduFiltreAchats(accModel.getFiltre(),
 								accModel.getLstCheckbox().get("enchOuv"), accModel.getLstCheckbox().get("enchCour"),
 								accModel.getLstCheckbox().get("enchRemp"), logModel.getUtilisateur()));
 				}
@@ -140,7 +140,7 @@ public class AccueilServlet extends HttpServlet {
 					Boolean catChoisie = false;
 					for (Categorie categorie : accModel.getLstCategorie()) {
 						if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
-							accModel.setLstEnchere(enchManager.getEnchereCategorieFiltreVentes(categorie,
+							accModel.setLstArticleVendu(artVendManager.getArticleVenduCategorieFiltreVentes(categorie,
 									accModel.getFiltre(), accModel.getLstCheckbox().get("ventCour"),
 									accModel.getLstCheckbox().get("ventDeb"), accModel.getLstCheckbox().get("ventTer"),
 									logModel.getUtilisateur()));
@@ -150,7 +150,7 @@ public class AccueilServlet extends HttpServlet {
 						}
 					}
 					if (!catChoisie)
-						accModel.setLstEnchere(enchManager.getEnchereFiltreVentes(accModel.getFiltre(),
+						accModel.setLstArticleVendu(artVendManager.getArticleVenduFiltreVentes(accModel.getFiltre(),
 								accModel.getLstCheckbox().get("ventCour"), accModel.getLstCheckbox().get("ventDeb"),
 								accModel.getLstCheckbox().get("ventTer"), logModel.getUtilisateur()));
 				}

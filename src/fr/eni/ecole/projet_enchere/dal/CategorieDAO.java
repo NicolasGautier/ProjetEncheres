@@ -6,14 +6,14 @@ import fr.eni.ecole.projet_enchere.bo.Categorie;
 
 public interface CategorieDAO {
 
-	void insert(Categorie categorie) throws DALException;
+	public void insert(Categorie categorie) throws DALException;
 
-	void update(Categorie categorie) throws DALException;
+	public void update(Categorie categorie) throws DALException;
 
-	void delete(Integer id) throws DALException;
+	public void delete(Integer id) throws DALException;
 
-	List<Categorie> selectAll() throws DALException;
+	public List<Categorie> selectAll() throws DALException;
 
-	Categorie selectById(Integer id) throws DALException;
+	public Categorie selectById(Integer id) throws DALException;
 
 }

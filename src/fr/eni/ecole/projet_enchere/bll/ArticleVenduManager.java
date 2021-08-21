@@ -4,7 +4,6 @@ import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 import fr.eni.ecole.projet_enchere.bo.Categorie;
-import fr.eni.ecole.projet_enchere.bo.Enchere;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 public interface ArticleVenduManager {

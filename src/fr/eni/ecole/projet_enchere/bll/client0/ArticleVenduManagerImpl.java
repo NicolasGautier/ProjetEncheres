@@ -9,15 +9,16 @@ import fr.eni.ecole.projet_enchere.bll.ArticleVenduManager;
 import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 import fr.eni.ecole.projet_enchere.bo.Categorie;
-import fr.eni.ecole.projet_enchere.bo.Enchere;
 import fr.eni.ecole.projet_enchere.bo.EtatsVente;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 import fr.eni.ecole.projet_enchere.dal.ArticleVenduDAO;
 import fr.eni.ecole.projet_enchere.dal.DALException;
 import fr.eni.ecole.projet_enchere.dal.DalFactory;
+import fr.eni.ecole.projet_enchere.dal.EnchereDAO;
 
 public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	private ArticleVenduDAO artVendDao = DalFactory.getArticleVenduDAO();
+	private EnchereDAO enchDao = DalFactory.getEnchereDAO();
 
 	@Override
 	public void addArticleVendu(ArticleVendu articleVendu) throws BLLException {
@@ -49,7 +50,13 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	@Override
 	public List<ArticleVendu> getAllArticleVendu() throws BLLException {
 		try {
-			return artVendDao.selectAll();
+			List<ArticleVendu> resultat = artVendDao.selectAll();
+			
+			for(ArticleVendu articleVendu : resultat) {
+				articleVendu.setEncheres(enchDao.selectById(articleVendu.getNoArticle()));
+			}
+			
+			return resultat;
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
@@ -58,7 +65,9 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	@Override
 	public ArticleVendu getArticleVendu(ArticleVendu articleVendu) throws BLLException {
 		try {
-			return artVendDao.selectById(articleVendu.getNoArticle());
+			ArticleVendu resultat = artVendDao.selectById(articleVendu.getNoArticle());
+			resultat.setEncheres(enchDao.selectById(resultat.getNoArticle()));
+			return resultat;
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}

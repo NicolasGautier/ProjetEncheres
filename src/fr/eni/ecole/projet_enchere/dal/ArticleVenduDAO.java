@@ -12,8 +12,8 @@ public interface ArticleVenduDAO {
 
 	public void delete(Integer id) throws DALException;
 
-	List<ArticleVendu> selectAll() throws DALException;
+	public List<ArticleVendu> selectAll() throws DALException;
 
-	ArticleVendu selectById(Integer id) throws DALException;
+	public ArticleVendu selectById(Integer id) throws DALException;
 
 }
