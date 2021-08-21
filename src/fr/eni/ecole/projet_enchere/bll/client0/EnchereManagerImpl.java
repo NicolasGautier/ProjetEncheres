@@ -79,32 +79,27 @@ public class EnchereManagerImpl implements EnchereManager {
 	@Override
 	public List<Enchere> getEnchereFiltre(String filtre) throws BLLException {
 		List<Enchere> lstFiltre = new ArrayList<Enchere>();
-		try {
-			for (Enchere encheres : enchDao.selectAll()) {
-				if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1) {
-					lstFiltre.add(encheres);
-				}
+		for (Enchere encheres : getAllEnchere()) {
+			if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1) {
+				lstFiltre.add(encheres);
 			}
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
 		}
-		return lstFiltre;
+		return lstFiltre.stream().filter(e -> e.getArticleConcerne().getEtatVente().equals(EtatsVente.EN_COURS))
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Enchere> getEnchereCategorieFiltre(Categorie categorie, String filtre) throws BLLException {
 		List<Enchere> lstCategorieFiltre = new ArrayList<Enchere>();
-		try {
-			for (Enchere encheres : enchDao.selectAll()) {
-				if (encheres.getArticleConcerne().getCategorie().getNoCategorie().equals(categorie.getNoCategorie())
-						&& encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1) {
-					lstCategorieFiltre.add(encheres);
-				}
+		for (Enchere encheres : getAllEnchere()) {
+			if (encheres.getArticleConcerne().getCategorie().getNoCategorie().equals(categorie.getNoCategorie())
+					&& encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1) {
+				lstCategorieFiltre.add(encheres);
 			}
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
 		}
-		return lstCategorieFiltre;
+		return lstCategorieFiltre.stream()
+				.filter(e -> e.getArticleConcerne().getEtatVente().equals(EtatsVente.EN_COURS))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -113,21 +108,17 @@ public class EnchereManagerImpl implements EnchereManager {
 
 		List<Enchere> lstFiltre = new ArrayList<Enchere>();
 
-		try {
-			for (Enchere encheres : enchDao.selectAll()) {
-				if (enchOuv) {
-					if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1) {
-						lstFiltre.add(encheres);
-					}
-				} else if (enchCour || enchRemp) {
-					if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1 && utilisateur
-							.getNoUtilisateur().equals(encheres.getUtilisateurEncherit().getNoUtilisateur())) {
-						lstFiltre.add(encheres);
-					}
+		for (Enchere encheres : getAllEnchere()) {
+			if (enchOuv) {
+				if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1) {
+					lstFiltre.add(encheres);
+				}
+			} else if (enchCour || enchRemp) {
+				if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1 && utilisateur
+						.getNoUtilisateur().equals(encheres.getUtilisateurEncherit().getNoUtilisateur())) {
+					lstFiltre.add(encheres);
 				}
 			}
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
 		}
 
 		List<Enchere> lstResultat = new ArrayList<Enchere>();
@@ -152,25 +143,21 @@ public class EnchereManagerImpl implements EnchereManager {
 
 		List<Enchere> lstFiltre = new ArrayList<Enchere>();
 
-		try {
-			for (Enchere encheres : enchDao.selectAll()) {
-				if (enchOuv) {
-					if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1 && encheres
-							.getArticleConcerne().getCategorie().getNoCategorie().equals(categorie.getNoCategorie())) {
-						lstFiltre.add(encheres);
-					}
-				} else if (enchCour || enchRemp) {
-					if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1
-							&& encheres.getArticleConcerne().getCategorie().getNoCategorie()
-									.equals(categorie.getNoCategorie())
-							&& utilisateur.getNoUtilisateur()
-									.equals(encheres.getUtilisateurEncherit().getNoUtilisateur())) {
-						lstFiltre.add(encheres);
-					}
+		for (Enchere encheres : getAllEnchere()) {
+			if (enchOuv) {
+				if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1 && encheres.getArticleConcerne()
+						.getCategorie().getNoCategorie().equals(categorie.getNoCategorie())) {
+					lstFiltre.add(encheres);
+				}
+			} else if (enchCour || enchRemp) {
+				if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1
+						&& encheres.getArticleConcerne().getCategorie().getNoCategorie()
+								.equals(categorie.getNoCategorie())
+						&& utilisateur.getNoUtilisateur()
+								.equals(encheres.getUtilisateurEncherit().getNoUtilisateur())) {
+					lstFiltre.add(encheres);
 				}
 			}
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
 		}
 
 		List<Enchere> lstResultat = new ArrayList<Enchere>();
@@ -192,19 +179,14 @@ public class EnchereManagerImpl implements EnchereManager {
 	@Override
 	public List<Enchere> getEnchereFiltreVentes(String filtre, Boolean ventCour, Boolean ventDeb, Boolean ventTer,
 			Utilisateur utilisateur) throws BLLException {
-		
+
 		List<Enchere> lstFiltre = new ArrayList<Enchere>();
 
-		try {
-			for (Enchere encheres : enchDao.selectAll()) {
-				if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1
-						&& utilisateur.getNoUtilisateur()
-								.equals(encheres.getArticleConcerne().getUtilisateurVend().getNoUtilisateur())) {
-					lstFiltre.add(encheres);
-				}
+		for (Enchere encheres : getAllEnchere()) {
+			if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1 && utilisateur.getNoUtilisateur()
+					.equals(encheres.getArticleConcerne().getUtilisateurVend().getNoUtilisateur())) {
+				lstFiltre.add(encheres);
 			}
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
 		}
 
 		List<Enchere> lstResultat = new ArrayList<Enchere>();
@@ -231,21 +213,16 @@ public class EnchereManagerImpl implements EnchereManager {
 	@Override
 	public List<Enchere> getEnchereCategorieFiltreVentes(Categorie categorie, String filtre, Boolean ventCour,
 			Boolean ventDeb, Boolean ventTer, Utilisateur utilisateur) throws BLLException {
-		
+
 		List<Enchere> lstFiltre = new ArrayList<Enchere>();
 
-		try {
-			for (Enchere encheres : enchDao.selectAll()) {
-				if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1
-						&& encheres.getArticleConcerne().getCategorie().getNoCategorie()
-								.equals(categorie.getNoCategorie())
-						&& utilisateur.getNoUtilisateur()
-								.equals(encheres.getArticleConcerne().getUtilisateurVend().getNoUtilisateur())) {
-					lstFiltre.add(encheres);
-				}
+		for (Enchere encheres : getAllEnchere()) {
+			if (encheres.getArticleConcerne().getNomArticle().indexOf(filtre) != -1
+					&& encheres.getArticleConcerne().getCategorie().getNoCategorie().equals(categorie.getNoCategorie())
+					&& utilisateur.getNoUtilisateur()
+							.equals(encheres.getArticleConcerne().getUtilisateurVend().getNoUtilisateur())) {
+				lstFiltre.add(encheres);
 			}
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
 		}
 
 		List<Enchere> lstResultat = new ArrayList<Enchere>();

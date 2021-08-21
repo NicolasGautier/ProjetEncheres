@@ -77,7 +77,7 @@ public class ModifierProfilServlet extends HttpServlet {
 						logModel.getUtilisateur().setActif(false);
 						utilManager.setUtilisateur(logModel.getUtilisateur());
 					}
-					nextPage = "/AccueilServlet";
+					nextPage = "/LogoutServlet";
 				}
 			} catch (BLLException e) {
 				errModel.setErrMessage("ErrLog", e.getMessage());

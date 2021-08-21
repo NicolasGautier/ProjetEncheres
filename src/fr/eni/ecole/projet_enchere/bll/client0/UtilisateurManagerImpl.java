@@ -106,7 +106,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
-		throw new BLLException("Mot de passe incorrecte(s)");
+		throw new BLLException("Mot de passe incorrecte");
 	}
 
 	@Override

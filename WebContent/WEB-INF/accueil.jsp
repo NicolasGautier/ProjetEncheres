@@ -59,7 +59,7 @@
 					<td>${enchere.articleConcerne.nomArticle}</td>
 					<td>${enchere.montant_enchere}</td>
 					<td>${enchere.dateEnchere}</td>
-					<td>${enchere.utilisateurEncherit.pseudo}</td>
+					<td><a href="ProfilServlet?id=${enchere.utilisateurEncherit.noUtilisateur}">${enchere.utilisateurEncherit.pseudo}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

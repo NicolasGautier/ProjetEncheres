@@ -3,9 +3,9 @@
 <jsp:param name="titre" value="profil" />  
 </jsp:include>
 
-<jsp:include page="navbar.jsp"/>
-
-<p style="color:red">${erreur}</p>
+<jsp:include page="navbar.jsp">  
+<jsp:param name="hidden" value="true" />  
+</jsp:include>
 
 <h2>Mon profil</h2>
 	<c:forEach var="key" items="${errModel.err}">

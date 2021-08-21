@@ -37,6 +37,7 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//Initialisation
 		String nextPage = "/WEB-INF/accueil.jsp";
 		ErreurModel errModel = new ErreurModel();
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
@@ -98,9 +99,11 @@ public class AccueilServlet extends HttpServlet {
 		if (request.getParameter("filtre") != null) {
 			accModel.setFiltre(request.getParameter("filtre"));
 		}
+		
+		//Traitement
+		try {
+			if (logModel.getUtilisateur().getNoUtilisateur() == null) {
 
-		if (logModel.getUtilisateur().getNoUtilisateur() == null) {
-			try {
 				Boolean catChoisie = false;
 				for (Categorie categorie : accModel.getLstCategorie()) {
 					if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
@@ -112,11 +115,9 @@ public class AccueilServlet extends HttpServlet {
 				}
 				if (!catChoisie)
 					accModel.setLstEnchere(enchManager.getEnchereFiltre(accModel.getFiltre()));
-			} catch (BLLException e) {
-				errModel.setErrMessage("ErrAcc", e.getMessage());
-			}
-		} else { 
-			try {	
+
+			} else {
+
 				if (accModel.getLstRadio().get("radioAchats")) {
 					Boolean catChoisie = false;
 					for (Categorie categorie : accModel.getLstCategorie()) {
@@ -154,11 +155,12 @@ public class AccueilServlet extends HttpServlet {
 								accModel.getLstCheckbox().get("ventTer"), logModel.getUtilisateur()));
 				}
 
-			} catch (BLLException e) {
-				errModel.setErrMessage("ErrAcc", e.getMessage());
 			}
+		} catch (BLLException e) {
+			errModel.setErrMessage("ErrAcc", e.getMessage());
 		}
-
+		
+		//Affichage
 		request.setAttribute("accModel", accModel);
 		request.setAttribute("errModel", errModel);
 		request.getSession().setAttribute("previousPage", "/AccueilServlet");
