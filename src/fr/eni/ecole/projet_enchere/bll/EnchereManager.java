@@ -2,9 +2,7 @@ package fr.eni.ecole.projet_enchere.bll;
 
 import java.util.List;
 
-import fr.eni.ecole.projet_enchere.bo.Categorie;
 import fr.eni.ecole.projet_enchere.bo.Enchere;
-import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 /*NG 18/08/2021
  *Reprise des fonctionnalités de la DAL avec la contrainte suivante :

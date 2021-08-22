@@ -3,6 +3,7 @@ package fr.eni.ecole.projet_enchere.bll;
 import fr.eni.ecole.projet_enchere.bll.client0.ArticleVenduManagerImpl;
 import fr.eni.ecole.projet_enchere.bll.client0.CategorieManagerImpl;
 import fr.eni.ecole.projet_enchere.bll.client0.EnchereManagerImpl;
+import fr.eni.ecole.projet_enchere.bll.client0.RetraitManagerImpl;
 import fr.eni.ecole.projet_enchere.bll.client0.UtilisateurManagerImpl;
 
 public abstract class BllFactory {
@@ -11,6 +12,7 @@ public abstract class BllFactory {
 	private static EnchereManager enchereManager;
 	private static CategorieManager categorieManager;
 	private static ArticleVenduManager articleVenduManager;
+	private static RetraitManager retraitManager;
 
 	public static UtilisateurManager getUniqueUtilisateurManager() {
 		if (utilisateurManager == null) {
@@ -38,6 +40,13 @@ public abstract class BllFactory {
 			articleVenduManager = new ArticleVenduManagerImpl();
 		}
 		return articleVenduManager;
+	}
+	
+	public static RetraitManager getUniqueRetraitManager() {
+		if (retraitManager == null) {
+			retraitManager = new RetraitManagerImpl();
+		}
+		return retraitManager;
 	}
 	
 }

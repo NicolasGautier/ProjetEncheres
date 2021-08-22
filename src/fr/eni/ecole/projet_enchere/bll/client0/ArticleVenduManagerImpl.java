@@ -1,7 +1,6 @@
 package fr.eni.ecole.projet_enchere.bll.client0;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,11 +50,11 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	public List<ArticleVendu> getAllArticleVendu() throws BLLException {
 		try {
 			List<ArticleVendu> resultat = artVendDao.selectAll();
-			
-			for(ArticleVendu articleVendu : resultat) {
+
+			for (ArticleVendu articleVendu : resultat) {
 				articleVendu.setEncheres(enchDao.selectById(articleVendu.getNoArticle()));
 			}
-			
+
 			return resultat;
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
@@ -123,12 +122,10 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 			}
 			if (enchRemp) {
 				// Si la vente est terminée && que son nom correspond au filtre && l'utilisateur
-				// a l'enchère la plus haute && que l'enchère est terminée.
+				// est l'acheteur.
 				if (articleVendu.getEtatVente() == EtatsVente.ENCHERES_TERMINEES
-						&& articleVendu.getNomArticle().indexOf(filtre) != -1
-						&& articleVendu.getEncheres().stream().sorted(Collections.reverseOrder())
-								.collect(Collectors.toList()).get(0).getUtilisateurEncherit()
-								.getNoUtilisateur() == utilisateur.getNoUtilisateur()) {
+						&& articleVendu.getNomArticle().indexOf(filtre) != -1 && articleVendu.getUtilisateurAchete()
+								.getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
 					lstFiltre.add(articleVendu);
 				}
 			}
@@ -165,13 +162,11 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 			}
 			if (enchRemp) {
 				// Si la vente est terminée && que son nom correspond au filtre && l'utilisateur
-				// a l'enchère la plus haute && que l'enchère est terminée && que la categorie
+				// est l'acheteur && que l'enchère est terminée && que la categorie
 				// correspond
 				if (articleVendu.getEtatVente() == EtatsVente.ENCHERES_TERMINEES
 						&& articleVendu.getNomArticle().indexOf(filtre) != -1
-						&& articleVendu.getEncheres().stream().sorted(Collections.reverseOrder())
-								.collect(Collectors.toList()).get(0).getUtilisateurEncherit()
-								.getNoUtilisateur() == utilisateur.getNoUtilisateur()
+						&& articleVendu.getUtilisateurAchete().getNoUtilisateur().equals(utilisateur.getNoUtilisateur())
 						&& articleVendu.getCategorie().getNoCategorie().equals(categorie.getNoCategorie())) {
 					lstFiltre.add(articleVendu);
 				}

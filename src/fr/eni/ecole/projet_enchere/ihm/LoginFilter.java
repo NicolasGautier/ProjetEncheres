@@ -21,7 +21,7 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
  * Servlet Filter implementation class LoginFilter
  */
 @WebFilter({ "/AccueilServlet", "/AfficherProfilServlet", "/LogoutServlet", "/ModifierProfilServlet",
-		"/NewArticleServlet", "/OubliPasswordServlet", "/ProfilServlet" })
+		"/NewArticleServlet", "/OubliPasswordServlet", "/ProfilServlet", "/RetraitValideServlet", "/VenteRemporteServlet"})
 public class LoginFilter implements Filter {
 
 	private UtilisateurManager utilManager = BllFactory.getUniqueUtilisateurManager();

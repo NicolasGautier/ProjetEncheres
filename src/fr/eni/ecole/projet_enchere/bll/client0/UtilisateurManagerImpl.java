@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
+import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 import fr.eni.ecole.projet_enchere.dal.DALException;
 import fr.eni.ecole.projet_enchere.dal.DalFactory;
@@ -116,5 +117,21 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		} else {
 			throw new BLLException("Le nouveau mot de passe ne correspond pas à la confirmation");
 		}
+	}
+
+	@Override
+	public boolean articleRemporteChecked(Utilisateur utilisateur, ArticleVendu articleRemporte) throws BLLException {
+		if (articleRemporte.getUtilisateurAchete().getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
+			return true;
+		}
+		throw new BLLException("Vous n'êtes pas l'utilisateur qui a remporté l'enchère");
+	}
+
+	@Override
+	public boolean retraitValideChecked(Utilisateur utilisateur, ArticleVendu articleValide) throws BLLException {
+		if (articleValide.getUtilisateurVend().getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
+			return true;
+		}
+		throw new BLLException("Vous n'êtes pas l'utilisateur qui a lancé l'enchère");
 	}
 }
