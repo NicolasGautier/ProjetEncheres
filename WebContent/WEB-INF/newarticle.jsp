@@ -2,7 +2,6 @@
 <jsp:include page="header.jsp">
 	<jsp:param name="titre" value="newarticle" />
 </jsp:include>
-
 <jsp:include page="navbar.jsp" />
 
 <c:forEach var="key" items="${errModel.err}">
@@ -28,71 +27,96 @@
 		<form action="NewArticleServlet" method="post">
 			<p>
 				<label for="article">Article :</label><input id="article"
-					name="nomarticle" type="text">
+					name="nomarticle" type="text" 
+					value="${newArtModel.articleVendu.nomArticle}">
 			</p>
 
 			<p>
-
 				<label for="description">Description :</label>
-				<textarea id="description" name="description" rows="4" cols="50"></textarea>
+
+				<textarea id="description" name="description" rows="4" cols="50">
+				${newArtModel.articleVendu.description}
+				</textarea>
+
 			</p>
 
 			<p>
-				<label for="categorie">Catégorie :</label> <select name="categorie">
-					<option>Informatique</option>
-					<option>Ameublement</option>
-					<option>Vêtement</option>
-					<option>Sport&Loisirs</option>
+				<label for="categorieSelect">Catégorie :</label> 
+				<select name="categorieSelect">
+				<option> Sélectionner </option>
+				<option> Informatique</option>
+				<option> Ameublement </option>
+				
+				</select>
+					<!--<c:forEach var="categorie" items="${newArticleModel.lstCategorie}">
+					 	<option value="${categorie.libelle}"
+							<c:if test="${newArtModel.categorie.libelle == categorie.libelle}">selected
+					 </c:if>>${categorie.libelle}</option>
+					</c:forEach>
 				</select>
 			</p>
 
 			<p>
 				<label for="photoarticle">Photo de l'article :</label> <input
 					id="photoarticle" name="photoarticle" type="file">
+			<!-- TODO insérer photo dans article -->
 			</p>
 
 			<p>
 				<label for="miseaprix">Mise à prix :</label> <input type="number"
-					id="miseaprix" name="miseaprix" placeholder="150">
+					id="miseaprix" name="sprix" min="0" placeholder="150"
+					value="${newArtModel.articleVendu.miseAPrix}">
+					
 			</p>
 
 			<p>
 				<label for="datedebutencheres">Début de l'enchère :</label> <input
-					type="date" id="datedebutencheres" name="datedebutencheres">
+					type="date" id="datedebutencheres" name="datedebutencheres"
+					value="${newArtModel.articleVendu.dateDebutEncheres}">
 			</p>
 
 			<p>
 				<label for="datefinencheres">Fin de l'enchère :</label> <input
-					type="date" id="datefinencheres" name="datefinencheres">
+					type="date" id="datefinencheres" name="datefinencheres"
+					value="${newArtModel.articleVendu.dateFinEncheres}" 
+					>
+					
+					
 			</p>
 
-			<fieldset style="border 1 px solid silver">
+			<fieldset style="border: 1 px solid silver">
 				<legend>Retrait</legend>
 				<p>
-				<label for="rue">Rue :</label> <input type="text" id="rue"
-					name="rue" placeholder="Rue des Mouettes"> 
+					<label for="rue">Rue :</label> <input type="text" id="rue"
+						name="rue" placeholder="Rue des Mouettes"
+						value = "${newArtModel.articleVendu.retrait.rue}">
+						
 				</p>
-				
+
 				<p>
-				<label for="cp">Code postal :</label> <input type="text" id="cp" name="code_postal"
-					placeholder="44800"> 
+					<label for="cp">Code postal :</label> <input type="text" id="cp"
+						name="code_postal" placeholder="44800"
+				value = "${newArtModel.articleVendu.retrait.code_postal}"
+					>
 				</p>
-				
+
 				<p>
-				<label for="ville">Saint
-					Herblain:</label> <input type="text" id="ville" name="ville"
-					placeholder="Saint Herblain">
+					<label for="ville">Saint Herblain:</label> <input type="text"
+						id="ville" name="ville" placeholder="Saint Herblain"
+						value = "${newArtModel.articleVendu.retrait.ville}"
+						>
 				</p>
 			</fieldset>
 
 			<p>
-				<input type="submit" value="Enregistrer"> <input
-					type="submit" value="Annuler">
+				<button type="submit" name="enregistrer" value="enregistrer">
+					Enregistrer</button>
+				<button type="submit" name="annuler" value="annuler">
+					Annuler</button>
+
 			</p>
 		</form>
 	</div>
 </div>
 
-
-</body>
-</html>
+<jsp:include page="footer.jsp" />

@@ -29,6 +29,7 @@
                                 <label for="password" class="text-info">Mot de Passe :</label><br>
                                 <input type="password" name="password" required="required" id="password" class="form-control">
                             </div>
+                            <a href="#">Mot de passe oublié</a> <% //TODO Faire une page dédié au mot de passe oublié %>
                             <div class="form-group">
                                 <label for="remember-me" class="text-info"><span>Se souvenir de moi</span> <span><input id="remember-me" name="checkRememberMe" type="checkbox"></span></label><br>
                                 <input type="submit" name="formulaireLogin" value="Connexion"></button>	
@@ -43,3 +44,4 @@
         </div>
 </div>
 <jsp:include page="footer.jsp"/> 
+

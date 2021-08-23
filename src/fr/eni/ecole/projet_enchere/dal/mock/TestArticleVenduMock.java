@@ -42,6 +42,9 @@ public class TestArticleVenduMock {
 		
 		System.out.println(dao.selectAll());
 		
+		
+		
+		
 	}
 
 }

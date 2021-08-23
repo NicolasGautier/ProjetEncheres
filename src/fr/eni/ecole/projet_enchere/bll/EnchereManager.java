@@ -2,7 +2,6 @@ package fr.eni.ecole.projet_enchere.bll;
 
 import java.util.List;
 
-import fr.eni.ecole.projet_enchere.bo.Categorie;
 import fr.eni.ecole.projet_enchere.bo.Enchere;
 
 /*NG 18/08/2021
@@ -23,8 +22,5 @@ public interface EnchereManager {
 	public List<Enchere> getAllEnchere() throws BLLException;
 
 	public Enchere getEnchere(Enchere enchere) throws BLLException;
-	
-	public List<Enchere> getEnchereFiltre(String filtre) throws BLLException;
-	
-	public List<Enchere> getEnchereCategorieFiltre(Categorie categorie, String filtre) throws BLLException;
+
 }

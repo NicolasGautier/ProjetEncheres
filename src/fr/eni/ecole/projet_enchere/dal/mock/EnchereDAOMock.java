@@ -39,6 +39,12 @@ public class EnchereDAOMock implements EnchereDAO {
 	}
 
 	@Override
+	public List<Enchere> selectById(Integer idArticle) throws DALException {
+		return lst.stream().filter(u -> u.getArticleConcerne().getNoArticle().equals(idArticle))
+				.collect(Collectors.toList());
+	}
+
+	@Override
 	public Enchere selectById(Integer idUtilisateur, Integer idArticle) throws DALException {
 		return lst.stream().filter(u -> u.getUtilisateurEncherit().getNoUtilisateur().equals(idUtilisateur)
 				&& u.getArticleConcerne().getNoArticle().equals(idArticle)).collect(Collectors.toList()).get(0);
