@@ -94,6 +94,4 @@ public class AccueilModel {
 		this.lstCheckbox.put(key, etat);
 	}
 
-	
-
 }

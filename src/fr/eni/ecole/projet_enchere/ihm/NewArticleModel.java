@@ -9,15 +9,16 @@ import fr.eni.ecole.projet_enchere.bo.Categorie;
 public class NewArticleModel {
 
 	private ArticleVendu articleVendu;
-	private List<Categorie> categorie = new ArrayList<Categorie>();
+	private Categorie categorie;
+	private List<Categorie> lstCategorie = new ArrayList<Categorie>();
 
 	public NewArticleModel() {
 	}
 
-	public NewArticleModel(ArticleVendu articleVendu, List<Categorie> categorie) {
+	public NewArticleModel(ArticleVendu articleVendu, List<Categorie> lstCategorie) {
 		super();
 		this.articleVendu = articleVendu;
-		this.categorie = categorie;
+		this.lstCategorie = lstCategorie;
 	}
 
 	public ArticleVendu getArticleVendu() {
@@ -28,19 +29,24 @@ public class NewArticleModel {
 		this.articleVendu = articleVendu;
 	}
 
-	public List<Categorie> getCategorie() {
+	public Categorie getCategorie() {
 		return categorie;
 	}
 
-	public void setCategorie(List<Categorie> categorie) {
+	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
+	}
+	
+	public List<Categorie> getLstCategorie() {
+		return lstCategorie;
+	}
+
+	public void setLstCategorie(List<Categorie> lstCategorie) {
+		this.lstCategorie = lstCategorie;
 	}
 
 	@Override
 	public String toString() {
-		return "NewArticleModel [articleVendu=" + articleVendu + ", categorie=" + categorie + "]";
+		return "NewArticleModel [articleVendu=" + articleVendu + ", categorie=" + lstCategorie + "]";
 	}
-
-	
-
 }
