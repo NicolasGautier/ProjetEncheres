@@ -21,18 +21,26 @@
 <div class="row mb-3">
 	<form action="AccueilServlet" method="post">
 		<div class="col-3 themed-grid-col">
+		
 			<label for="filtre">Filtres :</label> 
-			<input type="search" name="filtre" value="${accModel.filtre}" /> 
+			<br>
+			<input type="search" name="filtre" value="${accModel.filtre}" placeholder="Le nom de l'article contient"/> 
+			<br>
 			<label for="categorieSelect">Catégorie :</label> 
 			<select name="categorieSelect">
 				<option value="Toutes">Toutes</option>
 				<c:forEach var="categorie" items="${accModel.lstCategorie}">
-					<option value="${categorie.libelle}" <c:if test="${accModel.categorie.libelle == categorie.libelle}">selected</c:if>>${categorie.libelle}</option>
+					<option value="${categorie.libelle}" 
+					<c:if test="${accModel.categorie.libelle == categorie.libelle}">selected
+					</c:if>>${categorie.libelle}</option>
 				</c:forEach>				
 			</select>
 		</div>
+		
 		<div class="col-9 themed-grid-col">
-			<input type="submit" value="Rechercher" />
+		
+		<button type="submit" value="Rechercher"class=effet-lumiere> Rechercher </button>
+				
 		</div>
 	</form>
 </div>

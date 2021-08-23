@@ -12,14 +12,34 @@
 		<p style="color:red">${errModel.errMessage.get('ErrLog')}</p>
 		</c:if>	
 	</c:forEach>
-	<form action="LoginServlet" method="post">
-		<p>Identifiant: <input type="text" name="identifiant" required="required"/></p>
-		<p>Mot de passe: <input type="password" name="password" required="required"/></p>
-		<button type="submit" name="formulaireLogin" value="Connexion">Connexion</button>
-		<input type="checkbox" name="checkRememberMe" value="true"/> Se souvenir de moi
-		<a href="#">Mot de passe oublié</a>
-	</form>
-	
-	<a href="#">Créer un compte</a>
-	
+				
+	    <div id="login">
+   
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="LoginServlet" method="post">
+                            <h3 class="text-center text-info">Page de connexion </h3>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Identifiant :</label><br>
+                                <input type="text" name="identifiant" required="required" id="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Mot de Passe :</label><br>
+                                <input type="password" name="password" required="required" id="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="remember-me" class="text-info"><span>Se souvenir de moi</span> <span><input id="remember-me" name="checkRememberMe" type="checkbox"></span></label><br>
+                                <input type="submit" name="formulaireLogin" value="Connexion"></button>	
+                            </div>
+                            <div id="register-link" class="text-right">
+                                <a href="#" class="text-info">Créer le compte</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
 <jsp:include page="footer.jsp"/> 

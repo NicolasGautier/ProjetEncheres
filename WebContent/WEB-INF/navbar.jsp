@@ -1,7 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href = "navbar.css">
 <nav>
 	<div class="row mb-3">
 		<div class="col-md-8 themed-grid-col">
+		
+		<h2>
+		<img alt="iconeeni" src="<%=request.getContextPath()%>/image/iconeimageeni.jpg">
+		</h2>
+			
 			<a href="AccueilServlet">ENI-Encheres</a>
 		</div>
 		<div class="col-6 col-md-4 themed-grid-col">

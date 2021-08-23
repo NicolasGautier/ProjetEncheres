@@ -27,8 +27,6 @@ public class NewArticleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String nextPage = "/WEB-INF/newarticle.jsp";
-
-		
 		request.getRequestDispatcher(nextPage).forward(request, response);
 	}
 
