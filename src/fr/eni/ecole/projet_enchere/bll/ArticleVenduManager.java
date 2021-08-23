@@ -4,21 +4,31 @@ import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 
-/*
- * NG 20/08/2021
- * Pour créer l'IHM, création de la BLL sans contraintes 
- */
+import fr.eni.ecole.projet_enchere.bo.Categorie;
+import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 
 public interface ArticleVenduManager {
 
-	public void addArticleVendu (ArticleVendu articlevendu) throws BLLException;
-	
-	public void setArticleVendu (ArticleVendu articlevendu) throws BLLException;
-	
-	public void removeArticleVendu (ArticleVendu articlevendu) throws BLLException;
-	
-	List<ArticleVendu> getAllArticleVendu(Integer id) throws BLLException;
-	
-	public ArticleVendu getArticleVendu (ArticleVendu articlevendu) throws BLLException;
+	public void addArticleVendu(ArticleVendu articleVendu) throws BLLException;
+
+	public void setArticleVendu(ArticleVendu articleVendu) throws BLLException;
+
+	public void removeArticleVendu(ArticleVendu articleVendu) throws BLLException;
+
+	public List<ArticleVendu> getAllArticleVendu() throws BLLException;
+
+	public ArticleVendu getArticleVendu(ArticleVendu articleVendu) throws BLLException;
+
+	public List<ArticleVendu> getArticleVenduFiltre(String filtre) throws BLLException;
+
+	public List<ArticleVendu> getArticleVenduCategorieFiltre(Categorie categorie, String filtre) throws BLLException;
+
+	public List<ArticleVendu> getArticleVenduFiltreAchats(String filtre, Boolean enchOuv, Boolean enchCour, Boolean enchRemp, Utilisateur utilisateur) throws BLLException;
+
+	public List<ArticleVendu> getArticleVenduCategorieFiltreAchats(Categorie categorie, String filtre, Boolean enchOuv, Boolean enchCour, Boolean enchRemp, Utilisateur utilisateur) throws BLLException;
+
+	public List<ArticleVendu> getArticleVenduFiltreVentes(String filtre, Boolean ventCour, Boolean ventDeb, Boolean ventTer, Utilisateur utilisateur) throws BLLException;
+
+	public List<ArticleVendu> getArticleVenduCategorieFiltreVentes(Categorie categorie, String filtre, Boolean ventCour, Boolean ventDeb, Boolean ventTer, Utilisateur utilisateur) throws BLLException;
 	
 }

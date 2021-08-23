@@ -36,18 +36,17 @@ public abstract class BllFactory {
 	}
 	
 	public static ArticleVenduManager getUniqueArticleVenduManager() {
-		if(articleVenduManager == null) {
+		if (articleVenduManager == null) {
 			articleVenduManager = new ArticleVenduManagerImpl();
-			
 		}
 		return articleVenduManager;
 	}
 	
 	public static RetraitManager getUniqueRetraitManager() {
-		if(retraitManager == null) {
+		if (retraitManager == null) {
 			retraitManager = new RetraitManagerImpl();
-			
 		}
 		return retraitManager;
 	}
+	
 }

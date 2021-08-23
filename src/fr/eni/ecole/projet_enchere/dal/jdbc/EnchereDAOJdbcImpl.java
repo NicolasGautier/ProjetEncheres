@@ -20,6 +20,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private final String UPDATE = "UPDATE encheres SET date_enchere=?, montant_enchere=? WHERE no_utilisateur=? AND no_article=?";
 	private final String DELETE = "DELETE FROM encheres WHERE no_utilisateur=? AND no_article=?";
 	private final String SELECT = "SELECT no_utilisateur, no_article, date_enchere, montant_enchere FROM encheres";
+	private final String FROMART = "SELECT no_utilisateur, no_article, date_enchere, montant_enchere FROM encheres WHERE no_article=?";
 	private final String FROM = "SELECT no_utilisateur, no_article, date_enchere, montant_enchere FROM encheres WHERE no_utilisateur=? AND no_article=?";
 	
 	private UtilisateurDAO utilDao = DalFactory.getUtilisateurDAO();
@@ -73,6 +74,28 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		List<Enchere> result = new ArrayList<Enchere>();
 		try (Connection con = JdbcTools.getConnection()) { 
 			PreparedStatement stmt = con.prepareStatement(SELECT);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				Enchere enchere = new Enchere();
+				enchere.setUtilisateurEncherit(utilDao.selectById(rs.getInt("no_utilisateur")));
+				enchere.setArticleConcerne(artDao.selectById(rs.getInt("no_article")));
+				enchere.setDateEnchere(rs.getDate("date_enchere").toLocalDate());
+				enchere.setMontant_enchere(rs.getInt("montant_enchere"));
+				result.add(enchere);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("Problème SQL");
+		}
+		return result;
+	}
+	
+	@Override
+	public List<Enchere> selectById(Integer idArticle) throws DALException {
+		List<Enchere> result = new ArrayList<Enchere>();
+		try (Connection con = JdbcTools.getConnection()) { 
+			PreparedStatement stmt = con.prepareStatement(FROMART);
+			stmt.setInt(1, idArticle);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
 				Enchere enchere = new Enchere();

@@ -11,49 +11,50 @@ import fr.eni.ecole.projet_enchere.dal.RetraitDAO;
 
 public class RetraitManagerImpl implements RetraitManager {
 
-	private RetraitDAO dao = DalFactory.getRetraitDAO();
+	private RetraitDAO retDao = DalFactory.getRetraitDAO();
 
 	@Override
 	public void addRetrait(Retrait retrait) throws BLLException {
-
 		try {
-			dao.insert(retrait);
+			retDao.insert(retrait);
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
-
 	}
 
 	@Override
 	public void setRetrait(Retrait retrait) throws BLLException {
-
 		try {
-			dao.update(retrait);
+			retDao.update(retrait);
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
-
 		}
 	}
 
 	@Override
 	public void removeRetrait(Retrait retrait) throws BLLException {
-
 		try {
-			dao.delete(retrait.getArticleVendu().getNoArticle());
+			retDao.delete(retrait.getArticleVendu().getNoArticle());
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}
-
 	}
 
 	@Override
-	public List<Retrait> getAllRetrait(Retrait retrait) throws BLLException {
-
+	public List<Retrait> getAllRetraits() throws BLLException {
 		try {
-			return dao.selectAll();
+			return retDao.selectAll();
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
+		}
+	}
 
+	@Override
+	public Retrait getRetrait(Integer noArticle) throws BLLException {
+		try {
+			return retDao.selectById(noArticle);
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
 		}
 	}
 
@@ -61,11 +62,9 @@ public class RetraitManagerImpl implements RetraitManager {
 	public Retrait getRetrait(Retrait retrait) throws BLLException {
 
 		try {
-			return dao.selectById(retrait.getArticleVendu().getNoArticle());
+			return retDao.selectById(retrait.getArticleVendu().getNoArticle());
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
-
 		}
 	}
-
 }

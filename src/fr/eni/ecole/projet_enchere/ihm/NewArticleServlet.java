@@ -9,10 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.projet_enchere.bll.ArticleVenduManager;
-import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 import fr.eni.ecole.projet_enchere.bo.Categorie;
@@ -95,7 +93,6 @@ public class NewArticleServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

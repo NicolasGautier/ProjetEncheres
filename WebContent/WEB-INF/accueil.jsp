@@ -40,29 +40,32 @@
 		<div class="col-9 themed-grid-col">
 			<input type="submit" value="Rechercher" />
 		</div>
+		<c:if test="${!empty logModel.utilisateur.noUtilisateur}">
+			<jsp:include page="achatsMesVentesMenu.jsp" />
+		</c:if>
 	</form>
 </div>
-<c:if test="${accModel.lstEnchere.size() > 0}">
+<c:if test="${accModel.lstArticleVendu.size() > 0}">
 	<table>
 		<thead>
 			<tr>
 				<th>Image</th>
 				<th>Article</th>
-				<th>Montant de l'Enchere</th>
-				<th>Date Enchere</th>
+				<th>Prix</th>
+				<th>Date de fin de l'enchere</th>
 				<th>Vendeur</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${accModel.lstEnchere}" var="enchere">
+			<c:forEach items="${accModel.lstArticleVendu}" var="articleVendu">
 				<tr>
 					<td><img alt="image neutre"
 						src="<%=request.getContextPath()%>/image/image_informatique.png">
 					</td>
-					<td>${enchere.articleConcerne.nomArticle}</td>
-					<td>${enchere.montant_enchere}</td>
-					<td>${enchere.dateEnchere}</td>
-					<td>${enchere.utilisateurEncherit.pseudo}</td>
+					<td>${articleVendu.nomArticle}</td>
+					<td>${articleVendu.prixVente} points</td>
+					<td>${articleVendu.dateFinEncheres}</td>
+					<td><a href="ProfilServlet?id=${articleVendu.utilisateurVend.noUtilisateur}">${articleVendu.utilisateurVend.pseudo}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

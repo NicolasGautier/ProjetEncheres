@@ -6,14 +6,16 @@ import fr.eni.ecole.projet_enchere.bo.Enchere;
 
 public interface EnchereDAO {
 
-	void insert(Enchere enchere) throws DALException;
+	public void insert(Enchere enchere) throws DALException;
 
-	void update(Enchere enchere) throws DALException;
+	public void update(Enchere enchere) throws DALException;
 
-	void delete(Integer idUtilisateur, Integer idArticle) throws DALException;
+	public void delete(Integer idUtilisateur, Integer idArticle) throws DALException;
 
-	List<Enchere> selectAll() throws DALException;
+	public List<Enchere> selectAll() throws DALException;
 
-	Enchere selectById(Integer idUtilisateur, Integer idArticle) throws DALException;
+	public List<Enchere> selectById(Integer idArticle) throws DALException;
+	
+	public Enchere selectById(Integer idUtilisateur, Integer idArticle) throws DALException;
 	
 }

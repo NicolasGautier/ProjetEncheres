@@ -59,7 +59,7 @@ public class ModifierProfilServlet extends HttpServlet {
 								request.getParameter("confPassword"))) {
 							modProfModel.getUtilisateur().setMotDePasse(request.getParameter("newPassword"));
 						}
-					}
+					} 
 				}
 				utilManager.setUtilisateur(modProfModel.getUtilisateur());
 				logModel.setUtilisateur(utilManager.getUtilisateur(modProfModel.getUtilisateur()));
@@ -77,7 +77,7 @@ public class ModifierProfilServlet extends HttpServlet {
 						logModel.getUtilisateur().setActif(false);
 						utilManager.setUtilisateur(logModel.getUtilisateur());
 					}
-					nextPage = "/AccueilServlet";
+					nextPage = "/LogoutServlet";
 				}
 			} catch (BLLException e) {
 				errModel.setErrMessage("ErrLog", e.getMessage());
@@ -85,7 +85,7 @@ public class ModifierProfilServlet extends HttpServlet {
 		}
 
 		request.setAttribute("errModel", errModel);
-		request.setAttribute("model", modProfModel);
+		request.setAttribute("modProfModel", modProfModel);
 		request.getSession().setAttribute("logModel", logModel);
 
 		request.getRequestDispatcher(nextPage).forward(request, response);

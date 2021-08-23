@@ -137,6 +137,14 @@ public class ArticleVendu {
 		this.utilisateurVend = utilisateurVend;
 	}
 
+	public List<Enchere> getEncheres() {
+		return encheres;
+	}
+
+	public void setEncheres(List<Enchere> encheres) {
+		this.encheres = encheres;
+	}
+
 	public Categorie getCategorie() {
 		return categorie;
 	}
