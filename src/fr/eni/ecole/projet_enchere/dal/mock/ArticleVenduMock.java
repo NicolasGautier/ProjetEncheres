@@ -17,6 +17,7 @@ public class ArticleVenduMock implements ArticleVenduDAO{
 	public void insert(ArticleVendu articlevendu) throws DALException {
 		lst.add(articlevendu);
 		articlevendu.setNoArticle(cpt++);
+		System.out.println(lst);
 		}
 	@Override
 	public void update(ArticleVendu articlevendu) throws DALException {

@@ -14,7 +14,6 @@ public class ArticleVendu {
 	private Integer miseAPrix;
 	private Integer prixVente;
 	private EtatsVente etatVente;
-	
 	private Utilisateur utilisateurAchete;
 	private Utilisateur utilisateurVend;
 	private List<Enchere> encheres = new ArrayList<Enchere>();
@@ -28,7 +27,6 @@ public class ArticleVendu {
 	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			Integer miseAPrix, Integer prixVente, EtatsVente etatVente, Utilisateur utilisateurAchete,
 			Utilisateur utilisateurVend, Categorie categorie, Retrait retrait) {
-		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
@@ -45,7 +43,6 @@ public class ArticleVendu {
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente, EtatsVente etatVente,
 			Utilisateur utilisateurAchete, Utilisateur utilisateurVend, Categorie categorie, Retrait retrait) {
-		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -91,7 +88,7 @@ public class ArticleVendu {
 	public void setDateDebutEncheres(LocalDate dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
-
+	
 	public LocalDate getDateFinEncheres() {
 		return dateFinEncheres;
 	}
@@ -99,7 +96,7 @@ public class ArticleVendu {
 	public void setDateFinEncheres(LocalDate dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
-
+	
 	public Integer getMiseAPrix() {
 		return miseAPrix;
 	}
@@ -108,7 +105,7 @@ public class ArticleVendu {
 		this.miseAPrix = miseAPrix;
 	}
 
-	public Integer getPrixVente() {
+	public int getPrixVente() {
 		return prixVente;
 	}
 
