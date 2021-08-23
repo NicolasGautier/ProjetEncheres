@@ -2,7 +2,9 @@ package fr.eni.ecole.projet_enchere.bll.client0;
 
 import java.util.List;
 
+import fr.eni.ecole.projet_enchere.bll.ArticleVenduManager;
 import fr.eni.ecole.projet_enchere.bll.BLLException;
+import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.EnchereManager;
 import fr.eni.ecole.projet_enchere.bo.Enchere;
 import fr.eni.ecole.projet_enchere.dal.DALException;
@@ -11,6 +13,7 @@ import fr.eni.ecole.projet_enchere.dal.EnchereDAO;
 
 public class EnchereManagerImpl implements EnchereManager {
 	private EnchereDAO enchDao = DalFactory.getEnchereDAO();
+	private ArticleVenduManager artVendManager = BllFactory.getUniqueArticleVenduManager();
 
 	@Override
 	public void addEnchere(Enchere enchere) throws BLLException {
@@ -27,6 +30,8 @@ public class EnchereManagerImpl implements EnchereManager {
 			if (insert) {
 				enchDao.insert(enchere);
 			}
+			enchere.getArticleConcerne().setPrixVente(enchere.getMontant_enchere());
+			artVendManager.setArticleVendu(enchere.getArticleConcerne());
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}

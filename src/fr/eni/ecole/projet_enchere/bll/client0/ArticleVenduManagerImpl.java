@@ -63,6 +63,17 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 	}
 
 	@Override
+	public ArticleVendu getArticleVendu(Integer id) throws BLLException {
+		try {
+			ArticleVendu resultat = artVendDao.selectById(id);
+			resultat.setEncheres(enchDao.selectById(resultat.getNoArticle()));
+			return resultat;
+		} catch (DALException e) {
+			throw new BLLException(e.getMessage());
+		}
+	}
+	
+	@Override
 	public ArticleVendu getArticleVendu(ArticleVendu articleVendu) throws BLLException {
 		try {
 			ArticleVendu resultat = artVendDao.selectById(articleVendu.getNoArticle());

@@ -66,7 +66,7 @@
 					<td><img alt="image neutre"
 						src="<%=request.getContextPath()%>/image/image_informatique.png">
 					</td>
-					<td>${articleVendu.nomArticle}</td>
+					<td><a href="<c:if test="${articleVendu.etatVente != accModel.etatsVenteEncheresTerminees}">DetailVenteServlet</c:if><c:if test="${articleVendu.etatVente == accModel.etatsVenteEncheresTerminees}">VenteRemporteServlet</c:if>?id=${articleVendu.noArticle}">${articleVendu.nomArticle}</a></td>
 					<td>${articleVendu.prixVente} points</td>
 					<td>${articleVendu.dateFinEncheres}</td>
 					<td><a href="ProfilServlet?id=${articleVendu.utilisateurVend.noUtilisateur}">${articleVendu.utilisateurVend.pseudo}</a></td>

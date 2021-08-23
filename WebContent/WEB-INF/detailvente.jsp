@@ -9,20 +9,18 @@
 
 <h2> Détail vente </h2>
 
-<h2>${nomarticle.} </h2>
-<h2>Description</h2>
-<h2>Catégorie</h2>
-<h2>Meilleure offre : </h2>
-<h2>Mise à prix</h2>
-<h2>Fin de l'enchère</h2>
-<h2>Retrait</h2>
-<h2>Vendeur</h2>
-<h2>Ma proposition</h2>
-
-<input type="number" id="mapropostion" name="maproposition"
-       min="0" >
+<h2>${detailVente.articleVendu.nomArticle} </h2>
+<label>Description</label><div>${detailVente.articleVendu.description}</div>
+<label>Catégorie</label><div>${detailVente.articleVendu.categorie.libelle}</div>
+<label>Meilleure offre : </label><div>${detailVente.articleVendu.prixVente} points par ${detailVente.meilleurEnchere.utilisateurEncherit.pseudo}</div>
+<label>Mise à prix</label><div>${detailVente.articleVendu.miseAPrix}</div>
+<label>Fin de l'enchère</label><div>${detailVente.articleVendu.dateFinEncheres}</div>
+<label>Retrait</label><div>${detailVente.retrait.rue}</div>
+					  <div>${detailVente.retrait.code_postal} ${detailVente.retrait.ville}</div>
+<label>Vendeur</label><div>${detailVente.articleVendu.utilisateurVend.pseudo}</div>
+<form action="DetailVenteServlet?id=${detailVente.articleVendu.noArticle}" method="post">
+	<label>Ma proposition</label><input type="number" id="proposition" name="proposition" min="${detailVente.articleVendu.prixVente + 1}">
+	<button type="submit" id="encherir" name="formulaireEncherir" value="encherir">Enchérir</button>
+</form>
        
-<button type="submit" id="encherir" name="encherir" value="encherir"> Enchérir</button>
-
-
 <jsp:include page="footer.jsp"/> 

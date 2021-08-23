@@ -5,6 +5,7 @@ import java.util.List;
 import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
+import fr.eni.ecole.projet_enchere.bo.Enchere;
 import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 import fr.eni.ecole.projet_enchere.dal.DALException;
 import fr.eni.ecole.projet_enchere.dal.DalFactory;
@@ -133,5 +134,36 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 			return true;
 		}
 		throw new BLLException("Vous n'êtes pas l'utilisateur qui a lancé l'enchère");
+	}
+
+	@Override
+	public boolean pointsSuffisantsChecked(Utilisateur utilisateur, Integer points, List<Enchere> encheres) throws BLLException {
+		for(Enchere enchere : encheres) {
+			if(enchere.getUtilisateurEncherit().getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
+				points -= enchere.getMontant_enchere();
+			}
+		}
+		if (utilisateur.getCredit() >= points) {
+			return true;
+		}
+		throw new BLLException("Impossible, vous n'avez pas assez de point");
+	}
+
+	@Override
+	public void rendPointUtilisateur(Utilisateur utilisateur, Integer credit) throws BLLException {
+		utilisateur.addCredit(credit);
+		setUtilisateur(utilisateur);
+	}
+
+	@Override
+	public void prendPointUtilisateur(Utilisateur utilisateur, Integer credit, List<Enchere> encheres) throws BLLException {
+		for (Enchere enchere : encheres) {
+			if( enchere.getUtilisateurEncherit().getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
+				rendPointUtilisateur(utilisateur, enchere.getMontant_enchere());
+				break;
+			}
+		}
+		utilisateur.removeCredit(credit);
+		setUtilisateur(utilisateur);
 	}
 }

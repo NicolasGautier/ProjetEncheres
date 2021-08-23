@@ -1,17 +1,22 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.stream.Collectors;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.ecole.projet_enchere.bll.ArticleVenduManager;
+import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.EnchereManager;
+import fr.eni.ecole.projet_enchere.bll.RetraitManager;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
-import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
-import fr.eni.ecole.projet_enchere.bo.Utilisateur;
+import fr.eni.ecole.projet_enchere.bo.Enchere;
 
 /**
  * Servlet implementation class DetailVenteServlet
@@ -19,44 +24,78 @@ import fr.eni.ecole.projet_enchere.bo.Utilisateur;
 @WebServlet("/DetailVenteServlet")
 public class DetailVenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EnchereManager enchereManager = BllFactory.getUniqueEnchereManager();  
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DetailVenteServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private ArticleVenduManager artVendManager = BllFactory.getUniqueArticleVenduManager();
+	private RetraitManager retManager = BllFactory.getUniqueRetraitManager();
+	private UtilisateurManager utilManager = BllFactory.getUniqueUtilisateurManager();
+	private EnchereManager enchManager = BllFactory.getUniqueEnchereManager();
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		ErreurModel errModel = new ErreurModel();
-		DetailVenteModel detailvente = null;
-		String nextPage = "/WEB-INF/detailvente.jsp";
-		
-		//detailvente = new DetailVenteModel(new ArticleVendu("", "", "", "", "", "", "", 0, false,true));
-		
-		if ("enchere".equals(request.getParameter("enchere1"))) {
-			
-		
-//		detailvente.getArticleVendu().setMiseAPrix(request.getParameter("vente"));
-			
-		
-		
-			request.setAttribute("errModel", errModel);
-			request.setAttribute("detailvente", detailvente);
-
-			request.getRequestDispatcher(nextPage).forward(request, response);
-		}
+	public DetailVenteServlet() {
+		super();
 	}
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ErreurModel errModel = new ErreurModel();
+		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
+		DetailVenteModel detailVente = null;
+		try {
+			detailVente = new DetailVenteModel(
+					artVendManager.getArticleVendu(Integer.parseInt(request.getParameter("id"))),
+					retManager.getRetrait(Integer.parseInt(request.getParameter("id"))));
+			detailVente.setMeilleurEnchere(detailVente.getArticleVendu().getEncheres().stream()
+					.sorted((e1, e2) -> e2.getMontant_enchere().compareTo(e1.getMontant_enchere()))
+					.collect(Collectors.toList()).get(0));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String nextPage = "/WEB-INF/detailvente.jsp";
+
+		if ("encherir".equals(request.getParameter("formulaireEncherir"))) {
+			try {
+				if (utilManager.pointsSuffisantsChecked(logModel.getUtilisateur(),
+						Integer.parseInt(request.getParameter("proposition")),
+						detailVente.getArticleVendu().getEncheres())) {
+					utilManager.prendPointUtilisateur(logModel.getUtilisateur(),
+							Integer.parseInt(request.getParameter("proposition")),
+							detailVente.getArticleVendu().getEncheres());
+					enchManager.addEnchere(
+							new Enchere(LocalDate.now(), Integer.parseInt(request.getParameter("proposition")),
+									logModel.getUtilisateur(), detailVente.getArticleVendu()));
+					nextPage = "/AccueilServlet";
+				}
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		request.setAttribute("errModel", errModel);
+		request.setAttribute("detailVente", detailVente);
+
+		request.getRequestDispatcher(nextPage).forward(request, response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

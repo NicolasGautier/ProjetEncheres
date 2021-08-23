@@ -12,7 +12,6 @@ import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.RetraitManager;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
-import fr.eni.ecole.projet_enchere.bo.EtatsVente;
 
 /**
  * Servlet implementation class VenteRemporteServlet
