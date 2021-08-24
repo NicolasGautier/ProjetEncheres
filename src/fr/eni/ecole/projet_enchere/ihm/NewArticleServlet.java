@@ -1,7 +1,6 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
@@ -84,9 +83,9 @@ public class NewArticleServlet extends HttpServlet {
 			
 			//Set de la local date début enchère
 			newArtModel.getArticleVendu()
-					.setDateDebutEncheres(LocalDate.parse(request.getParameter("datedebutencheres")));
+					.setDateDebutEncheres(LocalDateTime.parse(request.getParameter("datedebutencheres")));
 			newArtModel.getArticleVendu()
-					.setDateFinEncheres(LocalDate.parse(request.getParameter("datefinencheres")));
+					.setDateFinEncheres(LocalDateTime.parse(request.getParameter("datefinencheres")));
 
 			//Set de la catégorie
 			for(Categorie categorie : newArtModel.getLstCategorie()){
