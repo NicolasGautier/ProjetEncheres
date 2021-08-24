@@ -1,6 +1,6 @@
 package fr.eni.ecole.projet_enchere.listener;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,7 +59,7 @@ public class ApplicationListener implements ServletContextListener {
 
 					for (ArticleVendu articleVendu : lstArticlesVendus) {
 						if (articleVendu.getEtatVente().equals(EtatsVente.EN_COURS)
-								&& articleVendu.getDateFinEncheres().isBefore(LocalDate.now())) {
+								&& articleVendu.getDateFinEncheres().isBefore(LocalDateTime.now())) {
 							// On définit qui est l'acheteur de l'objet.
 							articleVendu.setUtilisateurAchete(articleVendu.getEncheres().stream()
 									.sorted((e1, e2) -> e2.getMontant_enchere().compareTo(e1.getMontant_enchere()))

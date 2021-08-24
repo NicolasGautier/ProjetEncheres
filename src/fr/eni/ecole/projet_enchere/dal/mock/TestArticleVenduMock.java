@@ -1,6 +1,6 @@
 package fr.eni.ecole.projet_enchere.dal.mock;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 import fr.eni.ecole.projet_enchere.bo.EtatsVente;
@@ -13,13 +13,13 @@ public class TestArticleVenduMock {
 
 		ArticleVenduDAO dao = DalFactory.getArticleVenduDAO();
 
-		ArticleVendu article1 = new ArticleVendu(1, "PC Gamer", "PC Gamer pour travailler", LocalDate.now().plusDays(5),
-				LocalDate.now().plusDays(20), 210, null, EtatsVente.CREEE, null, null, null, null);
+		ArticleVendu article1 = new ArticleVendu(1, "PC Gamer", "PC Gamer pour travailler", LocalDateTime.now().plusDays(5),
+				LocalDateTime.now().plusDays(20), 210, null, EtatsVente.CREEE, null, null, null, null);
 		ArticleVendu article2 = new ArticleVendu(2, "Rocket Stove", "Rocket Stove pour riz et pâtes",
-				LocalDate.now().plusDays(8), LocalDate.now().plusDays(30), 185, null, EtatsVente.CREEE, null, null,
+				LocalDateTime.now().plusDays(8), LocalDateTime.now().plusDays(30), 185, null, EtatsVente.CREEE, null, null,
 				null, null);
 		ArticleVendu article3 = new ArticleVendu(3, "Super Chaise", "Super Chaise pour s'assoir",
-				LocalDate.now().plusDays(10), LocalDate.now().plusDays(20), 120, null, EtatsVente.CREEE, null, null,
+				LocalDateTime.now().plusDays(10), LocalDateTime.now().plusDays(20), 120, null, EtatsVente.CREEE, null, null,
 				null, null);
 
 		System.out.println("TEST 1 : INSERTION DE TROIS ARTICLES");

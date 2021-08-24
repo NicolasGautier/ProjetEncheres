@@ -1,11 +1,11 @@
 package fr.eni.ecole.projet_enchere.dal.jdbc;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +33,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, articlevendu.getNomArticle());
 			stmt.setString(2, articlevendu.getDescription());
-			stmt.setDate(3, Date.valueOf(articlevendu.getDateDebutEncheres()));
-			stmt.setDate(4, Date.valueOf(articlevendu.getDateFinEncheres()));
+			stmt.setTimestamp(3, Timestamp.valueOf(articlevendu.getDateDebutEncheres()));
+			stmt.setTimestamp(4, Timestamp.valueOf(articlevendu.getDateFinEncheres()));
 			stmt.setInt(5, articlevendu.getMiseAPrix());
 			stmt.setInt(6, articlevendu.getPrixVente());
 			stmt.setInt(7, articlevendu.getEtatVente().ordinal());
 			stmt.setInt(8, articlevendu.getUtilisateurAchete().getNoUtilisateur());
-			stmt.setInt(9, articlevendu.getUtilisateurVend().getNoUtilisateur());		
+			stmt.setInt(9, articlevendu.getUtilisateurVend().getNoUtilisateur());
 			stmt.setInt(10, articlevendu.getCategorie().getNoCategorie());
 			int nb = stmt.executeUpdate();
 			if (nb > 0) {
@@ -60,13 +60,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			PreparedStatement stmt = con.prepareStatement(UPDATE);
 			stmt.setString(1, articlevendu.getNomArticle());
 			stmt.setString(2, articlevendu.getDescription());
-			stmt.setDate(3, Date.valueOf(articlevendu.getDateDebutEncheres()));
-			stmt.setDate(4, Date.valueOf(articlevendu.getDateFinEncheres()));
+			stmt.setTimestamp(3, Timestamp.valueOf(articlevendu.getDateDebutEncheres()));
+			stmt.setTimestamp(4, Timestamp.valueOf(articlevendu.getDateFinEncheres()));
 			stmt.setInt(5, articlevendu.getMiseAPrix());
 			stmt.setInt(6, articlevendu.getPrixVente());
 			stmt.setInt(7, articlevendu.getEtatVente().ordinal());
 			stmt.setInt(8, articlevendu.getUtilisateurAchete().getNoUtilisateur());
-			stmt.setInt(9, articlevendu.getUtilisateurVend().getNoUtilisateur()); 
+			stmt.setInt(9, articlevendu.getUtilisateurVend().getNoUtilisateur());
 			stmt.setInt(10, articlevendu.getCategorie().getNoCategorie());
 			stmt.setInt(11, articlevendu.getNoArticle());
 			stmt.executeUpdate();
@@ -99,8 +99,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				articleVendu.setNoArticle(rs.getInt("no_article"));
 				articleVendu.setNomArticle(rs.getString("nom_article"));
 				articleVendu.setDescription(rs.getString("description"));
-				articleVendu.setDateDebutEncheres(rs.getDate("date_debut_encheres").toLocalDate());
-				articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+				articleVendu.setDateDebutEncheres(rs.getTimestamp("date_debut_encheres").toLocalDateTime());
+				articleVendu.setDateFinEncheres(rs.getTimestamp("date_fin_encheres").toLocalDateTime());
 				articleVendu.setMiseAPrix(rs.getInt("prix_initial"));
 				articleVendu.setPrixVente(rs.getInt("prix_vente"));
 				articleVendu.setEtatVente(EtatsVente.values()[rs.getInt("etat_vente")]);
@@ -127,8 +127,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				articleVendu.setNoArticle(rs.getInt("no_article"));
 				articleVendu.setNomArticle(rs.getString("nom_article"));
 				articleVendu.setDescription(rs.getString("description"));
-				articleVendu.setDateDebutEncheres(rs.getDate("date_debut_encheres").toLocalDate());
-				articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+				articleVendu.setDateDebutEncheres(rs.getTimestamp("date_debut_encheres").toLocalDateTime());
+				articleVendu.setDateFinEncheres(rs.getTimestamp("date_fin_encheres").toLocalDateTime());
 				articleVendu.setMiseAPrix(rs.getInt("prix_initial"));
 				articleVendu.setPrixVente(rs.getInt("prix_vente"));
 				articleVendu.setEtatVente(EtatsVente.values()[rs.getInt("etat_vente")]);

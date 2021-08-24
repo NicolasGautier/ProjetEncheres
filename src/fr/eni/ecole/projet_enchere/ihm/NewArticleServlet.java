@@ -1,12 +1,14 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import fr.eni.ecole.projet_enchere.bll.ArticleVenduManager;
 import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.BllFactory;
@@ -51,7 +53,7 @@ public class NewArticleServlet extends HttpServlet {
 		NewArticleModel newArtModel = null;
 
 		// Elements du modele à setter après récupération des donéées
-		LocalDate date = LocalDate.now();
+		LocalDateTime date = LocalDateTime.now();
 		Categorie informatique = new Categorie(1, "Informatique");
 		Retrait retrait = new Retrait(" ", " ", " ");
 
@@ -86,9 +88,9 @@ public class NewArticleServlet extends HttpServlet {
 
 				// Set de la local date début enchère
 				newArtModel.getArticleVendu()
-						.setDateDebutEncheres(LocalDate.parse(request.getParameter("datedebutencheres")));
+						.setDateDebutEncheres(LocalDateTime.parse(request.getParameter("datedebutencheres")));
 				newArtModel.getArticleVendu()
-						.setDateFinEncheres(LocalDate.parse(request.getParameter("datefinencheres")));
+						.setDateFinEncheres(LocalDateTime.parse(request.getParameter("datefinencheres")));
 
 				// Set de la catégorie
 				for (Categorie categorie : newArtModel.getLstCategorie()) {

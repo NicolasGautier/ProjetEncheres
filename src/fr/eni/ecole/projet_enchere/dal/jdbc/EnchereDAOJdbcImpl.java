@@ -1,10 +1,10 @@
 package fr.eni.ecole.projet_enchere.dal.jdbc;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			PreparedStatement stmt = con.prepareStatement(INSERT);
 			stmt.setInt(1, enchere.getUtilisateurEncherit().getNoUtilisateur());
 			stmt.setInt(2, enchere.getArticleConcerne().getNoArticle());
-			stmt.setDate(3, Date.valueOf(enchere.getDateEnchere()));
+			stmt.setTimestamp(3, Timestamp.valueOf(enchere.getDateEnchere()));
 			stmt.setInt(4, enchere.getMontant_enchere());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -45,7 +45,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	public void update(Enchere enchere) throws DALException {
 		try (Connection con = JdbcTools.getConnection()) { 
 			PreparedStatement stmt = con.prepareStatement(UPDATE);
-			stmt.setDate(1, Date.valueOf(enchere.getDateEnchere()));
+			stmt.setTimestamp(1, Timestamp.valueOf(enchere.getDateEnchere()));
 			stmt.setInt(2, enchere.getMontant_enchere());
 			stmt.setInt(3, enchere.getUtilisateurEncherit().getNoUtilisateur());
 			stmt.setInt(4, enchere.getArticleConcerne().getNoArticle());
@@ -79,7 +79,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				Enchere enchere = new Enchere();
 				enchere.setUtilisateurEncherit(utilDao.selectById(rs.getInt("no_utilisateur")));
 				enchere.setArticleConcerne(artDao.selectById(rs.getInt("no_article")));
-				enchere.setDateEnchere(rs.getDate("date_enchere").toLocalDate());
+				enchere.setDateEnchere(rs.getTimestamp("date_enchere").toLocalDateTime());
 				enchere.setMontant_enchere(rs.getInt("montant_enchere"));
 				result.add(enchere);
 			}
@@ -101,7 +101,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				Enchere enchere = new Enchere();
 				enchere.setUtilisateurEncherit(utilDao.selectById(rs.getInt("no_utilisateur")));
 				enchere.setArticleConcerne(artDao.selectById(rs.getInt("no_article")));
-				enchere.setDateEnchere(rs.getDate("date_enchere").toLocalDate());
+				enchere.setDateEnchere(rs.getTimestamp("date_enchere").toLocalDateTime());
 				enchere.setMontant_enchere(rs.getInt("montant_enchere"));
 				result.add(enchere);
 			}
@@ -123,7 +123,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			if (rs.next()) {
 				enchere.setUtilisateurEncherit(utilDao.selectById(rs.getInt("no_utilisateur")));
 				enchere.setArticleConcerne(artDao.selectById(rs.getInt("no_article")));
-				enchere.setDateEnchere(rs.getDate("date_enchere").toLocalDate());
+				enchere.setDateEnchere(rs.getTimestamp("date_enchere").toLocalDateTime());
 				enchere.setMontant_enchere(rs.getInt("montant_enchere"));
 			}
 		} catch (SQLException e) {

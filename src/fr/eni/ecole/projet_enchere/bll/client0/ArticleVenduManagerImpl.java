@@ -1,6 +1,6 @@
 package fr.eni.ecole.projet_enchere.bll.client0;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +32,7 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 			exception.ajoutMessage("La description est obligatoire");
 		}
 
-		if (articleVendu.getDateDebutEncheres().isAfter(LocalDate.now())) {
+		if (articleVendu.getDateDebutEncheres().isAfter(LocalDateTime.now())) {
 			exception.ajoutMessage("La date de debut des enchères est obligatoire");
 		}
 
@@ -69,7 +69,7 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 			exception.ajoutMessage("La description est obligatoire");
 		}
 
-		if (articleVendu.getDateDebutEncheres().isAfter(LocalDate.now())) {
+		if (articleVendu.getDateDebutEncheres().isAfter(LocalDateTime.now())) {
 			exception.ajoutMessage("La date de debut des enchères est obligatoire");
 		}
 

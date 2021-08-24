@@ -1,7 +1,7 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -75,7 +75,7 @@ public class DetailVenteServlet extends HttpServlet {
 							detailVente.getArticleVendu().getEncheres())) {
 						utilManager.prendPointUtilisateur(logModel.getUtilisateur(), proposition,
 								detailVente.getArticleVendu().getEncheres());
-						enchManager.addEnchere(new Enchere(LocalDate.now(), proposition, logModel.getUtilisateur(),
+						enchManager.addEnchere(new Enchere(LocalDateTime.now(), proposition, logModel.getUtilisateur(),
 								detailVente.getArticleVendu()));
 						nextPage = "/AccueilServlet";
 					}
