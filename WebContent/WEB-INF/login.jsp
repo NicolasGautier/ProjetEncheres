@@ -37,7 +37,7 @@
                                 <input type="submit" name="formulaireLogin" value="Connexion"></button>	
                             </div>
                             <div id="register-link" class="text-right">
-                                <a href="#" class="text-info">Créer le compte</a>
+                                <a href="InsererProfilServlet" class="text-info">Créer un compte</a>
                             </div>
                         </form>
                     </div>

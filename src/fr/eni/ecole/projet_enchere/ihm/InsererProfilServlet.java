@@ -35,6 +35,10 @@ public class InsererProfilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ErreurModel errModel = new ErreurModel();
+		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
+		if (logModel == null) {
+			logModel = new LoginModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false,true));
+		}
 		InsererProfilModel insModel = null;
 		String nextPage = "/WEB-INF/insertion.jsp";
 		
@@ -55,6 +59,8 @@ public class InsererProfilServlet extends HttpServlet {
 				if (utilManager.newPassChecked(request.getParameter("newPassword"),
 						request.getParameter("confPassword"))) {
 					utilManager.addUtilisateur(insModel.getUtilisateur());
+					logModel.setUtilisateur(insModel.getUtilisateur());
+					request.getSession().setAttribute("logModel", logModel);
 					nextPage = "/AccueilServlet";
 				}
 				

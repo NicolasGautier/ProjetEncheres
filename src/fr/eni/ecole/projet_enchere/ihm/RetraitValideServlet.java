@@ -36,17 +36,24 @@ public class RetraitValideServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		IHMException exception = new IHMException();
 		ErreurModel errModel = new ErreurModel();
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
 		RetraitValideModel retValModel = null;
 		try {
 			retValModel = new RetraitValideModel(retManager.getRetrait(Integer.parseInt(request.getParameter("id"))));
 		} catch (NumberFormatException e) {
-			//errModel.setErrMessages("ErrPar", "Paramètre incorrecte");
+			exception.ajoutMessage("id incorrecte");
 		} catch (BLLException e) {
 			errModel.setErrMessages("ErrGet", e.getMessages());
 		}
-		String nextPage = "/WEB-INF/retraitValide.jsp";
+		String nextPage = null;
+		if (exception.estVide()) {
+			nextPage = "/WEB-INF/retraitValide.jsp";
+		} else {
+			errModel.setErrMessages("ErrId", exception.getMessages());
+			nextPage = "AccueilServlet";
+		}
 		
 		try {
 			utilManager.retraitValideChecked(logModel.getUtilisateur(), retValModel.getRetrait().getArticleVendu());

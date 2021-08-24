@@ -42,6 +42,7 @@ public class DetailVenteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		IHMException exception = new IHMException();
 		ErreurModel errModel = new ErreurModel();
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
 		DetailVenteModel detailVente = null;
@@ -61,24 +62,29 @@ public class DetailVenteServlet extends HttpServlet {
 		String nextPage = "/WEB-INF/detailvente.jsp";
 
 		if ("encherir".equals(request.getParameter("formulaireEncherir"))) {
+			Integer proposition = null;
 			try {
-				if (utilManager.pointsSuffisantsChecked(logModel.getUtilisateur(),
-						Integer.parseInt(request.getParameter("proposition")),
-						detailVente.getArticleVendu().getEncheres())) {
-					utilManager.prendPointUtilisateur(logModel.getUtilisateur(),
-							Integer.parseInt(request.getParameter("proposition")),
-							detailVente.getArticleVendu().getEncheres());
-					enchManager.addEnchere(
-							new Enchere(LocalDate.now(), Integer.parseInt(request.getParameter("proposition")),
-									logModel.getUtilisateur(), detailVente.getArticleVendu()));
-					nextPage = "/AccueilServlet";
-				}
+				proposition = Integer.parseInt(request.getParameter("proposition"));
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				errModel.setErrMessages("ErrIns", e.getMessages());
+				exception.ajoutMessage("Vous devez rentrer un nombre");
+			}
+
+			if (exception.estVide()) {
+				try {
+					if (utilManager.pointsSuffisantsChecked(logModel.getUtilisateur(), proposition,
+							detailVente.getArticleVendu().getEncheres())) {
+						utilManager.prendPointUtilisateur(logModel.getUtilisateur(), proposition,
+								detailVente.getArticleVendu().getEncheres());
+						enchManager.addEnchere(new Enchere(LocalDate.now(), proposition, logModel.getUtilisateur(),
+								detailVente.getArticleVendu()));
+						nextPage = "/AccueilServlet";
+					}
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					errModel.setErrMessages("ErrIns", e.getMessages());
+				}
+			} else {
+				errModel.setErrMessages("ErrIns", exception.getMessages());
 			}
 		}
 

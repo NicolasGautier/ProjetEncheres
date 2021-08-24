@@ -64,7 +64,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		}
 
 		// test de l'existence de caractères uniquement alaphanumérique
-		if (utilisateur.getPseudo().matches("[a-zA-Z0-9]*$")) {
+		if (!utilisateur.getPseudo().matches("[a-zA-Z0-9]*$")) {
 			exception.ajoutMessage("Ne rentrez que des caractères alphanumériques");
 		}
 
