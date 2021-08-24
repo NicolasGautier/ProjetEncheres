@@ -4,11 +4,14 @@
 </jsp:include>
 <jsp:include page="navbar.jsp" />
 
-<c:forEach var="key" items="${errModel.err}">
+<c:forEach var="key" items="${errModel.err}">		
 	<c:if test="${key == 'ErrNewVte'}">
-		<p style="color: red">${errModel.errMessage.get('ErrAcc')}</p>
-	</c:if>
+		<c:forEach var="erreur" items="${errModel.errMessages.get('ErrNewVte')}">
+			<p style="color:red">${erreur}</p>
+		</c:forEach>	
+	</c:if>		
 </c:forEach>
+
 <div class="row justify-content-start">
 	<div class="col">
 		<div class="image">

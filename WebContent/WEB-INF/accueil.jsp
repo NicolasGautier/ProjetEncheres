@@ -11,11 +11,15 @@
 			Liste des enchères<img alt="image enchere" src="<%=request.getContextPath()%>/image/image_enchere.png">
 		</h2>
 	</div>
-	<c:forEach var="key" items="${errModel.err}">
+	
+	<c:forEach var="key" items="${errModel.err}">		
 		<c:if test="${key == 'ErrAcc'}">
-			<p style="color: red">${errModel.errMessage.get('ErrAcc')}</p>
-		</c:if>
+			<c:forEach var="erreur" items="${errModel.errMessages.get('ErrAcc')}">
+				<p style="color:red">${erreur}</p>
+			</c:forEach>	
+		</c:if>		
 	</c:forEach>
+	
 </div>
 
 <div class="row mb-3">
@@ -66,7 +70,7 @@
 					<td><img alt="image neutre"
 						src="<%=request.getContextPath()%>/image/image_informatique.png">
 					</td>
-					<td>${articleVendu.nomArticle}</td>
+					<td><a href="<c:if test="${articleVendu.etatVente != accModel.etatsVenteEncheresTerminees}">DetailVenteServlet</c:if><c:if test="${articleVendu.etatVente == accModel.etatsVenteEncheresTerminees}">VenteRemporteServlet</c:if>?id=${articleVendu.noArticle}">${articleVendu.nomArticle}</a></td>
 					<td>${articleVendu.prixVente} points</td>
 					<td>${articleVendu.dateFinEncheres}</td>
 					<td><a href="ProfilServlet?id=${articleVendu.utilisateurVend.noUtilisateur}">${articleVendu.utilisateurVend.pseudo}</a></td>

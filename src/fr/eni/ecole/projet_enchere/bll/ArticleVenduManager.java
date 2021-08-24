@@ -17,6 +17,8 @@ public interface ArticleVenduManager {
 
 	public List<ArticleVendu> getAllArticleVendu() throws BLLException;
 
+	ArticleVendu getArticleVendu(Integer id) throws BLLException;
+	
 	public ArticleVendu getArticleVendu(ArticleVendu articleVendu) throws BLLException;
 
 	public List<ArticleVendu> getArticleVenduFiltre(String filtre) throws BLLException;

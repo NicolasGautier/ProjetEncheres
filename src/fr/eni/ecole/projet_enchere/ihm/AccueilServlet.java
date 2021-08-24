@@ -48,7 +48,7 @@ public class AccueilServlet extends HttpServlet {
 		try {
 			accModel = new AccueilModel("", new Categorie(), catManager.getAllCategorie());
 		} catch (BLLException e) {
-			errModel.setErrMessage("ErrAcc", e.getMessage());
+			errModel.setErrMessages("ErrAcc", e.getMessages());
 		}
 
 		if ("radioAchats".equals(request.getParameter("menuRadio")))
@@ -157,7 +157,7 @@ public class AccueilServlet extends HttpServlet {
 
 			}
 		} catch (BLLException e) {
-			errModel.setErrMessage("ErrAcc", e.getMessage());
+			errModel.setErrMessages("ErrAcc", e.getMessages());
 		}
 		
 		//Affichage

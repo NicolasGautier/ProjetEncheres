@@ -32,18 +32,24 @@ public class ProfilServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		IHMException exception = new IHMException();
 		ErreurModel errModel = new ErreurModel();
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
 		ProfilModel profModel = null;
 		try {
 			profModel = new ProfilModel(utilManager.getUtilisateur(new Utilisateur(Integer.parseInt(request.getParameter("id")),"","","","","","","","","",0,false,true)));
 		} catch (NumberFormatException e) {
-			errModel.setErrMessage("ErrPar", "Paramètre incorrecte");
+			exception.ajoutMessage("id incorrecte");
 		} catch (BLLException e) {
-			errModel.setErrMessage("ErrGet", e.getMessage());
+			errModel.setErrMessages("ErrGet", e.getMessages());
 		}
-		String nextPage = "/WEB-INF/profil.jsp";
-		
+		String nextPage = null;
+		if (exception.estVide()) {
+			nextPage = "/WEB-INF/profil.jsp";
+		} else {
+			errModel.setErrMessages("ErrId", exception.getMessages());
+			nextPage = "AccueilServlet";
+		}
 		
 		request.getSession().setAttribute("profModel", profModel);
 		request.getSession().setAttribute("logModel", logModel);

@@ -15,56 +15,102 @@ public class RetraitManagerImpl implements RetraitManager {
 
 	@Override
 	public void addRetrait(Retrait retrait) throws BLLException {
-		try {
-			retDao.insert(retrait);
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+		BLLException exception = new BLLException();
+
+		if (retrait.getRue().trim().isEmpty()) {
+			exception.ajoutMessage("La rue est obligatoire");
+		}
+
+		if (retrait.getCode_postal().trim().isEmpty()) {
+			exception.ajoutMessage("Le code postal est obligatoire");
+		}
+
+		if (retrait.getVille().trim().isEmpty()) {
+			exception.ajoutMessage("La ville est obligatoire");
+		}
+
+		if (exception.estVide()) {
+			try {
+				retDao.insert(retrait);
+			} catch (DALException e) {
+				exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
+			}
+		}
+
+		if (!exception.estVide()) {
+			throw exception;
 		}
 	}
 
 	@Override
 	public void setRetrait(Retrait retrait) throws BLLException {
-		try {
-			retDao.update(retrait);
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+		BLLException exception = new BLLException();
+
+		if (retrait.getRue().trim().isEmpty()) {
+			exception.ajoutMessage("La rue est obligatoire");
+		}
+
+		if (retrait.getCode_postal().trim().isEmpty()) {
+			exception.ajoutMessage("Le code postal est obligatoire");
+		}
+
+		if (retrait.getVille().trim().isEmpty()) {
+			exception.ajoutMessage("La ville est obligatoire");
+		}
+
+		if (exception.estVide()) {
+			try {
+				retDao.update(retrait);
+			} catch (DALException e) {
+				exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
+			}
+		}
+
+		if (!exception.estVide()) {
+			throw exception;
 		}
 	}
 
 	@Override
 	public void removeRetrait(Retrait retrait) throws BLLException {
+		BLLException exception = new BLLException();
 		try {
 			retDao.delete(retrait.getArticleVendu().getNoArticle());
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
 	}
 
 	@Override
 	public List<Retrait> getAllRetraits() throws BLLException {
+		BLLException exception = new BLLException();
 		try {
 			return retDao.selectAll();
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
+		throw exception;
 	}
 
 	@Override
 	public Retrait getRetrait(Integer noArticle) throws BLLException {
+		BLLException exception = new BLLException();
 		try {
 			return retDao.selectById(noArticle);
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
+		throw exception;
 	}
 
 	@Override
 	public Retrait getRetrait(Retrait retrait) throws BLLException {
-
+		BLLException exception = new BLLException();
 		try {
 			return retDao.selectById(retrait.getArticleVendu().getNoArticle());
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
+		throw exception;
 	}
 }
