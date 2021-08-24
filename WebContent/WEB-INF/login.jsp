@@ -8,9 +8,12 @@
 	<jsp:param name="hidden" value="true" />
 </jsp:include>
 
+
 <c:forEach var="key" items="${errModel.err}">
 	<c:if test="${key == 'ErrLog'}">
-		<p style="color: red">${errModel.errMessage.get('ErrLog')}</p>
+		<c:forEach var="erreur" items="${errModel.errMessages.get('ErrLog')}">
+			<p style="color: red">${erreur}</p>
+		</c:forEach>
 	</c:if>
 </c:forEach>
 
@@ -41,11 +44,12 @@
 						<div class="form-group">
 							<label for="remember-me" class="text-info"><span>Se
 									souvenir de moi</span> <span><input id="remember-me"
-									name="checkRememberMe" type="checkbox"></span></label><br> 
-									<button	type="submit" name="formulaireLogin" value="Connexion">Connexion</button>
+									name="checkRememberMe" type="checkbox"></span></label><br>
+							<button type="submit" name="formulaireLogin" value="Connexion">Connexion</button>
 						</div>
 						<div id="register-link" class="text-right">
-							<a href="InsererProfilServlet" class="text-info">Créer un compte</a>
+							<a href="InsererProfilServlet" class="text-info">Créer un
+								compte</a>
 						</div>
 					</form>
 				</div>

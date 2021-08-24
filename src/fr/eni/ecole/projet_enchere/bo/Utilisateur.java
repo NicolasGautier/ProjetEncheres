@@ -152,6 +152,14 @@ public class Utilisateur {
 		this.credit = credit;
 	}
 
+	public void addCredit(Integer credit) {
+		this.credit += credit;
+	}
+	
+	public void removeCredit(Integer credit) {
+		this.credit -= credit;
+	}
+	
 	public Boolean getAdministrateur() {
 		return administrateur;
 	}

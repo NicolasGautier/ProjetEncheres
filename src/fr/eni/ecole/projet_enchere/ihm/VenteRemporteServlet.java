@@ -12,7 +12,6 @@ import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.BllFactory;
 import fr.eni.ecole.projet_enchere.bll.RetraitManager;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
-import fr.eni.ecole.projet_enchere.bo.EtatsVente;
 
 /**
  * Servlet implementation class VenteRemporteServlet
@@ -37,6 +36,7 @@ public class VenteRemporteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		IHMException exception = new IHMException();
 		ErreurModel errModel = new ErreurModel();
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
 		VenteRemporteModel ventRempModel = null;
@@ -44,11 +44,17 @@ public class VenteRemporteServlet extends HttpServlet {
 			ventRempModel = new VenteRemporteModel(retManager.getRetrait(Integer.parseInt(request.getParameter("id"))));
 			//ventRempModel.setArticleVendu(artVendManager.getArticleVendu(ventRempModel.getRetrait().getArticleVendu()));
 		} catch (NumberFormatException e) {
-			errModel.setErrMessage("ErrPar", "Paramètre incorrecte");
+			exception.ajoutMessage("id incorrecte");
 		} catch (BLLException e) {
-			errModel.setErrMessage("ErrGet", e.getMessage());
+			errModel.setErrMessages("ErrGet", e.getMessages());
 		}
-		String nextPage = "/WEB-INF/venteRemporte.jsp";
+		String nextPage = null;
+		if (exception.estVide()) {
+			nextPage = "/WEB-INF/venteRemporte.jsp";
+		} else {
+			errModel.setErrMessages("ErrId", exception.getMessages());
+			nextPage = "AccueilServlet";
+		}
 		
 		try {
 			utilManager.articleRemporteChecked(logModel.getUtilisateur(), ventRempModel.getRetrait().getArticleVendu());

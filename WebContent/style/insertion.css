@@ -1,0 +1,31 @@
+@charset "ISO-8859-1";
+h4 {
+	color :rgb(0, 64, 128);
+	
+}
+
+h2 {
+		color : rgb(0,64,128);
+		align-items: center;
+	}
+	
+form {
+	width: 600px;
+	height: 400px;
+	display: flex;
+	justify-content: flex-start;
+    align-items: center
+}
+
+body {
+    background-color: #729b64!important;
+}
+    
+    
+insertdroit {
+	width: 600px;
+	height: 400px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}

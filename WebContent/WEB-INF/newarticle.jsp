@@ -4,11 +4,14 @@
 </jsp:include>
 <jsp:include page="navbar.jsp" />
 
-<c:forEach var="key" items="${errModel.err}">
+<c:forEach var="key" items="${errModel.err}">		
 	<c:if test="${key == 'ErrNewVte'}">
-		<p style="color: red">${errModel.errMessage.get('ErrAcc')}</p>
-	</c:if>
+		<c:forEach var="erreur" items="${errModel.errMessages.get('ErrNewVte')}">
+			<p style="color:red">${erreur}</p>
+		</c:forEach>	
+	</c:if>		
 </c:forEach>
+
 <div class="row justify-content-start">
 	<div class="col">
 		<div class="image">
@@ -41,18 +44,13 @@
 			</p>
 
 			<p>
-				<label for="categorieSelect">Catégorie :</label> 
-				<select name="categorieSelect">
-				<option> Sélectionner </option>
-				<option> Informatique</option>
-				<option> Ameublement </option>
-				
-				</select>
-					<!--<c:forEach var="categorie" items="${newArticleModel.lstCategorie}">
-					 	<option value="${categorie.libelle}"
-							<c:if test="${newArtModel.categorie.libelle == categorie.libelle}">selected
-					 </c:if>>${categorie.libelle}</option>
-					</c:forEach>
+				<label for="categorieSelect">Catégorie :</label>
+				 
+				<select id="categorieSelect" name="categorieSelect">
+					 <option value="Informatique">Informatique</option>	
+					 <option value="Ameublement">Ameublement</option>
+					 <option value="Vêtement">Vêtement</option>
+					 <option value="Sport&Loisir">Sport&Loisir</option>
 				</select>
 			</p>
 
@@ -80,8 +78,6 @@
 					type="date" id="datefinencheres" name="datefinencheres"
 					value="${newArtModel.articleVendu.dateFinEncheres}" 
 					>
-					
-					
 			</p>
 
 			<fieldset style="border: 1 px solid silver">

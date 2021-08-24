@@ -1,67 +1,53 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 import fr.eni.ecole.projet_enchere.bo.Enchere;
-import fr.eni.ecole.projet_enchere.bo.Utilisateur;
+import fr.eni.ecole.projet_enchere.bo.Retrait;
 
 public class DetailVenteModel {
-private ArticleVendu articleVendu;
 
-	public void setArticleVendu(ArticleVendu articleVendu) {
-	this.articleVendu = articleVendu;
-}
+	private ArticleVendu articleVendu;
+	private Retrait retrait;
+	private Enchere meilleurEnchere;
 
-	private Enchere enchere;
-	private List<Enchere>lstEnchere = new ArrayList<Enchere>();
-	
-			
 	public DetailVenteModel() {
 		super();
+	}
+
+	public DetailVenteModel(ArticleVendu articleVendu, Retrait retrait) {
+		super();
+		this.articleVendu = articleVendu;
+		this.retrait = retrait;
 	}
 
 	public ArticleVendu getArticleVendu() {
 		return articleVendu;
 	}
 
-	public DetailVenteModel(Enchere enchere) {
-		super();
-		this.enchere = enchere;
+	public void setArticleVendu(ArticleVendu articleVendu) {
+		this.articleVendu = articleVendu;
 	}
 
-	public DetailVenteModel(Enchere enchere, List<Enchere> lstEnchere) {
-		super();
-		this.enchere = enchere;
-		this.lstEnchere = lstEnchere;
+	public Retrait getRetrait() {
+		return retrait;
 	}
 
-
-	public Enchere getEnchere() {
-		return enchere;
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
 	}
 
-	public void setEnchere(Enchere enchere) {
-		this.enchere = enchere;
+	public Enchere getMeilleurEnchere() {
+		return meilleurEnchere;
 	}
 
-	public List<Enchere> getLstEnchere() {
-		return lstEnchere;
-	}
-	
-	
-	public void setLstEnchere(List<Enchere> lstEnchere) {
-		this.lstEnchere = lstEnchere;
+	public void setMeilleurEnchere(Enchere meilleurEnchere) {
+		this.meilleurEnchere = meilleurEnchere;
 	}
 
 	@Override
 	public String toString() {
-		return "DetailVenteModel [enchere=" + enchere + ", lstEnchere=" + lstEnchere + "]";
+		return "DetailVenteModel [articleVendu=" + articleVendu + ", retrait=" + retrait + ", meilleurEnchere="
+				+ meilleurEnchere + "]";
 	}
 
-
-	
-	
-	
 }

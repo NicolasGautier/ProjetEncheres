@@ -7,9 +7,11 @@ import java.util.Map;
 
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 import fr.eni.ecole.projet_enchere.bo.Categorie;
+import fr.eni.ecole.projet_enchere.bo.EtatsVente;
 
 public class AccueilModel {
 
+	private EtatsVente etatsVenteEncheresTerminees = EtatsVente.ENCHERES_TERMINEES;
 	private String filtre;
 	private Categorie categorie;
 	private List<Categorie> lstCategorie = new ArrayList<Categorie>();
@@ -34,6 +36,14 @@ public class AccueilModel {
 		this.categorie = categorie;
 		this.lstCategorie = lstCategorie;
 		this.lstArticleVendu = lstArticleVendu;
+	}
+
+	public EtatsVente getEtatsVenteEncheresTerminees() {
+		return etatsVenteEncheresTerminees;
+	}
+
+	public void setEtatsVenteEncheresTerminees(EtatsVente etatsVenteEncheresTerminees) {
+		this.etatsVenteEncheresTerminees = etatsVenteEncheresTerminees;
 	}
 
 	public String getFiltre() {
@@ -83,7 +93,5 @@ public class AccueilModel {
 	public void setLstCheckbox(String key, Boolean etat) {
 		this.lstCheckbox.put(key, etat);
 	}
-
-	
 
 }

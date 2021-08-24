@@ -1,9 +1,9 @@
-package fr.eni.ecole.projet_enchere.bll;
+package fr.eni.ecole.projet_enchere.ihm;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BLLException extends Exception {
+public class IHMException extends Exception {
 
 	/**
 	 * 
@@ -12,7 +12,7 @@ public class BLLException extends Exception {
 
 	List<String> messages;
 
-	public BLLException() {
+	public IHMException() {
 		messages = new ArrayList<String>();
 	}
 
@@ -27,5 +27,5 @@ public class BLLException extends Exception {
 	public boolean estVide() {
 		return messages.isEmpty();
 	}
-
+	
 }
