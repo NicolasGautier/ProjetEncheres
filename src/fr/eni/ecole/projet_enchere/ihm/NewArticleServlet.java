@@ -1,6 +1,7 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
@@ -59,8 +60,9 @@ public class NewArticleServlet extends HttpServlet {
 
 		// Model initialisé avec des données à setter
 		try {
-			newArtModel = new NewArticleModel(new ArticleVendu("", "", date, date, 120, 120, EtatsVente.CREEE,
-					logModel.getUtilisateur(), logModel.getUtilisateur(), informatique, retrait),
+			newArtModel = new NewArticleModel(new ArticleVendu ("", "", date, date, 120, 120, EtatsVente.CREEE,
+					logModel.getUtilisateur(), logModel.getUtilisateur(), 
+					informatique, retrait),
 					catManager.getAllCategorie());
 		} catch (BLLException e) {
 			errModel.setErrMessages("errCha", e.getMessages());
@@ -73,11 +75,48 @@ public class NewArticleServlet extends HttpServlet {
 		}
 
 		if ("enregistrer".equals(request.getParameter("enregistrer"))) {
+
+			// Set des nom description et mise à prix du newArtModel
+			newArtModel.getArticleVendu().setNomArticle(request.getParameter("nomarticle"));
+			newArtModel.getArticleVendu().setDescription(request.getParameter("description").trim());
+			newArtModel.getArticleVendu().setMiseAPrix(Integer.parseInt((request.getParameter("sprix"))));
+			newArtModel.getArticleVendu().setPrixVente(newArtModel.getArticleVendu().getMiseAPrix());
+			
+			//Set de la local date début enchère
+			newArtModel.getArticleVendu()
+					.setDateDebutEncheres(LocalDate.parse(request.getParameter("datedebutencheres")));
+			newArtModel.getArticleVendu()
+					.setDateFinEncheres(LocalDate.parse(request.getParameter("datefinencheres")));
+
+			//Set de la catégorie
+			for(Categorie categorie : newArtModel.getLstCategorie()){
+				if(categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
+					newArtModel.getArticleVendu().setCategorie(categorie);
+				}
+			}
+		
+			newArtModel.getArticleVendu().getRetrait().setRue(request.getParameter("rue"));
+			newArtModel.getArticleVendu().getRetrait().setCode_postal(request.getParameter("code_postal"));
+			newArtModel.getArticleVendu().getRetrait().setVille(request.getParameter("ville"));
+
 			Integer sprix = null;
 			try {
+
+			artManager.addArticleVendu(newArtModel.getArticleVendu());	
+			System.out.println(newArtModel.toString());
+//			newArtModel.getRetrait().setArticleVendu(newArtModel.getArticleVendu());
+//			retManager.addRetrait(newArtModel.getRetrait());					
+			
+			
+			System.out.println(newArtModel.toString());
+			
+		
 				sprix = Integer.parseInt((request.getParameter("sprix")));
 			} catch (NumberFormatException e) {
 				exception.ajoutMessage("Vous devez rentrer un nombre");
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 			if (exception.estVide()) {

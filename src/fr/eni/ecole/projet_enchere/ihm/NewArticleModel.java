@@ -5,19 +5,32 @@ import java.util.List;
 
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 import fr.eni.ecole.projet_enchere.bo.Categorie;
+import fr.eni.ecole.projet_enchere.bo.Retrait;
 
 public class NewArticleModel {
 
 	private ArticleVendu articleVendu;
 	private Categorie categorie;
+	private Retrait retrait;
 	private List<Categorie> lstCategorie = new ArrayList<Categorie>();
 
 	public NewArticleModel() {
 	}
-
+	
+	
+	
 	public NewArticleModel(ArticleVendu articleVendu, List<Categorie> lstCategorie) {
 		super();
 		this.articleVendu = articleVendu;
+		this.lstCategorie = lstCategorie;
+	}
+
+	public NewArticleModel(ArticleVendu articleVendu, Categorie categorie, Retrait retrait,
+			List<Categorie> lstCategorie) {
+		super();
+		this.articleVendu = articleVendu;
+		this.categorie = categorie;
+		this.retrait = retrait;
 		this.lstCategorie = lstCategorie;
 	}
 
@@ -43,6 +56,14 @@ public class NewArticleModel {
 
 	public void setLstCategorie(List<Categorie> lstCategorie) {
 		this.lstCategorie = lstCategorie;
+	}
+
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
 	}
 
 	@Override
