@@ -41,8 +41,9 @@
 			</p>
 
 			<p>
-				<label for="categorieSelect">Catégorie :</label> 
-				<select name="categorieSelect">
+				<label for="categorieSelect">Catégorie :</label>
+				 
+				<select id="categorieSelect" name="categorieSelect">
 					 <option value="Informatique">Informatique</option>	
 					 <option value="Ameublement">Ameublement</option>
 					 <option value="Vêtement">Vêtement</option>

@@ -2,11 +2,15 @@ package fr.eni.ecole.projet_enchere.ihm;
 
 import java.io.IOException;
 import java.time.LocalDate;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.eclipse.jdt.internal.compiler.ast.ForeachStatement;
+
 import fr.eni.ecole.projet_enchere.bll.ArticleVenduManager;
 import fr.eni.ecole.projet_enchere.bll.BLLException;
 import fr.eni.ecole.projet_enchere.bll.BllFactory;
@@ -56,8 +60,9 @@ public class NewArticleServlet extends HttpServlet {
 		
 		// Model initialisé avec des données à setter
 		try {
-			newArtModel = new NewArticleModel(new ArticleVendu("", "", date, date, 120, 120, EtatsVente.CREEE,
-					logModel.getUtilisateur(), logModel.getUtilisateur(), informatique, retrait),
+			newArtModel = new NewArticleModel(new ArticleVendu ("", "", date, date, 120, 120, EtatsVente.CREEE,
+					logModel.getUtilisateur(), logModel.getUtilisateur(), 
+					informatique, retrait),
 					catManager.getAllCategorie());
 		} catch (BLLException e) {
 			errModel.setErrMessage("errCha", e.getMessage());
@@ -75,6 +80,7 @@ public class NewArticleServlet extends HttpServlet {
 			newArtModel.getArticleVendu().setNomArticle(request.getParameter("nomarticle"));
 			newArtModel.getArticleVendu().setDescription(request.getParameter("description").trim());
 			newArtModel.getArticleVendu().setMiseAPrix(Integer.parseInt((request.getParameter("sprix"))));
+			newArtModel.getArticleVendu().setPrixVente(newArtModel.getArticleVendu().getMiseAPrix());
 			
 			//Set de la local date début enchère
 			newArtModel.getArticleVendu()
@@ -85,24 +91,23 @@ public class NewArticleServlet extends HttpServlet {
 			//Set de la catégorie
 			for(Categorie categorie : newArtModel.getLstCategorie()){
 				if(categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
-					newArtModel.setCategorie(categorie);
+					newArtModel.getArticleVendu().setCategorie(categorie);
 				}
 			}
 		
 			newArtModel.getArticleVendu().getRetrait().setRue(request.getParameter("rue"));
 			newArtModel.getArticleVendu().getRetrait().setCode_postal(request.getParameter("code_postal"));
 			newArtModel.getArticleVendu().getRetrait().setVille(request.getParameter("ville"));
-			System.out.println(newArtModel.toString());
 
 			try {
-			artManager.addArticleVendu(newArtModel.getArticleVendu());
+			artManager.addArticleVendu(newArtModel.getArticleVendu());	
+			System.out.println(newArtModel.toString());
+//			newArtModel.getRetrait().setArticleVendu(newArtModel.getArticleVendu());
+//			retManager.addRetrait(newArtModel.getRetrait());					
 			
-			Retrait retrait2 = new Retrait(newArtModel.getArticleVendu().getRetrait().getRue()
-					,newArtModel.getArticleVendu().getRetrait().getCode_postal(), 
-					newArtModel.getArticleVendu().getRetrait().getVille(),
-					newArtModel.getArticleVendu());
 			
-			retManager.addRetrait(retrait2);
+			System.out.println(newArtModel.toString());
+			
 		} catch (BLLException e) {
 			errModel.setErrMessage("ErrIns", e.getMessage());
 	}
