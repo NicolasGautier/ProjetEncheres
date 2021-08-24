@@ -7,13 +7,17 @@
 <jsp:param name="hidden" value="true" />  
 </jsp:include>
 
-<c:forEach var="key" items="${errModel.err}">
+<c:forEach var="key" items="${errModel.err}">		
 	<c:if test="${key == 'ErrPar'}">
-		<p style="color:red">${errModel.errMessage.get('ErrPar')}</p>
+		<c:forEach var="erreur" items="${errModel.errMessages.get('ErrPar')}">
+			<p style="color:red">${erreur}</p>
+		</c:forEach>	
 	</c:if>	
 	<c:if test="${key == 'ErrGet'}">
-		<p style="color:red">${errModel.errMessage.get('ErrGet')}</p>
-	</c:if>	
+		<c:forEach var="erreur" items="${errModel.errMessages.get('ErrGet')}">
+			<p style="color:red">${erreur}</p>
+		</c:forEach>	
+	</c:if>		
 </c:forEach>
 		
 <h1>Vous avez remporté la vente</h1>

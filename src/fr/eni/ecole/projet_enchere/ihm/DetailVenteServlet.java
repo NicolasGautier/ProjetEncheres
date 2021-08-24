@@ -56,8 +56,7 @@ public class DetailVenteServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			errModel.setErrMessages("ErrInit", e.getMessages());
 		}
 		String nextPage = "/WEB-INF/detailvente.jsp";
 
@@ -79,7 +78,7 @@ public class DetailVenteServlet extends HttpServlet {
 				e.printStackTrace();
 			} catch (BLLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				errModel.setErrMessages("ErrIns", e.getMessages());
 			}
 		}
 

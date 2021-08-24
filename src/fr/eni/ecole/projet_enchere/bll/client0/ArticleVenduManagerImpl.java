@@ -1,6 +1,6 @@
 package fr.eni.ecole.projet_enchere.bll.client0;
 
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,33 +22,94 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	@Override
 	public void addArticleVendu(ArticleVendu articleVendu) throws BLLException {
-		try {
-			artVendDao.insert(articleVendu);
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+		BLLException exception = new BLLException();
+
+		if (articleVendu.getNomArticle().trim().isEmpty()) {
+			exception.ajoutMessage("Le nom est obligatoire");
+		}
+
+		if (articleVendu.getDescription().trim().isEmpty()) {
+			exception.ajoutMessage("La description est obligatoire");
+		}
+
+		if (articleVendu.getDateDebutEncheres().isAfter(LocalDate.now())) {
+			exception.ajoutMessage("La date de debut des enchères est obligatoire");
+		}
+
+		if (articleVendu.getDateFinEncheres().isAfter(articleVendu.getDateDebutEncheres())) {
+			exception.ajoutMessage("La date de fin des enchères est obligatoire");
+		}
+
+		if (articleVendu.getMiseAPrix() < 0) {
+			exception.ajoutMessage("La mise à prix est obligatoire");
+		}
+
+		if (exception.estVide()) {
+			try {
+				artVendDao.insert(articleVendu);
+			} catch (DALException e) {
+				exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
+			}
+		}
+
+		if (!exception.estVide()) {
+			throw exception;
 		}
 	}
 
 	@Override
 	public void setArticleVendu(ArticleVendu articleVendu) throws BLLException {
-		try {
-			artVendDao.update(articleVendu);
-		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+		BLLException exception = new BLLException();
+
+		if (articleVendu.getNomArticle().trim().isEmpty()) {
+			exception.ajoutMessage("Le nom est obligatoire");
+		}
+
+		if (articleVendu.getDescription().trim().isEmpty()) {
+			exception.ajoutMessage("La description est obligatoire");
+		}
+
+		if (articleVendu.getDateDebutEncheres().isAfter(LocalDate.now())) {
+			exception.ajoutMessage("La date de debut des enchères est obligatoire");
+		}
+
+		if (articleVendu.getDateFinEncheres().isAfter(articleVendu.getDateDebutEncheres())) {
+			exception.ajoutMessage("La date de fin des enchères est obligatoire");
+		}
+
+		if (articleVendu.getMiseAPrix() < 0) {
+			exception.ajoutMessage("La mise à prix est obligatoire");
+		}
+
+		if (exception.estVide()) {
+			try {
+				artVendDao.update(articleVendu);
+			} catch (DALException e) {
+				exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
+			}
+		}
+
+		if (!exception.estVide()) {
+			throw exception;
 		}
 	}
 
 	@Override
 	public void removeArticleVendu(ArticleVendu articleVendu) throws BLLException {
+		BLLException exception = new BLLException();
 		try {
 			artVendDao.delete(articleVendu.getNoArticle());
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
+		}
+		if (!exception.estVide()) {
+			throw exception;
 		}
 	}
 
 	@Override
 	public List<ArticleVendu> getAllArticleVendu() throws BLLException {
+		BLLException exception = new BLLException();
 		try {
 			List<ArticleVendu> resultat = artVendDao.selectAll();
 
@@ -58,30 +119,35 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 			return resultat;
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
+		throw exception;
 	}
 
 	@Override
 	public ArticleVendu getArticleVendu(Integer id) throws BLLException {
+		BLLException exception = new BLLException();
 		try {
 			ArticleVendu resultat = artVendDao.selectById(id);
 			resultat.setEncheres(enchDao.selectById(resultat.getNoArticle()));
 			return resultat;
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
+		throw exception;
 	}
-	
+
 	@Override
 	public ArticleVendu getArticleVendu(ArticleVendu articleVendu) throws BLLException {
+		BLLException exception = new BLLException();
 		try {
 			ArticleVendu resultat = artVendDao.selectById(articleVendu.getNoArticle());
 			resultat.setEncheres(enchDao.selectById(resultat.getNoArticle()));
 			return resultat;
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
+		throw exception;
 	}
 
 	@Override

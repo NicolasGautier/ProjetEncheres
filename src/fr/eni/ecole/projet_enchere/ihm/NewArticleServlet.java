@@ -60,7 +60,7 @@ public class NewArticleServlet extends HttpServlet {
 					logModel.getUtilisateur(), logModel.getUtilisateur(), informatique, retrait),
 					catManager.getAllCategorie());
 		} catch (BLLException e) {
-			errModel.setErrMessage("errCha", e.getMessage());
+			errModel.setErrMessages("errCha", e.getMessages());
 		}
 
 		if ("annuler".equals(request.getParameter("annuler"))) {
@@ -104,7 +104,7 @@ public class NewArticleServlet extends HttpServlet {
 			
 			retManager.addRetrait(retrait2);
 		} catch (BLLException e) {
-			errModel.setErrMessage("ErrIns", e.getMessage());
+			errModel.setErrMessages("ErrIns", e.getMessages());
 	}
 		}
 

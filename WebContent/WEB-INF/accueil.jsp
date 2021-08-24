@@ -11,11 +11,15 @@
 			Liste des enchères<img alt="image enchere" src="<%=request.getContextPath()%>/image/image_enchere.png">
 		</h2>
 	</div>
-	<c:forEach var="key" items="${errModel.err}">
+	
+	<c:forEach var="key" items="${errModel.err}">		
 		<c:if test="${key == 'ErrAcc'}">
-			<p style="color: red">${errModel.errMessage.get('ErrAcc')}</p>
-		</c:if>
+			<c:forEach var="erreur" items="${errModel.errMessages.get('ErrAcc')}">
+				<p style="color:red">${erreur}</p>
+			</c:forEach>	
+		</c:if>		
 	</c:forEach>
+	
 </div>
 
 <div class="row mb-3">

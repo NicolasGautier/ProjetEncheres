@@ -9,6 +9,19 @@
 
 <h2> Détail vente </h2>
 
+<c:forEach var="key" items="${errModel.err}">		
+		<c:if test="${key == 'ErrIns'}">
+			<c:forEach var="erreur" items="${errModel.errMessages.get('ErrIns')}">
+				<p style="color:red">${erreur}</p>
+			</c:forEach>	
+		</c:if>		
+		<c:if test="${key == 'ErrInit'}">
+			<c:forEach var="erreur" items="${errModel.errMessages.get('ErrInit')}">
+				<p style="color:red">${erreur}</p>
+			</c:forEach>
+		</c:if>	
+</c:forEach>
+
 <h2>${detailVente.articleVendu.nomArticle} </h2>
 <label>Description</label><div>${detailVente.articleVendu.description}</div>
 <label>Catégorie</label><div>${detailVente.articleVendu.categorie.libelle}</div>

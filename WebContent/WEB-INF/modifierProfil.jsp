@@ -8,11 +8,15 @@
 </jsp:include>
 
 <h2>Mon profil</h2>
-	<c:forEach var="key" items="${errModel.err}">
+		
+	<c:forEach var="key" items="${errModel.err}">		
 		<c:if test="${key == 'ErrLog'}">
-		<p style="color:red">${errModel.errMessage.get('ErrLog')}</p>
-		</c:if>	
+			<c:forEach var="erreur" items="${errModel.errMessages.get('ErrLog')}">
+				<p style="color:red">${erreur}</p>
+			</c:forEach>	
+		</c:if>		
 	</c:forEach>
+	
 	<form action="ModifierProfilServlet" method="POST">
 	
 		Pseudo : <input type="text" name="pseudo" value="${modProfModel.utilisateur.pseudo}"/><br>

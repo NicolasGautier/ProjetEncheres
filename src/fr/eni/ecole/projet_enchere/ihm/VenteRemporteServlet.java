@@ -43,9 +43,9 @@ public class VenteRemporteServlet extends HttpServlet {
 			ventRempModel = new VenteRemporteModel(retManager.getRetrait(Integer.parseInt(request.getParameter("id"))));
 			//ventRempModel.setArticleVendu(artVendManager.getArticleVendu(ventRempModel.getRetrait().getArticleVendu()));
 		} catch (NumberFormatException e) {
-			errModel.setErrMessage("ErrPar", "Paramètre incorrecte");
+			//errModel.setErrMessages("ErrPar", "Paramètre incorrecte");
 		} catch (BLLException e) {
-			errModel.setErrMessage("ErrGet", e.getMessage());
+			errModel.setErrMessages("ErrGet", e.getMessages());
 		}
 		String nextPage = "/WEB-INF/venteRemporte.jsp";
 		

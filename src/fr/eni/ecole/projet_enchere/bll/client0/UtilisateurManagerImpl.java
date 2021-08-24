@@ -17,71 +17,175 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
 	@Override
 	public void addUtilisateur(Utilisateur utilisateur) throws BLLException {
-		// test de l'existence du pseudo et du mail dans la liste utilisateur
+		BLLException exception = new BLLException();
 
+		if (utilisateur.getPseudo().trim().isEmpty()) {
+			exception.ajoutMessage("Le pseudo est obligatoire");
+		}
+
+		if (utilisateur.getNom().trim().isEmpty()) {
+			exception.ajoutMessage("Le nom est obligatoire");
+		}
+
+		if (utilisateur.getPrenom().trim().isEmpty()) {
+			exception.ajoutMessage("Le prenom est obligatoire");
+		}
+
+		if (utilisateur.getEmail().trim().isEmpty()) {
+			exception.ajoutMessage("L'email est obligatoire");
+		}
+
+		if (utilisateur.getRue().trim().isEmpty()) {
+			exception.ajoutMessage("La rue est obligatoire");
+		}
+
+		if (utilisateur.getCodePostal().trim().isEmpty()) {
+			exception.ajoutMessage("Le code postal est obligatoire");
+		}
+
+		if (utilisateur.getVille().trim().isEmpty()) {
+			exception.ajoutMessage("La ville est obligatoire");
+		}
+
+		if (utilisateur.getMotDePasse().trim().isEmpty()) {
+			exception.ajoutMessage("Le mot de passe est obligatoire");
+		}
+
+		// test de l'existence du pseudo et du mail dans la liste utilisateur
 		try {
 			for (Utilisateur util : dao.selectAll()) {
 				if (util.getPseudo().equals(utilisateur.getPseudo())
 						|| util.getEmail().equals(utilisateur.getEmail())) {
-					System.out.println("utilisateurmanagerbll : verif login et mail");
-					throw new BLLException("Login ou mail déjà utilisé,merci de changer de login ou de mail");
+					exception.ajoutMessage("Login ou mail déjà utilisé,merci de changer de login ou de mail");
 				}
 			}
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
+
 		// test de l'existence de caractères uniquement alaphanumérique
 		if (utilisateur.getPseudo().matches("[a-zA-Z0-9]*$")) {
+			exception.ajoutMessage("Ne rentrez que des caractères alphanumériques");
+		}
+
+		if (exception.estVide()) {
 			try {
 				dao.insert(utilisateur);
 			} catch (DALException e) {
-				throw new BLLException(e.getMessage());
+				exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 			}
-		} else {
-			throw new BLLException("Ne rentrez que des caractères alphanumériques");
+		}
+
+		if (!exception.estVide()) {
+			throw exception;
 		}
 	}
 
 	@Override
 	public void setUtilisateur(Utilisateur utilisateur) throws BLLException {
+		BLLException exception = new BLLException();
+
+		if (utilisateur.getPseudo().trim().isEmpty()) {
+			exception.ajoutMessage("Le pseudo est obligatoire");
+		}
+
+		if (utilisateur.getNom().trim().isEmpty()) {
+			exception.ajoutMessage("Le nom est obligatoire");
+		}
+
+		if (utilisateur.getPrenom().trim().isEmpty()) {
+			exception.ajoutMessage("Le prenom est obligatoire");
+		}
+
+		if (utilisateur.getEmail().trim().isEmpty()) {
+			exception.ajoutMessage("L'email est obligatoire");
+		}
+
+		if (utilisateur.getRue().trim().isEmpty()) {
+			exception.ajoutMessage("La rue est obligatoire");
+		}
+
+		if (utilisateur.getCodePostal().trim().isEmpty()) {
+			exception.ajoutMessage("Le code postal est obligatoire");
+		}
+
+		if (utilisateur.getVille().trim().isEmpty()) {
+			exception.ajoutMessage("La ville est obligatoire");
+		}
+
+		if (utilisateur.getMotDePasse().trim().isEmpty()) {
+			exception.ajoutMessage("Le mot de passe est obligatoire");
+		}
+
+		// test de l'existence du pseudo et du mail dans la liste utilisateur
 		try {
-			dao.update(utilisateur);
+			for (Utilisateur util : dao.selectAll()) {
+				if (util.getPseudo().equals(utilisateur.getPseudo())
+						|| util.getEmail().equals(utilisateur.getEmail())) {
+					exception.ajoutMessage("Login ou mail déjà utilisé,merci de changer de login ou de mail");
+				}
+			}
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
+		}
+
+		// test de l'existence de caractères uniquement alaphanumérique
+		if (utilisateur.getPseudo().matches("[a-zA-Z0-9]*$")) {
+			exception.ajoutMessage("Ne rentrez que des caractères alphanumériques");
+		}
+
+		if (exception.estVide()) {
+			try {
+				dao.update(utilisateur);
+			} catch (DALException e) {
+				exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
+			}
+		}
+
+		if (!exception.estVide()) {
+			throw exception;
 		}
 	}
 
 	@Override
 	public void removeUtilisateur(Utilisateur utilisateur) throws BLLException {
+		BLLException exception = new BLLException();
 		try {
 			dao.delete(utilisateur.getNoUtilisateur());
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
+		if (!exception.estVide()) {
+			throw exception;
+		}
+		throw exception;
 	}
 
 	@Override
 	public List<Utilisateur> getAllUtilisateurs() throws BLLException {
-
+		BLLException exception = new BLLException();
 		try {
 			return dao.selectAll();
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
+		throw exception;
 	}
 
 	@Override
 	public Utilisateur getUtilisateur(Utilisateur utilisateur) throws BLLException {
-
+		BLLException exception = new BLLException();
 		try {
 			return dao.selectById(utilisateur.getNoUtilisateur());
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
+		throw exception;
 	}
 
 	@Override
 	public boolean logAndPassChecked(Utilisateur utilisateur) throws BLLException {
+		BLLException exception = new BLLException();
 		try {
 			for (Utilisateur util : dao.selectAll()) {
 				if ((util.getPseudo().equals(utilisateur.getPseudo()) || util.getEmail().equals(utilisateur.getEmail()))
@@ -91,13 +195,15 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 				}
 			}
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
-		throw new BLLException("Identifiant ou mot de passe incorrecte(s)");
+		exception.ajoutMessage("Identifiant ou mot de passe incorrecte(s)");
+		throw exception;
 	}
 
 	@Override
 	public boolean passChecked(Utilisateur utilisateur) throws BLLException {
+		BLLException exception = new BLLException();
 		try {
 			for (Utilisateur util : dao.selectAll()) {
 				if (util.getMotDePasse().equals(utilisateur.getMotDePasse())
@@ -106,47 +212,56 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 				}
 			}
 		} catch (DALException e) {
-			throw new BLLException(e.getMessage());
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
-		throw new BLLException("Mot de passe incorrecte");
+		exception.ajoutMessage("Mot de passe incorrecte");
+		throw exception;
 	}
 
 	@Override
 	public boolean newPassChecked(String newPass, String confPass) throws BLLException {
+		BLLException exception = new BLLException();
 		if (newPass.equals(confPass)) {
 			return true;
-		} else {
-			throw new BLLException("Le nouveau mot de passe ne correspond pas à la confirmation");
 		}
+		exception.ajoutMessage("Le nouveau mot de passe ne correspond pas à la confirmation");
+		throw exception;
 	}
 
 	@Override
 	public boolean articleRemporteChecked(Utilisateur utilisateur, ArticleVendu articleRemporte) throws BLLException {
+		BLLException exception = new BLLException();
 		if (articleRemporte.getUtilisateurAchete().getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
 			return true;
 		}
-		throw new BLLException("Vous n'êtes pas l'utilisateur qui a remporté l'enchère");
+		exception.ajoutMessage("Vous n'êtes pas l'utilisateur qui a remporté l'enchère");
+		throw exception;
 	}
 
 	@Override
 	public boolean retraitValideChecked(Utilisateur utilisateur, ArticleVendu articleValide) throws BLLException {
+		BLLException exception = new BLLException();
 		if (articleValide.getUtilisateurVend().getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
 			return true;
 		}
-		throw new BLLException("Vous n'êtes pas l'utilisateur qui a lancé l'enchère");
+		exception.ajoutMessage("Vous n'êtes pas l'utilisateur qui a lancé l'enchère");
+		throw exception;
 	}
 
 	@Override
-	public boolean pointsSuffisantsChecked(Utilisateur utilisateur, Integer points, List<Enchere> encheres) throws BLLException {
-		for(Enchere enchere : encheres) {
-			if(enchere.getUtilisateurEncherit().getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
+	public boolean pointsSuffisantsChecked(Utilisateur utilisateur, Integer points, List<Enchere> encheres)
+			throws BLLException {
+		BLLException exception = new BLLException();
+		for (Enchere enchere : encheres) {
+			if (enchere.getUtilisateurEncherit().getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
 				points -= enchere.getMontant_enchere();
 			}
 		}
 		if (utilisateur.getCredit() >= points) {
 			return true;
 		}
-		throw new BLLException("Impossible, vous n'avez pas assez de point");
+		exception.ajoutMessage("Impossible, vous n'avez pas assez de point");
+		throw exception;
 	}
 
 	@Override
@@ -156,9 +271,10 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	}
 
 	@Override
-	public void prendPointUtilisateur(Utilisateur utilisateur, Integer credit, List<Enchere> encheres) throws BLLException {
+	public void prendPointUtilisateur(Utilisateur utilisateur, Integer credit, List<Enchere> encheres)
+			throws BLLException {
 		for (Enchere enchere : encheres) {
-			if( enchere.getUtilisateurEncherit().getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
+			if (enchere.getUtilisateurEncherit().getNoUtilisateur().equals(utilisateur.getNoUtilisateur())) {
 				rendPointUtilisateur(utilisateur, enchere.getMontant_enchere());
 				break;
 			}

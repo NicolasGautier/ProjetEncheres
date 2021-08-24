@@ -59,7 +59,7 @@ public class InsererProfilServlet extends HttpServlet {
 				}
 				
 			} catch (BLLException e) {
-				errModel.setErrMessage("ErrIns", e.getMessage());
+				errModel.setErrMessages("ErrIns", e.getMessages());
 
 			}
 		}

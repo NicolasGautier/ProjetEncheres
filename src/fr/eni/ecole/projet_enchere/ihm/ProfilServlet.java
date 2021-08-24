@@ -38,9 +38,9 @@ public class ProfilServlet extends HttpServlet {
 		try {
 			profModel = new ProfilModel(utilManager.getUtilisateur(new Utilisateur(Integer.parseInt(request.getParameter("id")),"","","","","","","","","",0,false,true)));
 		} catch (NumberFormatException e) {
-			errModel.setErrMessage("ErrPar", "Paramètre incorrecte");
+			//errModel.setErrMessages("ErrPar", "Paramètre incorrecte");
 		} catch (BLLException e) {
-			errModel.setErrMessage("ErrGet", e.getMessage());
+			errModel.setErrMessages("ErrGet", e.getMessages());
 		}
 		String nextPage = "/WEB-INF/profil.jsp";
 		

@@ -16,14 +16,14 @@
 	<jsp:include page="navbar.jsp" />
 
 	<h2>Nouvelle Vente</h2>
-	<c:forEach var="key" items="${errModel.err}">
+	
+	<c:forEach var="key" items="${errModel.err}">		
 		<c:if test="${key == 'ErrIns'}">
-			<p style="color: red">${errModel.errMessage.get('ErrIns')}</p>
-		</c:if>
+			<c:forEach var="erreur" items="${errModel.errMessages.get('ErrIns')}">
+				<p style="color:red">${erreur}</p>
+			</c:forEach>	
+		</c:if>		
 	</c:forEach>
-	
-	
-	
 	
 	<h4>Article : </h4>
 			<input type="text" name="pseudo"

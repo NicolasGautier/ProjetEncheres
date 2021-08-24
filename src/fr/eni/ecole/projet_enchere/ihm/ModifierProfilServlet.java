@@ -64,7 +64,7 @@ public class ModifierProfilServlet extends HttpServlet {
 				utilManager.setUtilisateur(modProfModel.getUtilisateur());
 				logModel.setUtilisateur(utilManager.getUtilisateur(modProfModel.getUtilisateur()));
 			} catch (BLLException e) {
-				errModel.setErrMessage("ErrLog", e.getMessage());
+				errModel.setErrMessages("ErrLog", e.getMessages());
 			}
 		}
 
@@ -80,7 +80,7 @@ public class ModifierProfilServlet extends HttpServlet {
 					nextPage = "/LogoutServlet";
 				}
 			} catch (BLLException e) {
-				errModel.setErrMessage("ErrLog", e.getMessage());
+				errModel.setErrMessages("ErrLog", e.getMessages());
 			}
 		}
 

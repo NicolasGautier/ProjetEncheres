@@ -60,29 +60,38 @@ public class ApplicationListener implements ServletContextListener {
 					for (ArticleVendu articleVendu : lstArticlesVendus) {
 						if (articleVendu.getEtatVente().equals(EtatsVente.EN_COURS)
 								&& articleVendu.getDateFinEncheres().isBefore(LocalDate.now())) {
+							// On définit qui est l'acheteur de l'objet.
 							articleVendu.setUtilisateurAchete(articleVendu.getEncheres().stream()
 									.sorted((e1, e2) -> e2.getMontant_enchere().compareTo(e1.getMontant_enchere()))
 									.collect(Collectors.toList()).get(0).getUtilisateurEncherit());
+							// On définit l'état de l'article vendu
 							articleVendu.setEtatVente(EtatsVente.ENCHERES_TERMINEES);
 							try {
 								artVendManager.setArticleVendu(articleVendu);
 							} catch (BLLException e) {
 								e.printStackTrace();
 							}
-							Integer index = articleVendu.getEncheres().size();
-							for (Enchere enchere : articleVendu.getEncheres().stream()
-									.sorted((e1, e2) -> e1.getMontant_enchere().compareTo(e2.getMontant_enchere()))
-									.collect(Collectors.toList())) {
-								if (index == 1) {
-									break;
+							// Si il y a des enchères
+							if (articleVendu.getEncheres().size() > 0) {
+								// On rembourse les utilisateur qui ont perdu l'enchère
+								Integer index = articleVendu.getEncheres().size();
+								for (Enchere enchere : articleVendu.getEncheres().stream()
+										.sorted((e1, e2) -> e1.getMontant_enchere().compareTo(e2.getMontant_enchere()))
+										.collect(Collectors.toList())) {
+									if (index == 1) {
+										break;
+									}
+									index--;
+									try {
+										utilManager.rendPointUtilisateur(enchere.getUtilisateurEncherit(),
+												enchere.getMontant_enchere());
+									} catch (BLLException e) {
+										e.printStackTrace(); // TODO Afficher ce genre d'erreur aux administrateur
+									}
 								}
-								index--;
-								try {
-									utilManager.rendPointUtilisateur(enchere.getUtilisateurEncherit(),
-											enchere.getMontant_enchere());
-								} catch (BLLException e) {
-									e.printStackTrace(); // TODO Afficher ce genre d'erreur aux administrateur
-								}
+							// Sinom on archive l'article
+							} else {
+								articleVendu.setEtatVente(EtatsVente.RETRAIT_EFFECTUE);
 							}
 						}
 					}

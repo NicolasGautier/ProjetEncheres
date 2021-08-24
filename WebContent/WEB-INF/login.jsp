@@ -6,11 +6,13 @@
 <jsp:include page="navbar.jsp">  
 <jsp:param name="hidden" value="true" />  
 </jsp:include>
-
-	<c:forEach var="key" items="${errModel.err}">
+	
+	<c:forEach var="key" items="${errModel.err}">		
 		<c:if test="${key == 'ErrLog'}">
-		<p style="color:red">${errModel.errMessage.get('ErrLog')}</p>
-		</c:if>	
+			<c:forEach var="erreur" items="${errModel.errMessages.get('ErrLog')}">
+				<p style="color:red">${erreur}</p>
+			</c:forEach>	
+		</c:if>		
 	</c:forEach>
 				
 	    <div id="login">

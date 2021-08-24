@@ -42,9 +42,9 @@ public class RetraitValideServlet extends HttpServlet {
 		try {
 			retValModel = new RetraitValideModel(retManager.getRetrait(Integer.parseInt(request.getParameter("id"))));
 		} catch (NumberFormatException e) {
-			errModel.setErrMessage("ErrPar", "Paramètre incorrecte");
+			//errModel.setErrMessages("ErrPar", "Paramètre incorrecte");
 		} catch (BLLException e) {
-			errModel.setErrMessage("ErrGet", e.getMessage());
+			errModel.setErrMessages("ErrGet", e.getMessages());
 		}
 		String nextPage = "/WEB-INF/retraitValide.jsp";
 		

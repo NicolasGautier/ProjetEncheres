@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
 					//connexion = true;
 				}
 			} catch (BLLException e) {
-				errModel.setErrMessage("ErrLog", e.getMessage());
+				errModel.setErrMessages("ErrLog", e.getMessages());
 			}
 		}
 		if ("Creer".equals(request.getParameter("formulaireCreate"))) {
