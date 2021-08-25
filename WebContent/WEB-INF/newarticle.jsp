@@ -97,7 +97,7 @@
 				</p>
 
 				<p>
-					<label for="ville">Saint Herblain:</label> <input type="text"
+					<label for="ville">Ville :</label> <input type="text"
 						id="ville" name="ville" placeholder="Saint Herblain"
 						value = "${newArtModel.articleVendu.retrait.ville}"
 						>
