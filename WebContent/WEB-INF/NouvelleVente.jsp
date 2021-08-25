@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="insertion.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
 
 <meta charset="ISO-8859-1">
 <title>Insertion Utilisateur</title>

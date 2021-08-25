@@ -8,6 +8,8 @@
 </jsp:include>
 
 <h2>Mon profil</h2>
+
+
 		
 	<c:forEach var="key" items="${errModel.err}">		
 		<c:if test="${key == 'ErrLog'}">
@@ -17,25 +19,137 @@
 		</c:if>		
 	</c:forEach>
 	
-	<form action="ModifierProfilServlet" method="POST">
-	
-		Pseudo : <input type="text" name="pseudo" value="${modProfModel.utilisateur.pseudo}"/><br>
-		Prénom : <input type="text" name="prenom" value="${modProfModel.utilisateur.prenom}"/><br>
-		Téléphone : <input type="text" name="telephone" value="${modProfModel.utilisateur.telephone}"/><br>
-		Code Postal : <input type="text" name="cp" value="${modProfModel.utilisateur.codePostal}"/><br>
-		Mot de Passe actuel : <input type="password" name="password" required="required"/><br>
-		Nouveau Mot de Passe : <input type="password" name="newPassword"/><br>
-		Nom : <input type="text" name="nom" value="${modProfModel.utilisateur.nom}"/><br>
-		Email : <input type="email" name="email" value="${modProfModel.utilisateur.email}"/><br>
-		Rue : <input type="text" name="rue" value="${modProfModel.utilisateur.rue}"/><br>
-		Ville : <input type="text" name="ville" value="${modProfModel.utilisateur.ville}"/><br>
-		Confirmation : <input type="password" name="confPassword"/><br>
+	<form action="InsererProfilServlet" method="post">
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-2">Pseudo :</div>
+			<div class="col-2">
+				<input type="text" name="pseudo"
+					value="${modProfModel.utilisateur.pseudo}" required="required" />
+			</div>
+			<div class="col-1"></div>
+			<div class="col-2">Nom :</div>
+			<div class="col-2">
+				<input type="text" name="nom"
+					value="${modProfModel.utilisateur.nom}" required="required" />
+			</div>
+			<div class="col-1"></div>
+		</div>
+
+<!-- 		<!-- 		<div class="row"> --> -->
+<!-- 		<div class="col-12">&nbsp;</div> -->
+<!-- 	</div> -->
+<!-- 	<div class="divvide"></div> -->
+
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-2">Prenom :</div>
+			<div class="col-2">
+				<input type="text" name="pseudo"
+					value="${modProfModel.utilisateur.prenom}" required="required" />
+			</div>
+			<div class="col-1"></div>
+			<div class="col-2">Email :</div>
+			<div class="col-2">
+				<input type="text" name="nom" value="${modProfModel.utilisateur.email}"
+					required="required" />
+			</div>
+			<div class="col-1"></div>
+		</div>
+
+	<div class="divvide"></div>
+
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-2">Téléphone :</div>
+			<div class="col-2">
+				<input type="text" name="pseudo"
+					value="${modProfModel.utilisateur.telephone}" required="required" />
+			</div>
+			<div class="col-1"></div>
+			<div class="col-2">Rue :</div>
+			<div class="col-2">
+				<input type="text" name="nom" value="${modProfModel.utilisateur.rue}"
+					required="required" />
+			</div>
+			<div class="col-1"></div>
+		</div>
+
+	<div class="divvide"></div>
+
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-2">Code Postal :</div>
+			<div class="col-2">
+				<input type="text" name="pseudo"
+					value="${modProfModel.utilisateur.codePostal}" required="required" />
+			</div>
+			<div class="col-1"></div>
+			<div class="col-2">Ville :</div>
+			<div class="col-2">
+				<input type="text" name="nom" value="${modProfModel.utilisateur.ville}"
+					required="required" />
+			</div>
+			<div class="col-1"></div>
+		</div>
+
+	<div class="divvide"></div>
+
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-2">Mot de Passe actuel:</div>
+			<div class="col-2"><input type="password" name="password" required="required" /></div>
+			<div class="col-7"></div>
+		</div>
 			
-		Crédit : ${modProfModel.utilisateur.credit}
+	<div class="divvide"></div>
+			
+			
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-2">Nouveau mot de passe :</div>
+			<div class="col-2"><input type="password" name="newPassword" required="required"/></div>
+			<div class="col-1"></div>
+			<div class="col-2">Confirmation:</div>
+			<div class="col-2">
+				<input type="password" name="confPassword" required="required" />
+			</div>
+			<div class="col-1"></div>
+		</div>
+
+
+<div class="divvide"></div>
+
+<div class="row">
+			<div class="col-1"></div>
+			<div class="col-2"> <h5> Crédit : ${modProfModel.utilisateur.credit}</h5> </div>
+			<div class="col-9"></div>
+		</div>
+
+
+
+	<div class="row">
+		<div class="col-3"></div>
+		<div class="col-3">
+			<button class="btn-secondary btn-lg" type="submit" name="formuaireProfil" value="enregistrer">Enregistrer</button>
+			
+					
+		</div>
+		<div class="col-3">
+			<button class="btn-secondary btn-lg" id="btnSup" type="submit" name="formuaireProfil" value="supprimer" >Supprimer mon compte</button>
+		</div>
+		<div class="col-3"></div>
+	</div>
+		</div>
+
+</form>
 		
-		<button type="submit" name="formuaireProfil" value="enregistrer">Enregistrer</button>
-		<button id="btnSup" type="submit" name="formuaireProfil" value="supprimer" >Supprimer mon compte</button>
-	</form>
+					
+		
+		
+	
 	
 <script type="text/javascript">
 	document.getElementById("btnSup").onclick = function(){
@@ -47,5 +161,9 @@
 		}
 	}
 </script>
+
+
+
+
 
 <jsp:include page="footer.jsp"/> 
