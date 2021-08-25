@@ -39,7 +39,7 @@
 						</div>
 						<a href="#">Mot de passe oublié</a>
 						<%
-						//TODO Faire une page dédié au mot de passe oublié
+						//TODO Faire une page dédié au mot de passe oublié ou supprimer le lien
 						%>
 						<div class="form-group">
 							<label for="remember-me" class="text-info"><span>Se

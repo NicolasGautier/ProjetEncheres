@@ -21,5 +21,7 @@ public interface CategorieManager {
 
 	public List<Categorie> getAllCategorie() throws BLLException;
 
+	public Categorie getCategorie(Integer id) throws BLLException;
+	
 	public Categorie getCategorie(Categorie categorie) throws BLLException;
 }

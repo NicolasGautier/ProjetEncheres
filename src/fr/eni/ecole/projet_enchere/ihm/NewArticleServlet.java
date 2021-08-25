@@ -51,6 +51,7 @@ public class NewArticleServlet extends HttpServlet {
 		ErreurModel errModel = new ErreurModel();
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
 		NewArticleModel newArtModel = null;
+		Boolean retourAccueil = false;
 		// Model initialisé avec des données à setter
 
 		if (request.getParameter("id") == null) {
@@ -58,22 +59,39 @@ public class NewArticleServlet extends HttpServlet {
 				newArtModel = new NewArticleModel(
 						new ArticleVendu("", "", LocalDateTime.now(), LocalDateTime.now(), 0, 0, EtatsVente.CREEE,
 								logModel.getUtilisateur(), logModel.getUtilisateur(), null, null),
-						new Retrait("", "", ""), catManager.getAllCategorie(), false);
+						new Retrait(logModel.getUtilisateur().getRue(), logModel.getUtilisateur().getCodePostal(),
+								logModel.getUtilisateur().getVille()),
+						catManager.getAllCategorie(), new Categorie(-1, ""), false);
 			} catch (BLLException e) {
 				errModel.setErrMessages("errCha", e.getMessages());
 			}
 		} else {
-			Integer id = Integer.parseInt(request.getParameter("id"));
+			Integer id = null;
 			try {
-				newArtModel = new NewArticleModel(artManager.getArticleVendu(id), retManager.getRetrait(id),
-						catManager.getAllCategorie(),true);
-			} catch (BLLException e) {
-				errModel.setErrMessages("errCha", e.getMessages());
+				id = Integer.parseInt(request.getParameter("id"));
+				try {
+					newArtModel = new NewArticleModel(artManager.getArticleVendu(id), retManager.getRetrait(id),
+							catManager.getAllCategorie(), artManager.getArticleVendu(id).getCategorie(), true);
+				} catch (BLLException e) {
+					errModel.setErrMessages("errCha", e.getMessages());
+					exception.ajoutMessages(e.getMessages());
+				}
+			} catch (NumberFormatException e) {
+				exception.ajoutMessage("id incorrecte");
+				try {
+					newArtModel = new NewArticleModel(
+							new ArticleVendu("", "", LocalDateTime.now(), LocalDateTime.now(), 0, 0, EtatsVente.CREEE,
+									logModel.getUtilisateur(), logModel.getUtilisateur(), null, null),
+							new Retrait("", "", ""), catManager.getAllCategorie(), new Categorie(-1, ""), false);
+				} catch (BLLException e1) {
+					errModel.setErrMessages("errCha", e1.getMessages());
+					exception.ajoutMessages(e1.getMessages());
+				}
 			}
 		}
 
 		if ("annuler".equals(request.getParameter("annuler"))) {
-			nextPage = (String) request.getSession().getAttribute("previousPage");
+			retourAccueil = true;
 		}
 
 		if ("enregistrer".equals(request.getParameter("enregistrer"))) {
@@ -84,9 +102,12 @@ public class NewArticleServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				exception.ajoutMessage("Vous devez rentrer un nombre");
 			}
-
-			System.out.println(request.getParameter("dateDebutEncheres"));
-			System.out.println(LocalDateTime.parse(request.getParameter("dateDebutEncheres")));// ,DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm")));
+			Integer catSel = null;
+			if (request.getParameter("categorieSelect") != null) {
+				catSel = Integer.parseInt(request.getParameter("categorieSelect"));
+			} else {
+				catSel = -1;
+			}
 
 			newArtModel.getArticleVendu().setNomArticle(request.getParameter("nomArticle"));
 			newArtModel.getArticleVendu().setDescription(request.getParameter("description").trim());
@@ -97,7 +118,7 @@ public class NewArticleServlet extends HttpServlet {
 			newArtModel.getArticleVendu()
 					.setDateFinEncheres(LocalDateTime.parse(request.getParameter("dateFinEncheres")));
 			for (Categorie categorie : newArtModel.getLstCategorie()) {
-				if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
+				if (categorie.getNoCategorie().equals(catSel)) {
 					newArtModel.getArticleVendu().setCategorie(categorie);
 				}
 			}
@@ -107,26 +128,48 @@ public class NewArticleServlet extends HttpServlet {
 
 			if (exception.estVide()) {
 				try {
-					artManager.addArticleVendu(newArtModel.getArticleVendu());
-					newArtModel.getRetrait().setArticleVendu(newArtModel.getArticleVendu());
-					System.out.println(newArtModel.getArticleVendu());
-					System.out.println(newArtModel.getRetrait());
-					retManager.addRetrait(newArtModel.getRetrait());
+					if (newArtModel.getArticleVendu().getNoArticle() != null) {
+						artManager.setArticleVendu(newArtModel.getArticleVendu());
+					} else {
+						artManager.addArticleVendu(newArtModel.getArticleVendu());
+					}
+					if (newArtModel.getRetrait().getArticleVendu() != null) {
+						retManager.setRetrait(newArtModel.getRetrait());
+					} else {
+						newArtModel.getRetrait().setArticleVendu(newArtModel.getArticleVendu());
+						retManager.addRetrait(newArtModel.getRetrait());
+					}
+					retourAccueil = true;
 				} catch (BLLException e) {
-					errModel.setErrMessages("ErrIns", e.getMessages());
+					exception.ajoutMessages(e.getMessages());
 				}
-			} else {
-				errModel.setErrMessages("ErrIns", exception.getMessages());
 			}
 		}
-		
+
 		if ("annulerLaVente".equals(request.getParameter("annulerLaVente"))) {
-			
+			if (exception.estVide()) {
+				try {
+					retManager.removeRetrait(newArtModel.getRetrait());
+					artManager.removeArticleVendu(newArtModel.getArticleVendu());
+					retourAccueil = true;
+				} catch (BLLException e) {
+					exception.ajoutMessages(e.getMessages());
+				}
+			}
 		}
-		
+
+		if (!exception.estVide()) {
+			errModel.setErrMessages("ErrIns", exception.getMessages());
+		}
+
 		request.setAttribute("errModel", errModel);
 		request.setAttribute("newArtModel", newArtModel);
-		request.getRequestDispatcher(nextPage).forward(request, response);
+
+		if (retourAccueil) {
+			response.sendRedirect("AccueilServlet");
+		} else {
+			request.getRequestDispatcher(nextPage).forward(request, response);
+		}
 	}
 
 	/**

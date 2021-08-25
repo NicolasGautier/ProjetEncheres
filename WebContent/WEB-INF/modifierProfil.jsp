@@ -23,7 +23,7 @@
 		Prénom : <input type="text" name="prenom" value="${modProfModel.utilisateur.prenom}"/><br>
 		Téléphone : <input type="text" name="telephone" value="${modProfModel.utilisateur.telephone}"/><br>
 		Code Postal : <input type="text" name="cp" value="${modProfModel.utilisateur.codePostal}"/><br>
-		Mot de Passe actuel : <input type="password" name="newPassword" required="required"/><br>
+		Mot de Passe actuel : <input type="password" name="password" required="required"/><br>
 		Nouveau Mot de Passe : <input type="password" name="newPassword"/><br>
 		Nom : <input type="text" name="nom" value="${modProfModel.utilisateur.nom}"/><br>
 		Email : <input type="email" name="email" value="${modProfModel.utilisateur.email}"/><br>

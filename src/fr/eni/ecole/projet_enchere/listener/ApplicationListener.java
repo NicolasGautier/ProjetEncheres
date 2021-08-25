@@ -59,16 +59,26 @@ public class ApplicationListener implements ServletContextListener {
 					}
 
 					for (ArticleVendu articleVendu : lstArticlesVendus) {
+						
 						if (articleVendu.getEtatVente().equals(EtatsVente.CREEE)
 								&& articleVendu.getDateDebutEncheres().isBefore(LocalDateTime.now())) {
 							articleVendu.setEtatVente(EtatsVente.EN_COURS);
+							System.out.println(articleVendu);
+							try {
+								artVendManager.setArticleVendu(articleVendu);
+							} catch (BLLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 						if (articleVendu.getEtatVente().equals(EtatsVente.EN_COURS)
 								&& articleVendu.getDateFinEncheres().isBefore(LocalDateTime.now())) {
 							// On définit qui est l'acheteur de l'objet.
-							articleVendu.setUtilisateurAchete(articleVendu.getEncheres().stream()
-									.sorted((e1, e2) -> e2.getMontant_enchere().compareTo(e1.getMontant_enchere()))
-									.collect(Collectors.toList()).get(0).getUtilisateurEncherit());
+							if(articleVendu.getEncheres().size() > 0) {
+								articleVendu.setUtilisateurAchete(articleVendu.getEncheres().stream()
+										.sorted((e1, e2) -> e2.getMontant_enchere().compareTo(e1.getMontant_enchere()))
+										.collect(Collectors.toList()).get(0).getUtilisateurEncherit());
+							}
 							// On définit l'état de l'article vendu
 							articleVendu.setEtatVente(EtatsVente.ENCHERES_TERMINEES);
 							try {
@@ -84,21 +94,34 @@ public class ApplicationListener implements ServletContextListener {
 										.sorted((e1, e2) -> e1.getMontant_enchere().compareTo(e2.getMontant_enchere()))
 										.collect(Collectors.toList())) {
 									if (index == 1) {
+										// On paye l'utilisateur qui vend l'article
+										articleVendu.getUtilisateurVend().addCredit(enchere.getMontant_enchere());
+										try {
+											utilManager.setUtilisateur(articleVendu.getUtilisateurVend());
+										} catch (BLLException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
 										break;
 									}
 									index--;
 									try {
-										System.out.println(enchere.getUtilisateurEncherit());
-										System.out.println(enchere.getMontant_enchere());
 										utilManager.rendPointUtilisateur(enchere.getUtilisateurEncherit(),
 												enchere.getMontant_enchere());
 									} catch (BLLException e) {
 										e.printStackTrace(); // TODO Afficher ce genre d'erreur aux administrateur
 									}
 								}
+								
 							// Sinom on archive l'article
 							} else {
 								articleVendu.setEtatVente(EtatsVente.RETRAIT_EFFECTUE);
+								try {
+									artVendManager.setArticleVendu(articleVendu);
+								} catch (BLLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 							}
 						}
 					}
