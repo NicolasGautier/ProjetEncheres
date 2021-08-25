@@ -8,13 +8,7 @@
 <div class="row mb-3">
 	<div class="justify-content-center text-center">
 		<h2>Liste des enchères</h2>
-		
-		
-		
-<!-- 		<img alt="image enchere" -->
-<%-- 		src="<%=request.getContextPath()%>/image/image_enchere.png"> --%>
-						
-			
+							
 	</div>
 	
 	<c:forEach var="key" items="${errModel.err}">		
@@ -56,11 +50,14 @@
   <div class="col-md-1"></div>
   <div class="col-md-1"></div>
   <div class="col-md-1"></div>
-</form>
-
-<c:if test="${!empty logModel.utilisateur.noUtilisateur}">
+  
+  <c:if test="${!empty logModel.utilisateur.noUtilisateur}">
 	<jsp:include page="achatsMesVentesMenu.jsp" />
 </c:if>
+  
+</form>
+
+
 
 <c:if test="${accModel.lstArticleVendu.size() > 0}">
 	<table>
@@ -90,9 +87,8 @@
 	</table>
 </c:if>
 
-<div style = "position : absolute; buttom : 0px; right : 0px "> <img src="image/image_enchere.png">
+<!-- <div style = "position : absolute; buttom : 0px; right : 0px "> <img src="image/image_enchere.png"> -->
 
- </div>
 </body>
 </html>
 
