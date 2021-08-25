@@ -5,11 +5,10 @@
 
 <jsp:include page="navbar.jsp" />
 
-<div class="row mb-3">
-	<div class="justify-content-center text-center">
-		<h2>Liste des enchères</h2>
-
-							
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12"><h2>Liste des enchères</h2></div>
+						
 	</div>
 
 	
@@ -46,23 +45,21 @@
 		</select></div>
   <div class="col-md-3"></div>
   
+    
+  <c:if test="${!empty logModel.utilisateur.noUtilisateur}">
+	<jsp:include page="achatsMesVentesMenu.jsp" />
+</c:if>
+  
+  
   <div class="col-md-1"></div>
   <div class="col-md-1"></div>
   <div class="col-md-1"><button type="submit" value="Rechercher" class="btn-secondary btn-lg">Rechercher</button></div>
   <div class="col-md-1"></div>
   <div class="col-md-1"></div>
   <div class="col-md-1"></div>
-
   
-  <c:if test="${!empty logModel.utilisateur.noUtilisateur}">
-	<jsp:include page="achatsMesVentesMenu.jsp" />
-</c:if>
-  
-</form>
+  </form>
 
-
-
-</form>
 
 <c:if test="${accModel.lstArticleVendu.size() > 0}">
 	<table>
@@ -92,11 +89,9 @@
 	</table>
 </c:if>
 
-<<<<<<< HEAD
+
 <!-- <div style = "position : absolute; buttom : 0px; right : 0px "> <img src="image/image_enchere.png"> -->
 
-=======
->>>>>>> branch 'main' of https://github.com/ETM44/Projet_Enchere.git
 </body>
 </html>
 
