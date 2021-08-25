@@ -38,18 +38,18 @@ public class LoginServlet extends HttpServlet {
 		ErreurModel errModel = new ErreurModel();
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
 		if (logModel == null) {
-			logModel = new LoginModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false,true));
+			logModel = new LoginModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false, true));
 		}
 		String nextPage = "/WEB-INF/login.jsp";
-		//Boolean connexion = false;
+		// Boolean connexion = false;
 
 		if ("Connexion".equals(request.getParameter("formulaireLogin"))) {
-			if(request.getParameter("identifiant").matches("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+")) {
+			if (request.getParameter("identifiant").matches("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+")) {
 				logModel.getUtilisateur().setEmail(request.getParameter("identifiant"));
 			} else {
 				logModel.getUtilisateur().setPseudo(request.getParameter("identifiant"));
 			}
-			
+
 			logModel.getUtilisateur().setMotDePasse(request.getParameter("password"));
 
 			try {
@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 						response.addCookie(identCookie);
 						response.addCookie(passwCookie);
 					}
-					//connexion = true;
+					// connexion = true;
 				}
 			} catch (BLLException e) {
 				errModel.setErrMessages("ErrLog", e.getMessages());
@@ -75,14 +75,12 @@ public class LoginServlet extends HttpServlet {
 		if ("Creer".equals(request.getParameter("formulaireCreate"))) {
 			nextPage = "/InsererProfilServlet";
 		}
-		
+
 		request.setAttribute("errModel", errModel);
 		request.getSession().setAttribute("logModel", logModel);
-		/*if(connexion) {
-			response.sendRedirect(nextPage);	//TODO Demander à Emmanuel
-		} else {*/
-			request.getRequestDispatcher(nextPage).forward(request, response);
-		//}
+
+		request.getRequestDispatcher(nextPage).forward(request, response);
+
 	}
 
 	/**

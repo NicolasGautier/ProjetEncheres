@@ -126,7 +126,7 @@ public class ApplicationListener implements ServletContextListener {
 						}
 					}
 					try {
-						Thread.sleep(10000); // TODO Changer le temps de rafraichissement
+						Thread.sleep(10000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

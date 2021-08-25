@@ -59,10 +59,6 @@
   
 </form>
 
-
-
-</form>
-
 <c:if test="${accModel.lstArticleVendu.size() > 0}">
 	<table>
 		<thead>
@@ -91,11 +87,6 @@
 	</table>
 </c:if>
 
-<<<<<<< HEAD
-<!-- <div style = "position : absolute; buttom : 0px; right : 0px "> <img src="image/image_enchere.png"> -->
-
-=======
->>>>>>> branch 'main' of https://github.com/ETM44/Projet_Enchere.git
 </body>
 </html>
 
