@@ -28,7 +28,7 @@
 
 		</div>
 
-		<form action="NewArticleServlet" method="post">
+		<form action="NewArticleServlet<c:if test="${!empty newArtModel.articleVendu.noArticle}">?id=${newArtModel.articleVendu.noArticle}</c:if>" method="post">
 			<p>
 				<label for="nomArticle">Article :</label><input id="nomArticle"
 					name="nomArticle" type="text"
@@ -45,12 +45,20 @@
 			</p>
 
 			<p>
-				<label for="categorieSelect">Catégorie :</label> <select
-					id="categorieSelect" name="categorieSelect">
-					<option value="Informatique">Informatique</option>
-					<option value="Ameublement">Ameublement</option>
-					<option value="Vêtement">Vêtement</option>
-					<option value="Sport&Loisir">Sport&Loisir</option>
+				<label for="categorieSelect">Catégorie :</label> 
+<!-- 				<select -->
+<!-- 					id="categorieSelect" name="categorieSelect"> -->
+<!-- 					<option value="Informatique">Informatique</option> -->
+<!-- 					<option value="Ameublement">Ameublement</option> -->
+<!-- 					<option value="Vêtement">Vêtement</option> -->
+<!-- 					<option value="Sport&Loisir">Sport&Loisir</option> -->
+<!-- 				</select> -->
+				<select name="categorieSelect">
+					<c:forEach var="categorie" items="${newArtModel.lstCategorie}">
+						<option value="${categorie.noCategorie}"
+							<c:if test="${newArtModel.categorie.noCategorie == categorie.noCategorie}">selected
+							</c:if>>${categorie.libelle}</option>
+					</c:forEach>
 				</select>
 			</p>
 

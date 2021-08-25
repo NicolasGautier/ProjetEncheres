@@ -23,10 +23,21 @@ public class EnchereManagerImpl implements EnchereManager {
 		try {
 			// Si le montant de l'enchère est inférieur au montant de l'enchère la plus
 			// haute
-			if (enchere.getMontant_enchere() < enchDao.selectAll().stream()
+			if (enchDao.selectAll().stream().filter(e -> e.getArticleConcerne().equals(enchere.getArticleConcerne()))
 					.sorted((e1, e2) -> e2.getMontant_enchere().compareTo(e1.getMontant_enchere()))
-					.collect(Collectors.toList()).get(0).getMontant_enchere()) {
-				exception.ajoutMessage("Le montant de l'enchère doit être supérieur au montant de la dernière enchère");
+					.collect(Collectors.toList()).size() > 0) {
+				if (enchere.getMontant_enchere() <= enchDao.selectAll().stream()
+						.filter(e -> e.getArticleConcerne().getNoArticle()
+								.equals(enchere.getArticleConcerne().getNoArticle()))
+						.sorted((e1, e2) -> e2.getMontant_enchere().compareTo(e1.getMontant_enchere()))
+						.collect(Collectors.toList()).get(0).getMontant_enchere()) {
+					exception.ajoutMessage(
+							"Le montant de l'enchère doit être supérieur au montant de la dernière enchère");
+				}
+			} else {
+				if (enchere.getMontant_enchere() <= enchere.getArticleConcerne().getMiseAPrix()) {
+					exception.ajoutMessage("Le montant de l'enchère doit être supérieur au montant de la mise à prix");
+				}
 			}
 		} catch (DALException e) {
 			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
@@ -65,11 +76,14 @@ public class EnchereManagerImpl implements EnchereManager {
 		try {
 			// Si le montant de l'enchère est inférieur au montant de l'enchère la plus
 			// haute
-			if (enchere.getMontant_enchere() < enchDao.selectAll().stream()
+			if (enchere.getMontant_enchere() <= enchDao.selectAll().stream()
+					.filter(e -> e.getArticleConcerne().getNoArticle()
+							.equals(enchere.getArticleConcerne().getNoArticle()))
 					.sorted((e1, e2) -> e2.getMontant_enchere().compareTo(e1.getMontant_enchere()))
 					.collect(Collectors.toList()).get(0).getMontant_enchere()) {
 				exception.ajoutMessage("Le montant de l'enchère doit être supérieur au montant de la dernière enchère");
 			}
+
 		} catch (DALException e) {
 			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}

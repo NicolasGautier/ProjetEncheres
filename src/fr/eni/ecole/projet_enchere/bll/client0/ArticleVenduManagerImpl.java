@@ -69,9 +69,10 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 		if (articleVendu.getDescription().trim().isEmpty()) {
 			exception.ajoutMessage("La description est obligatoire");
 		}
-
-		if (articleVendu.getDateDebutEncheres().isBefore(LocalDateTime.now())) {
-			exception.ajoutMessage("La date de debut des enchères doit être supérieur à maintenant");
+		if (articleVendu.getEtatVente().equals(EtatsVente.CREEE)) {
+			if (articleVendu.getDateDebutEncheres().isBefore(LocalDateTime.now())) {
+				exception.ajoutMessage("La date de debut des enchères doit être supérieur à maintenant");
+			}
 		}
 
 		if (articleVendu.getDateFinEncheres().isBefore(articleVendu.getDateDebutEncheres())) {

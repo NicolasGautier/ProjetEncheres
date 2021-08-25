@@ -28,7 +28,7 @@
 						method="post">
 						<h3 class="text-center text-info">Page de connexion</h3>
 						<div class="form-group">
-							<label for="username" class="text-info">Identifiant :</label><br>
+							<label for="identifiant" class="text-info">Identifiant :</label><br>
 							<input type="text" name="identifiant" required="required"
 								id="username" class="form-control">
 						</div>
@@ -37,11 +37,6 @@
 							<input type="password" name="password" required="required"
 								id="password" class="form-control">
 						</div>
-						
-						<h6>Mot de passe oublié</h6>
-						<%
-						//TODO Faire une page dédié au mot de passe oublié
-						%>
 						<div class="form-group">
 							<label for="remember-me" class="text-info"><span>Se
 									souvenir de moi</span> <span><input id="remember-me"

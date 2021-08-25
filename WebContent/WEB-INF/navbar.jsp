@@ -16,7 +16,7 @@
 				</c:if>	
 				<c:if test="${!empty logModel.utilisateur.noUtilisateur}">
 					<a href="#">Enchères</a>  -  <a href="NewArticleServlet">Vendre un article</a>  -  <a href="ModifierProfilServlet">Mon profil</a>  -  <a href="LogoutServlet">Déconnexion</a>					
-	
+					<% //TODO Supprimer enchères si il ne sert à rien %>
 				</c:if>
 			</c:if>
 		</div>

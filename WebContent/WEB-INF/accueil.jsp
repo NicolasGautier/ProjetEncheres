@@ -34,12 +34,11 @@
   <div class="col-md-3"></div>
   		
   <div class="col-md-3"><label for="categorieSelect">Catégorie :</label>
-  		 <select
-			name="categorieSelect">
-			<option value="Toutes">Toutes</option>
+  		 <select name="categorieSelect">
+			<option value="-1">Toutes</option>
 			<c:forEach var="categorie" items="${accModel.lstCategorie}">
-				<option value="${categorie.libelle}"
-					<c:if test="${accModel.categorie.libelle == categorie.libelle}">selected
+				<option value="${categorie.noCategorie}"
+					<c:if test="${accModel.categorie.noCategorie == categorie.noCategorie}">selected
 					</c:if>>${categorie.libelle}</option>
 			</c:forEach>
 		</select></div>
@@ -59,7 +58,6 @@
   <div class="col-md-1"></div>
   
   </form>
-
 
 <c:if test="${accModel.lstArticleVendu.size() > 0}">
 	<table>
@@ -88,9 +86,6 @@
 		</tbody>
 	</table>
 </c:if>
-
-
-<!-- <div style = "position : absolute; buttom : 0px; right : 0px "> <img src="image/image_enchere.png"> -->
 
 </body>
 </html>

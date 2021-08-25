@@ -19,6 +19,10 @@ public class IHMException extends Exception {
 	public void ajoutMessage(String msg) {
 		messages.add(msg);
 	}
+	
+	public void ajoutMessages(List<String> msgs) {
+		messages.addAll(msgs);
+	}
 
 	public List<String> getMessages() {
 		return messages;
