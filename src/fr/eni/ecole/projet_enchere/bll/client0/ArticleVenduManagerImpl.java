@@ -32,12 +32,12 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 			exception.ajoutMessage("La description est obligatoire");
 		}
 
-		if (articleVendu.getDateDebutEncheres().isAfter(LocalDateTime.now())) {
-			exception.ajoutMessage("La date de debut des enchères est obligatoire");
+		if (articleVendu.getDateDebutEncheres().isBefore(LocalDateTime.now())) {
+			exception.ajoutMessage("La date de debut des enchères doit être supérieur à maintenant");
 		}
 
-		if (articleVendu.getDateFinEncheres().isAfter(articleVendu.getDateDebutEncheres())) {
-			exception.ajoutMessage("La date de fin des enchères est obligatoire");
+		if (articleVendu.getDateFinEncheres().isBefore(articleVendu.getDateDebutEncheres())) {
+			exception.ajoutMessage("La date de début des enchères doit être antèrieur à la date de fin des enchères");
 		}
 
 		if (articleVendu.getMiseAPrix() < 0) {
@@ -59,6 +59,7 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
 	@Override
 	public void setArticleVendu(ArticleVendu articleVendu) throws BLLException {
+
 		BLLException exception = new BLLException();
 
 		if (articleVendu.getNomArticle().trim().isEmpty()) {
@@ -69,12 +70,12 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 			exception.ajoutMessage("La description est obligatoire");
 		}
 
-		if (articleVendu.getDateDebutEncheres().isAfter(LocalDateTime.now())) {
-			exception.ajoutMessage("La date de debut des enchères est obligatoire");
+		if (articleVendu.getDateDebutEncheres().isBefore(LocalDateTime.now())) {
+			exception.ajoutMessage("La date de debut des enchères doit être supérieur à maintenant");
 		}
 
-		if (articleVendu.getDateFinEncheres().isAfter(articleVendu.getDateDebutEncheres())) {
-			exception.ajoutMessage("La date de fin des enchères est obligatoire");
+		if (articleVendu.getDateFinEncheres().isBefore(articleVendu.getDateDebutEncheres())) {
+			exception.ajoutMessage("La date de début des enchères doit être antèrieur à la date de fin des enchères");
 		}
 
 		if (articleVendu.getMiseAPrix() < 0) {

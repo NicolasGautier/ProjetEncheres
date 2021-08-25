@@ -8,8 +8,10 @@
 <div class="row mb-3">
 	<div class="justify-content-center text-center">
 		<h2>Liste des enchères</h2>
-								
-</div>
+
+							
+	</div>
+
 	
 	<c:forEach var="key" items="${errModel.err}">		
 		<c:if test="${key == 'ErrAcc'}">
@@ -21,7 +23,7 @@
 	
 </div>
 
-<form class="row g-3" action="AccueilServlet" method = "post">
+<form class="row g-3" action="AccueilServlet" method="post">
   <div class="col-md-3"><label for="filtre">Filtres :</label> </div>
   <div class="col-md-3"></div>
   <div class="col-md-3"></div>				  			
@@ -50,11 +52,17 @@
   <div class="col-md-1"></div>
   <div class="col-md-1"></div>
   <div class="col-md-1"></div>
-</form>
 
-<c:if test="${!empty logModel.utilisateur.noUtilisateur}">
+  
+  <c:if test="${!empty logModel.utilisateur.noUtilisateur}">
 	<jsp:include page="achatsMesVentesMenu.jsp" />
 </c:if>
+  
+</form>
+
+
+
+</form>
 
 <c:if test="${accModel.lstArticleVendu.size() > 0}">
 	<table>
@@ -84,6 +92,11 @@
 	</table>
 </c:if>
 
+<<<<<<< HEAD
+<!-- <div style = "position : absolute; buttom : 0px; right : 0px "> <img src="image/image_enchere.png"> -->
+
+=======
+>>>>>>> branch 'main' of https://github.com/ETM44/Projet_Enchere.git
 </body>
 </html>
 

@@ -1,13 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet" href = "style/style.css">
+<!-- <link rel="stylesheet" href = "style/style.css"> -->
 <nav>
 	<div class="row mb-3">
 		<div class="col-md-8 themed-grid-col text-left">
 															
 			<a href="AccueilServlet">
 				<img src="<%=request.getContextPath()%>/image/iconeimageeni.jpg">
-				
-			</a>
+							</a>
 			
 		</div>
 		<div class="col-6 col-md-4 themed-grid-col text-right">

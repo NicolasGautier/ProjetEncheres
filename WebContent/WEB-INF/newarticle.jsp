@@ -4,12 +4,13 @@
 </jsp:include>
 <jsp:include page="navbar.jsp" />
 
-<c:forEach var="key" items="${errModel.err}">		
-	<c:if test="${key == 'ErrNewVte'}">
-		<c:forEach var="erreur" items="${errModel.errMessages.get('ErrNewVte')}">
-			<p style="color:red">${erreur}</p>
-		</c:forEach>	
-	</c:if>		
+<c:forEach var="key" items="${errModel.err}">
+	<c:if test="${key == 'ErrIns'}">
+		<c:forEach var="erreur"
+			items="${errModel.errMessages.get('ErrIns')}">
+			<p style="color: red">${erreur}</p>
+		</c:forEach>
+	</c:if>
 </c:forEach>
 
 <div class="row justify-content-start">
@@ -29,8 +30,8 @@
 
 		<form action="NewArticleServlet" method="post">
 			<p>
-				<label for="article">Article :</label><input id="article"
-					name="nomarticle" type="text" 
+				<label for="nomArticle">Article :</label><input id="nomArticle"
+					name="nomArticle" type="text"
 					value="${newArtModel.articleVendu.nomArticle}">
 			</p>
 
@@ -44,40 +45,39 @@
 			</p>
 
 			<p>
-				<label for="categorieSelect">Catégorie :</label>
-				 
-				<select id="categorieSelect" name="categorieSelect">
-					 <option value="Informatique">Informatique</option>	
-					 <option value="Ameublement">Ameublement</option>
-					 <option value="Vêtement">Vêtement</option>
-					 <option value="Sport&Loisir">Sport&Loisir</option>
+				<label for="categorieSelect">Catégorie :</label> <select
+					id="categorieSelect" name="categorieSelect">
+					<option value="Informatique">Informatique</option>
+					<option value="Ameublement">Ameublement</option>
+					<option value="Vêtement">Vêtement</option>
+					<option value="Sport&Loisir">Sport&Loisir</option>
 				</select>
 			</p>
 
 			<p>
 				<label for="photoarticle">Photo de l'article :</label> <input
 					id="photoarticle" name="photoarticle" type="file">
-			<!-- TODO insérer photo dans article -->
+				<!-- TODO insérer photo dans article -->
 			</p>
 
 			<p>
 				<label for="miseaprix">Mise à prix :</label> <input type="number"
 					id="miseaprix" name="sprix" min="0" placeholder="150"
 					value="${newArtModel.articleVendu.miseAPrix}">
-					
+
 			</p>
 
 			<p>
-				<label for="datedebutencheres">Début de l'enchère :</label> <input
-					type="date" id="datedebutencheres" name="datedebutencheres"
+				<label for="dateDebutEncheres">Début de l'enchère :</label> <input
+					type="datetime-local" id="dateDebutEncheres"
+					name="dateDebutEncheres"
 					value="${newArtModel.articleVendu.dateDebutEncheres}">
 			</p>
 
 			<p>
-				<label for="datefinencheres">Fin de l'enchère :</label> <input
-					type="date" id="datefinencheres" name="datefinencheres"
-					value="${newArtModel.articleVendu.dateFinEncheres}" 
-					>
+				<label for="dateFinEncheres">Fin de l'enchère :</label> <input
+					type="datetime-local" id="dateFinEncheres" name="dateFinEncheres"
+					value="${newArtModel.articleVendu.dateFinEncheres}">
 			</p>
 
 			<fieldset style="border: 1 px solid silver">
@@ -85,22 +85,20 @@
 				<p>
 					<label for="rue">Rue :</label> <input type="text" id="rue"
 						name="rue" placeholder="Rue des Mouettes"
-						value = "${newArtModel.articleVendu.retrait.rue}">
-						
+						value="${newArtModel.retrait.rue}">
+
 				</p>
 
 				<p>
 					<label for="cp">Code postal :</label> <input type="text" id="cp"
 						name="code_postal" placeholder="44800"
-				value = "${newArtModel.articleVendu.retrait.code_postal}"
-					>
+						value="${newArtModel.retrait.code_postal}">
 				</p>
 
 				<p>
 					<label for="ville">Ville :</label> <input type="text"
 						id="ville" name="ville" placeholder="Saint Herblain"
-						value = "${newArtModel.articleVendu.retrait.ville}"
-						>
+						value="${newArtModel.retrait.ville}">
 				</p>
 			</fieldset>
 
@@ -109,8 +107,13 @@
 					Enregistrer</button>
 				<button type="submit" name="annuler" value="annuler">
 					Annuler</button>
-
+				<c:if test="${newArtModel.annulerVente}">
+					<button type="submit" name="annulerLaVente" value="annulerLaVente">
+					Annuler la vente</button>
+				</c:if>
 			</p>
+			
+			
 		</form>
 	</div>
 </div>
