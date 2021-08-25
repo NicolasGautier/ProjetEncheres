@@ -1,6 +1,6 @@
 package fr.eni.ecole.projet_enchere.dal;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import fr.eni.ecole.projet_enchere.bo.Enchere;
 
@@ -11,7 +11,7 @@ public class TestEnchereDAO {
 		UtilisateurDAO utilDao = DalFactory.getUtilisateurDAO();
 		ArticleVenduDAO artDao = DalFactory.getArticleVenduDAO();
 		
-		Enchere ench1 = new Enchere(LocalDate.now(),200,utilDao.selectById(13),artDao.selectById(1));
+		Enchere ench1 = new Enchere(LocalDateTime.now(),200,utilDao.selectById(13),artDao.selectById(1));
 		/*Enchere ench2 = new Enchere(LocalDate.now(),350,utilDao.selectById(13),artDao.selectById(1));
 		Enchere ench3 = new Enchere();
 		Enchere ench4 = new Enchere();*/

@@ -9,6 +9,7 @@ import fr.eni.ecole.projet_enchere.bo.Retrait;
 
 public class NewArticleModel {
 
+	private Boolean annulerVente;
 	private ArticleVendu articleVendu;
 	private Categorie categorie;
 	private Retrait retrait;
@@ -16,22 +17,28 @@ public class NewArticleModel {
 
 	public NewArticleModel() {
 	}
-	
-	
-	
+
 	public NewArticleModel(ArticleVendu articleVendu, List<Categorie> lstCategorie) {
 		super();
 		this.articleVendu = articleVendu;
 		this.lstCategorie = lstCategorie;
 	}
 
-	public NewArticleModel(ArticleVendu articleVendu, Categorie categorie, Retrait retrait,
-			List<Categorie> lstCategorie) {
+	public NewArticleModel(ArticleVendu articleVendu, Retrait retrait, List<Categorie> lstCategorie,
+			Boolean annulerVente) {
 		super();
 		this.articleVendu = articleVendu;
-		this.categorie = categorie;
 		this.retrait = retrait;
 		this.lstCategorie = lstCategorie;
+		this.annulerVente = annulerVente;
+	}
+
+	public Boolean getAnnulerVente() {
+		return annulerVente;
+	}
+
+	public void setAnnulerVente(Boolean annulerVente) {
+		this.annulerVente = annulerVente;
 	}
 
 	public ArticleVendu getArticleVendu() {
@@ -49,7 +56,7 @@ public class NewArticleModel {
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-	
+
 	public List<Categorie> getLstCategorie() {
 		return lstCategorie;
 	}

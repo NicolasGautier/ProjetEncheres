@@ -31,9 +31,12 @@
 <label>Retrait</label><div>${detailVente.retrait.rue}</div>
 					  <div>${detailVente.retrait.code_postal} ${detailVente.retrait.ville}</div>
 <label>Vendeur</label><div>${detailVente.articleVendu.utilisateurVend.pseudo}</div>
-<form action="DetailVenteServlet?id=${detailVente.articleVendu.noArticle}" method="post">
-	<label>Ma proposition</label><input type="number" id="proposition" name="proposition" min="${detailVente.articleVendu.prixVente + 1}">
-	<button type="submit" id="encherir" name="formulaireEncherir" value="encherir">Enchérir</button>
-</form>
+
+<c:if test="${detailVente.articleVendu.utilisateurVend.noUtilisateur != logModel.utilisateur.noUtilisateur}">
+	<form action="DetailVenteServlet?id=${detailVente.articleVendu.noArticle}" method="post">
+		<label>Ma proposition</label><input type="number" id="proposition" name="proposition" min="${detailVente.articleVendu.prixVente + 1}">
+		<button type="submit" id="encherir" name="formulaireEncherir" value="encherir">Enchérir</button>
+	</form>
+</c:if>       
        
 <jsp:include page="footer.jsp"/> 

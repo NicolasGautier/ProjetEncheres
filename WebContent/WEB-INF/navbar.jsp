@@ -15,7 +15,7 @@
 					<a href="InsererProfilServlet">S'incrire</a>  - <a href="LoginServlet">Se connecter</a>	
 				</c:if>	
 				<c:if test="${!empty logModel.utilisateur.noUtilisateur}">
-					<a href="#">Enchères</a>  -  <a href="#">Vendre un article</a>  -  <a href="ModifierProfilServlet">Mon profil</a>  -  <a href="LogoutServlet">Déconnexion</a>					
+					<a href="#">Enchères</a>  -  <a href="NewArticleServlet">Vendre un article</a>  -  <a href="ModifierProfilServlet">Mon profil</a>  -  <a href="LogoutServlet">Déconnexion</a>					
 	
 				</c:if>
 			</c:if>

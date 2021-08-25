@@ -1,6 +1,6 @@
 package fr.eni.ecole.projet_enchere.bll;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import fr.eni.ecole.projet_enchere.bo.ArticleVendu;
 import fr.eni.ecole.projet_enchere.bo.Categorie;
@@ -20,10 +20,10 @@ public class TestEnchereManager {
 //		ArticleVenduDAO artDao = ArticleVenduDAOFact.getInstance();
 
 		System.out.println("TEST 1 : INSERTION DE DEUX ENCHERES");		
-		Enchere enchere1 = new Enchere(LocalDate.of(2018, 8, 10), 210,
+		Enchere enchere1 = new Enchere(LocalDateTime.now(), 210,
 				new Utilisateur(1,"pseudo1", "nom1","prenom1","email1","telephone1","rue1","cp1","ville1","mot_de_passe1",0,false,true),
-				new ArticleVendu(1, "PC Gamer", "PC Gamer pour travailler", LocalDate.now().plusDays(5),
-						LocalDate.now().plusDays(20), 210, null, EtatsVente.CREEE, null, null, informatique, null));
+				new ArticleVendu(1, "PC Gamer", "PC Gamer pour travailler", LocalDateTime.now().plusDays(5),
+						LocalDateTime.now().plusDays(20), 210, null, EtatsVente.CREEE, null, null, informatique, null));
 		
 //		Enchere enchere2 = new Enchere(LocalDate.of(2018, 10, 9), 180,
 //				new Utilisateur(2,"pseudo2", "nom2","prenom2","email2","telephone2","rue2","cp2","ville2","mot_de_passe2",0,false,true),

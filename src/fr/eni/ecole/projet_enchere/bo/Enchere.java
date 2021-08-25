@@ -1,10 +1,10 @@
 package fr.eni.ecole.projet_enchere.bo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Enchere {
 	
-	private LocalDate dateEnchere;
+	private LocalDateTime dateEnchere;
 	private Integer montant_enchere;
 	private Utilisateur utilisateurEncherit;
 	private ArticleVendu articleConcerne;
@@ -13,7 +13,7 @@ public class Enchere {
 		super();
 	}
 
-	public Enchere(LocalDate dateEnchere, Integer montant_enchere, Utilisateur utilisateurEncherit,
+	public Enchere(LocalDateTime dateEnchere, Integer montant_enchere, Utilisateur utilisateurEncherit,
 			ArticleVendu articleConcerne) {
 		super();
 		this.dateEnchere = dateEnchere;
@@ -22,11 +22,11 @@ public class Enchere {
 		this.articleConcerne = articleConcerne;
 	}
 
-	public LocalDate getDateEnchere() {
+	public LocalDateTime getDateEnchere() {
 		return dateEnchere;
 	}
 
-	public void setDateEnchere(LocalDate dateEnchere) {
+	public void setDateEnchere(LocalDateTime dateEnchere) {
 		this.dateEnchere = dateEnchere;
 	}
 
