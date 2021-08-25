@@ -46,6 +46,7 @@ public class ApplicationListener implements ServletContextListener {
 			@Override
 			public void run() {
 				while (true) {
+					
 					// EnchereManager enchManager = BllFactory.getUniqueEnchereManager();
 					ArticleVenduManager artVendManager = BllFactory.getUniqueArticleVenduManager();
 					UtilisateurManager utilManager = BllFactory.getUniqueUtilisateurManager();
@@ -58,6 +59,10 @@ public class ApplicationListener implements ServletContextListener {
 					}
 
 					for (ArticleVendu articleVendu : lstArticlesVendus) {
+						if (articleVendu.getEtatVente().equals(EtatsVente.CREEE)
+								&& articleVendu.getDateDebutEncheres().isBefore(LocalDateTime.now())) {
+							articleVendu.setEtatVente(EtatsVente.EN_COURS);
+						}
 						if (articleVendu.getEtatVente().equals(EtatsVente.EN_COURS)
 								&& articleVendu.getDateFinEncheres().isBefore(LocalDateTime.now())) {
 							// On définit qui est l'acheteur de l'objet.
@@ -83,6 +88,8 @@ public class ApplicationListener implements ServletContextListener {
 									}
 									index--;
 									try {
+										System.out.println(enchere.getUtilisateurEncherit());
+										System.out.println(enchere.getMontant_enchere());
 										utilManager.rendPointUtilisateur(enchere.getUtilisateurEncherit(),
 												enchere.getMontant_enchere());
 									} catch (BLLException e) {
@@ -95,9 +102,8 @@ public class ApplicationListener implements ServletContextListener {
 							}
 						}
 					}
-
 					try {
-						Thread.sleep(1000); // TODO Changer le temps de rafraichissement
+						Thread.sleep(10000); // TODO Changer le temps de rafraichissement
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

@@ -17,6 +17,7 @@ import fr.eni.ecole.projet_enchere.bll.EnchereManager;
 import fr.eni.ecole.projet_enchere.bll.RetraitManager;
 import fr.eni.ecole.projet_enchere.bll.UtilisateurManager;
 import fr.eni.ecole.projet_enchere.bo.Enchere;
+import fr.eni.ecole.projet_enchere.bo.EtatsVente;
 
 /**
  * Servlet implementation class DetailVenteServlet
@@ -45,14 +46,19 @@ public class DetailVenteServlet extends HttpServlet {
 		IHMException exception = new IHMException();
 		ErreurModel errModel = new ErreurModel();
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
-		DetailVenteModel detailVente = null;
+		DetailVenteModel detVentModel = null;
 		try {
-			detailVente = new DetailVenteModel(
+			detVentModel = new DetailVenteModel(
 					artVendManager.getArticleVendu(Integer.parseInt(request.getParameter("id"))),
 					retManager.getRetrait(Integer.parseInt(request.getParameter("id"))));
-			detailVente.setMeilleurEnchere(detailVente.getArticleVendu().getEncheres().stream()
-					.sorted((e1, e2) -> e2.getMontant_enchere().compareTo(e1.getMontant_enchere()))
-					.collect(Collectors.toList()).get(0));
+			if (detVentModel.getArticleVendu().getEncheres().size() > 0) {
+				detVentModel.setMeilleurEnchere(detVentModel.getArticleVendu().getEncheres().stream()
+						.sorted((e1, e2) -> e2.getMontant_enchere().compareTo(e1.getMontant_enchere()))
+						.collect(Collectors.toList()).get(0));
+			} else {
+				detVentModel.setMeilleurEnchere(new Enchere(null, detVentModel.getArticleVendu().getMiseAPrix(),
+						detVentModel.getArticleVendu().getUtilisateurVend(), detVentModel.getArticleVendu()));
+			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,11 +78,11 @@ public class DetailVenteServlet extends HttpServlet {
 			if (exception.estVide()) {
 				try {
 					if (utilManager.pointsSuffisantsChecked(logModel.getUtilisateur(), proposition,
-							detailVente.getArticleVendu().getEncheres())) {
+							detVentModel.getArticleVendu().getEncheres())) {
 						utilManager.prendPointUtilisateur(logModel.getUtilisateur(), proposition,
-								detailVente.getArticleVendu().getEncheres());
+								detVentModel.getArticleVendu().getEncheres());
 						enchManager.addEnchere(new Enchere(LocalDateTime.now(), proposition, logModel.getUtilisateur(),
-								detailVente.getArticleVendu()));
+								detVentModel.getArticleVendu()));
 						nextPage = "/AccueilServlet";
 					}
 				} catch (BLLException e) {
@@ -88,8 +94,14 @@ public class DetailVenteServlet extends HttpServlet {
 			}
 		}
 
+		if (detVentModel.getArticleVendu().getUtilisateurVend().getNoUtilisateur()
+				.equals(logModel.getUtilisateur().getNoUtilisateur())
+				&& detVentModel.getArticleVendu().getEtatVente().equals(EtatsVente.CREEE)) {
+			nextPage = "NewArticleServlet?id=" + request.getParameter("id");
+		}
+
 		request.setAttribute("errModel", errModel);
-		request.setAttribute("detailVente", detailVente);
+		request.setAttribute("detailVente", detVentModel);
 
 		request.getRequestDispatcher(nextPage).forward(request, response);
 

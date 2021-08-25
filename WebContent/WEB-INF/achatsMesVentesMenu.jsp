@@ -80,11 +80,3 @@
 		document.getElementById("ventTer").disabled = false;
 	}
 </script>
-
-
-
-
-
-
-
-

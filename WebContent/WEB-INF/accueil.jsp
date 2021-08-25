@@ -27,7 +27,7 @@
 	
 </div>
 
-<form class="row g-3" action="AccueilServlet" method = "post">
+<form class="row g-3" action="AccueilServlet" method="post">
   <div class="col-md-3"><label for="filtre">Filtres :</label> </div>
   <div class="col-md-3"></div>
   <div class="col-md-3"></div>				  			
@@ -56,11 +56,13 @@
   <div class="col-md-1"></div>
   <div class="col-md-1"></div>
   <div class="col-md-1"></div>
-</form>
+
 
 <c:if test="${!empty logModel.utilisateur.noUtilisateur}">
 	<jsp:include page="achatsMesVentesMenu.jsp" />
 </c:if>
+
+</form>
 
 <c:if test="${accModel.lstArticleVendu.size() > 0}">
 	<table>
