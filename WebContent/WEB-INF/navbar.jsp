@@ -5,7 +5,7 @@
 		<div class="col-md-8 themed-grid-col text-left">
 															
 			<a href="AccueilServlet">
-				<img src="<%=request.getContextPath()%>/image/iconeimageeni.jpg">
+				<img src="<%=request.getContextPath()%>/image/petiticoneimageeni.png">
 							</a>
 			
 		</div>

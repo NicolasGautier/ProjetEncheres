@@ -4,7 +4,8 @@
 <div class="container-fluid">
   
   <div class="row">
-    <div class="col-1"><input type="radio" id="radioAchats" name="menuRadio" value="radioAchats" <c:if test="${accModel.lstRadio.get('radioAchats')}">checked</c:if>>
+    <div class="col-1">
+    <input type="radio" id="radioAchats" name="menuRadio" value="radioAchats" <c:if test="${accModel.lstRadio.get('radioAchats')}">checked</c:if>>
 		<label for="radioAchats">Achats</label></div>
     <div class="col-2"></div>
     <div class="col-1"><input type="radio" id="radioVentes" name="menuRadio" value="radioVentes" <c:if test="${accModel.lstRadio.get('radioVentes')}">checked</c:if>>
