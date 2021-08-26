@@ -39,8 +39,8 @@ public class ModifierProfilServlet extends HttpServlet {
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
 		ModifierProfilModel modProfModel = new ModifierProfilModel(logModel.getUtilisateur());
 		String nextPage = "/WEB-INF/modifierProfil.jsp";
-
-		if ("enregistrer".equals(request.getParameter("formuaireProfil"))) {
+		
+		if ("enregistrer".equals(request.getParameter("formulaireProfil"))) {
 			modProfModel.getUtilisateur().setPseudo(request.getParameter("pseudo"));
 			modProfModel.getUtilisateur().setPrenom(request.getParameter("prenom"));
 			modProfModel.getUtilisateur().setTelephone(request.getParameter("telephone"));
@@ -50,7 +50,6 @@ public class ModifierProfilServlet extends HttpServlet {
 			modProfModel.getUtilisateur().setEmail(request.getParameter("email"));
 			modProfModel.getUtilisateur().setRue(request.getParameter("rue"));
 			modProfModel.getUtilisateur().setVille(request.getParameter("ville"));
-
 			try {
 				if (utilManager.passChecked(modProfModel.getUtilisateur())) {
 					if (!"".equals(request.getParameter("newPassword"))
@@ -65,10 +64,11 @@ public class ModifierProfilServlet extends HttpServlet {
 				logModel.setUtilisateur(utilManager.getUtilisateur(modProfModel.getUtilisateur()));
 			} catch (BLLException e) {
 				errModel.setErrMessages("ErrLog", e.getMessages());
+				
 			}
 		}
 
-		if ("supprimer".equals(request.getParameter("formuaireProfil"))) {
+		if ("supprimer".equals(request.getParameter("formulaireProfil"))) {
 			try {
 				if (utilManager.passChecked(modProfModel.getUtilisateur())) {
 					try {

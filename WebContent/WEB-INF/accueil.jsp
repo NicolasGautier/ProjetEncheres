@@ -34,7 +34,7 @@
 			<p>
 				<label for="categorieSelect">Catégorie :</label> <select
 					name="categorieSelect">
-					<option value="Toutes">Toutes</option>
+					<option value="-1">Toutes</option>
 
 					<c:forEach var="categorie" items="${accModel.lstCategorie}">
 						<option value="${categorie.noCategorie}"
@@ -70,8 +70,8 @@
 			<div class="card" style="max-width: 25rem;">
 				<div class="row align-items-center">
 					<div class="col-6">
-						<img class="card-img-left" alt="image neutre"
-							src="<%=request.getContextPath()%>/image/image_informatique.png">
+						<img class="card-img-left" style="width:128px;height:114px;" alt="image neutre"
+							src="<%=request.getContextPath()%>/image/${articleVendu.image}">
 					</div>
 					<div class="col-6">
 						<div class="card-body">
@@ -81,7 +81,7 @@
 									<c:if test="${articleVendu.etatVente == accModel.etatsVenteEncheresTerminees}">VenteRemporteServlet</c:if>?id=${articleVendu.noArticle}">${articleVendu.nomArticle}</a>
 							</h5>
 							<p class="card-text">${articleVendu.prixVente}points</p>
-							<p class="card-text">${articleVendu.dateFinEncheres}</p>
+							<p class="card-text">${articleVendu.dateFinEncheresFormat}</p>
 							<p class="card-text">
 								<a
 									href="ProfilServlet?id=${articleVendu.utilisateurVend.noUtilisateur}">${articleVendu.utilisateurVend.pseudo}</a>
@@ -95,5 +95,4 @@
 
 </c:if>
 
-</body>
-</html>
+<jsp:include page="footer.jsp" />

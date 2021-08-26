@@ -42,4 +42,10 @@ public class UtilisateurDAOMock implements UtilisateurDAO {
 		return lst.stream().filter(u -> u.getNoUtilisateur() == id).collect(Collectors.toList()).get(0);
 	}
 
+	@Override
+	public void updatePW(Utilisateur utilisateur) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

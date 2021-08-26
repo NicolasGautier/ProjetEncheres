@@ -139,4 +139,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		return utilisateur;
 	}
 
+	@Override
+	public void updatePW(Utilisateur utilisateur) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

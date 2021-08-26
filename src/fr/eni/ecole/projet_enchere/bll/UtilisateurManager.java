@@ -16,6 +16,8 @@ public interface UtilisateurManager {
 	public void addUtilisateur(Utilisateur utilisateur) throws BLLException;
 
 	public void setUtilisateur(Utilisateur utilisateur) throws BLLException;
+	
+	public void setUtilisateurPW(Utilisateur utilisateur) throws BLLException;
 
 	public void removeUtilisateur(Utilisateur utilisateur) throws BLLException;
 

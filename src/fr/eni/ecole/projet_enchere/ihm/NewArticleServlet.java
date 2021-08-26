@@ -1,5 +1,7 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -34,6 +36,8 @@ public class NewArticleServlet extends HttpServlet {
 	private CategorieManager catManager = BllFactory.getUniqueCategorieManager();
 	private RetraitManager retManager = BllFactory.getUniqueRetraitManager();
 
+	public static final int DEFAULT_BUFFER_SIZE = 8192;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -63,7 +67,8 @@ public class NewArticleServlet extends HttpServlet {
 			try {
 				newArtModel = new NewArticleModel(
 						new ArticleVendu("", "", LocalDateTime.now(), LocalDateTime.now(), 0, 0, EtatsVente.CREEE,
-								logModel.getUtilisateur(), logModel.getUtilisateur(), null, null),
+								logModel.getUtilisateur(), logModel.getUtilisateur(), null, null,
+								"image_informatique.png"),
 						new Retrait(logModel.getUtilisateur().getRue(), logModel.getUtilisateur().getCodePostal(),
 								logModel.getUtilisateur().getVille()),
 						catManager.getAllCategorie(), new Categorie(-1, ""), false);
@@ -86,7 +91,8 @@ public class NewArticleServlet extends HttpServlet {
 				try {
 					newArtModel = new NewArticleModel(
 							new ArticleVendu("", "", LocalDateTime.now(), LocalDateTime.now(), 0, 0, EtatsVente.CREEE,
-									logModel.getUtilisateur(), logModel.getUtilisateur(), null, null),
+									logModel.getUtilisateur(), logModel.getUtilisateur(), null, null,
+									"image_informatique.png"),
 							new Retrait("", "", ""), catManager.getAllCategorie(), new Categorie(-1, ""), false);
 				} catch (BLLException e1) {
 					errModel.setErrMessages("errCha", e1.getMessages());
@@ -126,41 +132,35 @@ public class NewArticleServlet extends HttpServlet {
 					newArtModel.getArticleVendu().setCategorie(categorie);
 				}
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			Part filePart = request.getPart("photoarticle"); // Retrieves <input type="file" name="file">
-		    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-		    InputStream fileContent = filePart.getInputStream();
-			
-			
 
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			String fileName = null;
+			InputStream fileContent = null;
+			if (request.getPart("photoarticle") != null) {
+				Part filePart = request.getPart("photoarticle"); // Retrieves <input type="file" name="file">
+				fileName = System.currentTimeMillis() + "-"
+						+ Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+				fileContent = filePart.getInputStream();
+				newArtModel.getArticleVendu().setImage(fileName);
+			}
+
+//			System.out.println("filePart: "+filePart);
+//			System.out.println("fileName: "+fileName);
+//			System.out.println("fileContent: "+fileContent);
+//			
+//			System.out.println(request.getServletContext().getRealPath(""));
+
+			// exception.ajoutMessage("Test");
+
 			newArtModel.getRetrait().setRue(request.getParameter("rue"));
 			newArtModel.getRetrait().setCode_postal(request.getParameter("code_postal"));
 			newArtModel.getRetrait().setVille(request.getParameter("ville"));
 
 			if (exception.estVide()) {
 				try {
+					if (request.getPart("photoarticle") != null) {
+						File file = new File(request.getServletContext().getRealPath("") + "/image/" + fileName);
+						copyInputStreamToFile(fileContent, file);
+					}
 					if (newArtModel.getArticleVendu().getNoArticle() != null) {
 						artManager.setArticleVendu(newArtModel.getArticleVendu());
 					} else {
@@ -194,7 +194,7 @@ public class NewArticleServlet extends HttpServlet {
 		if (!exception.estVide()) {
 			errModel.setErrMessages("ErrIns", exception.getMessages());
 		}
-		
+
 		request.setAttribute("errModel", errModel);
 		request.setAttribute("newArtModel", newArtModel);
 
@@ -212,6 +212,19 @@ public class NewArticleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
+	}
+
+	private static void copyInputStreamToFile(InputStream inputStream, File file) throws IOException {
+
+		// append = false
+		try (FileOutputStream outputStream = new FileOutputStream(file, false)) {
+			int read;
+			byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
+			while ((read = inputStream.read(bytes)) != -1) {
+				outputStream.write(bytes, 0, read);
+			}
+		}
+
 	}
 
 }

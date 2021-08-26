@@ -57,7 +57,7 @@
 
 			<p>
 				<label for="photoarticle">Photo de l'article :</label> <input
-					id="photoarticle" name="photoarticle" type="file">
+					id="photoarticle" name="photoarticle" type="file" accept="image/png, image/jpeg">
 			</p>
 
 			<p>

@@ -1,8 +1,10 @@
 package fr.eni.ecole.projet_enchere.bo;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ArticleVendu {
 	
@@ -19,6 +21,7 @@ public class ArticleVendu {
 	private List<Enchere> encheres = new ArrayList<Enchere>();
 	private Categorie categorie;
 	private Retrait retrait;
+	private String image;
 	
 	public ArticleVendu() {
 		super();
@@ -26,7 +29,7 @@ public class ArticleVendu {
 
 	public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres,
 			Integer miseAPrix, Integer prixVente, EtatsVente etatVente, Utilisateur utilisateurAchete,
-			Utilisateur utilisateurVend, Categorie categorie, Retrait retrait) {
+			Utilisateur utilisateurVend, Categorie categorie, Retrait retrait, String image) {
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
@@ -38,11 +41,12 @@ public class ArticleVendu {
 		this.utilisateurVend = utilisateurVend;
 		this.categorie = categorie;
 		this.retrait = retrait;
+		this.image = image;
 	}
 
 	public ArticleVendu(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
 			LocalDateTime dateFinEncheres, Integer miseAPrix, Integer prixVente, EtatsVente etatVente,
-			Utilisateur utilisateurAchete, Utilisateur utilisateurVend, Categorie categorie, Retrait retrait) {
+			Utilisateur utilisateurAchete, Utilisateur utilisateurVend, Categorie categorie, Retrait retrait, String image) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -55,6 +59,7 @@ public class ArticleVendu {
 		this.utilisateurVend = utilisateurVend;
 		this.categorie = categorie;
 		this.retrait = retrait;
+		this.image = image;
 	}
 
 	public Integer getNoArticle() {
@@ -85,12 +90,22 @@ public class ArticleVendu {
 		return dateDebutEncheres;
 	}
 
+	public String getDateDebutEncheresFormat() {
+		String pattern = "dd MMM yyyy HH:mm";
+		return dateDebutEncheres.format(DateTimeFormatter.ofPattern(pattern, new Locale("fr","FR")));
+	}
+	
 	public void setDateDebutEncheres(LocalDateTime dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
 	
 	public LocalDateTime getDateFinEncheres() {
 		return dateFinEncheres;
+	}
+	
+	public String getDateFinEncheresFormat() {
+		String pattern = "dd MMM yyyy HH:mm";
+		return dateFinEncheres.format(DateTimeFormatter.ofPattern(pattern, new Locale("fr","FR")));
 	}
 
 	public void setDateFinEncheres(LocalDateTime dateFinEncheres) {
@@ -167,6 +182,14 @@ public class ArticleVendu {
 	
 	public void removeEnchere(Enchere enchere) {
 		encheres.remove(enchere);
+	}
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	@Override

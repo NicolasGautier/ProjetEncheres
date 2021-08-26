@@ -50,7 +50,8 @@ public class LoginFilter implements Filter {
 		if(((HttpServletRequest) request).getQueryString() != null) {
 			servletName = servletName +"?"+((HttpServletRequest) request).getQueryString();
 		}
-		if (((HttpServletRequest) request).getSession().getAttribute("logModel") == null) {
+		if (((HttpServletRequest) request).getSession().getAttribute("logModel") == null 
+				|| ((LoginModel)((HttpServletRequest) request).getSession().getAttribute("logModel")).getUtilisateur().getNoUtilisateur() == null ) {
 			if (tabCookies != null) {
 				LoginModel logModel = new LoginModel(
 						new Utilisateur("", "", "", "", "", "", "", "", "", 0, false, true));

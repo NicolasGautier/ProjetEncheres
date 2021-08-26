@@ -44,13 +44,13 @@
 			<div class="col-1"></div>
 			<div class="col-2">Prenom :</div>
 			<div class="col-2">
-				<input type="text" name="pseudo"
+				<input type="text" name="prenom"
 					value="${insModel.utilisateur.prenom}" required="required" />
 			</div>
 			<div class="col-1"></div>
 			<div class="col-2">Email :</div>
 			<div class="col-2">
-				<input type="text" name="nom" value="${insModel.utilisateur.email}"
+				<input type="text" name="email" value="${insModel.utilisateur.email}"
 					required="required" />
 			</div>
 			<div class="col-1"></div>
@@ -62,13 +62,13 @@
 			<div class="col-1"></div>
 			<div class="col-2">Téléphone :</div>
 			<div class="col-2">
-				<input type="text" name="pseudo"
+				<input type="text" name="telephone"
 					value="${insModel.utilisateur.telephone}" required="required" />
 			</div>
 			<div class="col-1"></div>
 			<div class="col-2">Rue :</div>
 			<div class="col-2">
-				<input type="text" name="nom" value="${insModel.utilisateur.rue}"
+				<input type="text" name="rue" value="${insModel.utilisateur.rue}"
 					required="required" />
 			</div>
 			<div class="col-1"></div>
@@ -80,13 +80,13 @@
 			<div class="col-1"></div>
 			<div class="col-2">Code Postal :</div>
 			<div class="col-2">
-				<input type="text" name="pseudo"
+				<input type="text" name="cp"
 					value="${insModel.utilisateur.codePostal}" required="required" />
 			</div>
 			<div class="col-1"></div>
 			<div class="col-2">Ville :</div>
 			<div class="col-2">
-				<input type="text" name="nom" value="${insModel.utilisateur.ville}"
+				<input type="text" name="ville" value="${insModel.utilisateur.ville}"
 					required="required" />
 			</div>
 			<div class="col-1"></div>

@@ -15,6 +15,7 @@ import fr.eni.ecole.projet_enchere.dal.UtilisateurDAO;
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private final String INSERT = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur, actif) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 	private final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=?, actif=? WHERE no_utilisateur = ?";
+	private final String UPDATEPW = "UPDATE utilisateurs SET mot_de_passe=? WHERE email = ?";
 	private final String DELETE = "DELETE FROM utilisateurs WHERE no_utilisateur =?";
 	private final String SELECT = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur, actif FROM utilisateurs";
 	private final String FROM = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur, actif FROM utilisateurs WHERE no_utilisateur = ?";
@@ -65,6 +66,19 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			stmt.setBoolean(11, utilisateur.getAdministrateur());
 			stmt.setBoolean(12, utilisateur.getActif());
 			stmt.setInt(13, utilisateur.getNoUtilisateur());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DALException("Problème SQL");
+		}
+	}
+	//"UPDATE utilisateurs SET mot_de_passe=? WHERE email = ?";
+	@Override
+	public void updatePW(Utilisateur utilisateur) throws DALException {
+		try (Connection con = ConnectionProvider.getConnection()) { 
+			PreparedStatement stmt = con.prepareStatement(UPDATEPW);
+			stmt.setString(1, utilisateur.getMotDePasse());
+			stmt.setString(2, utilisateur.getEmail());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

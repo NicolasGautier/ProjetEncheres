@@ -14,13 +14,13 @@ public class TestArticleVenduMock {
 		ArticleVenduDAO dao = DalFactory.getArticleVenduDAO();
 
 		ArticleVendu article1 = new ArticleVendu(1, "PC Gamer", "PC Gamer pour travailler", LocalDateTime.now().plusDays(5),
-				LocalDateTime.now().plusDays(20), 210, null, EtatsVente.CREEE, null, null, null, null);
+				LocalDateTime.now().plusDays(20), 210, null, EtatsVente.CREEE, null, null, null, null,"image_informatique.png");
 		ArticleVendu article2 = new ArticleVendu(2, "Rocket Stove", "Rocket Stove pour riz et pâtes",
 				LocalDateTime.now().plusDays(8), LocalDateTime.now().plusDays(30), 185, null, EtatsVente.CREEE, null, null,
-				null, null);
+				null, null,"image_informatique.png");
 		ArticleVendu article3 = new ArticleVendu(3, "Super Chaise", "Super Chaise pour s'assoir",
 				LocalDateTime.now().plusDays(10), LocalDateTime.now().plusDays(20), 120, null, EtatsVente.CREEE, null, null,
-				null, null);
+				null, null,"image_informatique.png");
 
 		System.out.println("TEST 1 : INSERTION DE TROIS ARTICLES");
 		dao.insert(article1);

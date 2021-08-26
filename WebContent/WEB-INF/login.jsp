@@ -41,13 +41,12 @@
 							<label for="remember-me" class="text-info"><span>Se
 									souvenir de moi</span> <span><input id="remember-me"
 									name="checkRememberMe" type="checkbox"></span></label><br>
+							<a href="NewPasswordServlet">Mot de passe oublié</a>
 							<a href="InsererProfilServlet" class="creercompte">Créer un compte</a>
 																			
 							</div>
 						<div id="register-link" class="text-right">
-							<button class="btn-secondary btn-lg" type="submit" name="formulaireLogin" value="Connexion">Connexion</button>
-						
-													
+							<button class="btn-secondary btn-lg" type="submit" name="formulaireLogin" value="Connexion">Connexion</button>													
 						</div>
 					</form>
 				</div>

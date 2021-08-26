@@ -41,6 +41,7 @@ public class InsererProfilServlet extends HttpServlet {
 		}
 		InsererProfilModel insModel = null;
 		String nextPage = "/WEB-INF/insertion.jsp";
+		Boolean retourAccueil = false;
 		
 		insModel = new InsererProfilModel(new Utilisateur("", "", "", "", "", "", "", "", "", 0, false,true));
 
@@ -61,7 +62,7 @@ public class InsererProfilServlet extends HttpServlet {
 					utilManager.addUtilisateur(insModel.getUtilisateur());
 					logModel.setUtilisateur(insModel.getUtilisateur());
 					request.getSession().setAttribute("logModel", logModel);
-					nextPage = "/AccueilServlet";
+					retourAccueil = true;
 				}
 				
 			} catch (BLLException e) {
@@ -78,7 +79,11 @@ public class InsererProfilServlet extends HttpServlet {
 		request.setAttribute("errModel", errModel);
 		request.setAttribute("insModel", insModel);
 
-		request.getRequestDispatcher(nextPage).forward(request, response);
+		if (retourAccueil) {
+			response.sendRedirect("AccueilServlet");
+		} else {
+			request.getRequestDispatcher(nextPage).forward(request, response);
+		}
 	}
 
 	/**

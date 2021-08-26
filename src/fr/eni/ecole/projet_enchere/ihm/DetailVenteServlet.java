@@ -66,8 +66,10 @@ public class DetailVenteServlet extends HttpServlet {
 			errModel.setErrMessages("ErrInit", e.getMessages());
 		}
 		String nextPage = "/WEB-INF/detailvente.jsp";
-
+		Boolean retourAccueil = false;
+		System.out.println("formEnch:" + request.getParameter("formulaireEncherir"));
 		if ("encherir".equals(request.getParameter("formulaireEncherir"))) {
+			
 			Integer proposition = null;
 			try {
 				proposition = Integer.parseInt(request.getParameter("proposition"));
@@ -83,7 +85,7 @@ public class DetailVenteServlet extends HttpServlet {
 								detVentModel.getArticleVendu().getEncheres());
 						enchManager.addEnchere(new Enchere(LocalDateTime.now(), proposition, logModel.getUtilisateur(),
 								detVentModel.getArticleVendu()));
-						nextPage = "/AccueilServlet";
+						retourAccueil = true;
 					}
 				} catch (BLLException e) {
 					// TODO Auto-generated catch block
@@ -103,8 +105,11 @@ public class DetailVenteServlet extends HttpServlet {
 		request.setAttribute("errModel", errModel);
 		request.setAttribute("detailVente", detVentModel);
 
-		request.getRequestDispatcher(nextPage).forward(request, response);
-
+		if (retourAccueil) {
+			response.sendRedirect("AccueilServlet");
+		} else {
+			request.getRequestDispatcher(nextPage).forward(request, response);
+		}
 	}
 
 	/**

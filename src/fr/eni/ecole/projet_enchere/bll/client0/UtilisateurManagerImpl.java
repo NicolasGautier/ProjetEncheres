@@ -154,6 +154,19 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	}
 
 	@Override
+	public void setUtilisateurPW(Utilisateur utilisateur) throws BLLException {
+		BLLException exception = new BLLException();
+		try {
+			utilDao.updatePW(utilisateur);
+		} catch (DALException e) {
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
+		}
+		if (!exception.estVide()) {
+			throw exception;
+		}
+	}
+	
+	@Override
 	public void removeUtilisateur(Utilisateur utilisateur) throws BLLException {
 		BLLException exception = new BLLException();
 		try {
@@ -288,4 +301,5 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		utilisateur.removeCredit(credit);
 		setUtilisateur(utilisateur);
 	}
+	
 }

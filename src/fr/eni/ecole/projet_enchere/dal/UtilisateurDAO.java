@@ -15,4 +15,6 @@ public interface UtilisateurDAO {
 	public List<Utilisateur> selectAll() throws DALException;
 	
 	public Utilisateur selectById(Integer id) throws DALException;
+
+	void updatePW(Utilisateur utilisateur) throws DALException;
 }
