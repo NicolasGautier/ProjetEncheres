@@ -1,13 +1,17 @@
 package fr.eni.ecole.projet_enchere.ihm;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import fr.eni.ecole.projet_enchere.bll.ArticleVenduManager;
 import fr.eni.ecole.projet_enchere.bll.BLLException;
@@ -23,6 +27,7 @@ import fr.eni.ecole.projet_enchere.bo.Retrait;
  * Servlet implementation class NewVenteServlet
  */
 @WebServlet("/NewArticleServlet")
+@MultipartConfig
 public class NewArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleVenduManager artManager = BllFactory.getUniqueArticleVenduManager();
@@ -95,7 +100,6 @@ public class NewArticleServlet extends HttpServlet {
 		}
 
 		if ("enregistrer".equals(request.getParameter("enregistrer"))) {
-
 			Integer sprix = null;
 			try {
 				sprix = Integer.parseInt((request.getParameter("sprix")));
@@ -122,6 +126,35 @@ public class NewArticleServlet extends HttpServlet {
 					newArtModel.getArticleVendu().setCategorie(categorie);
 				}
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			Part filePart = request.getPart("photoarticle"); // Retrieves <input type="file" name="file">
+		    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+		    InputStream fileContent = filePart.getInputStream();
+			
+			
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			newArtModel.getRetrait().setRue(request.getParameter("rue"));
 			newArtModel.getRetrait().setCode_postal(request.getParameter("code_postal"));
 			newArtModel.getRetrait().setVille(request.getParameter("ville"));
@@ -161,7 +194,7 @@ public class NewArticleServlet extends HttpServlet {
 		if (!exception.estVide()) {
 			errModel.setErrMessages("ErrIns", exception.getMessages());
 		}
-
+		
 		request.setAttribute("errModel", errModel);
 		request.setAttribute("newArtModel", newArtModel);
 

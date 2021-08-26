@@ -28,7 +28,7 @@
 
 		</div>
 
-		<form action="NewArticleServlet<c:if test="${!empty newArtModel.articleVendu.noArticle}">?id=${newArtModel.articleVendu.noArticle}</c:if>" method="post">
+		<form action="NewArticleServlet<c:if test="${!empty newArtModel.articleVendu.noArticle}">?id=${newArtModel.articleVendu.noArticle}</c:if>" method="post" enctype="multipart/form-data">
 			<p>
 				<label for="nomArticle">Article :</label><input id="nomArticle"
 					name="nomArticle" type="text"
@@ -46,13 +46,6 @@
 
 			<p>
 				<label for="categorieSelect">Catégorie :</label> 
-<!-- 				<select -->
-<!-- 					id="categorieSelect" name="categorieSelect"> -->
-<!-- 					<option value="Informatique">Informatique</option> -->
-<!-- 					<option value="Ameublement">Ameublement</option> -->
-<!-- 					<option value="Vêtement">Vêtement</option> -->
-<!-- 					<option value="Sport&Loisir">Sport&Loisir</option> -->
-<!-- 				</select> -->
 				<select name="categorieSelect">
 					<c:forEach var="categorie" items="${newArtModel.lstCategorie}">
 						<option value="${categorie.noCategorie}"
@@ -65,7 +58,6 @@
 			<p>
 				<label for="photoarticle">Photo de l'article :</label> <input
 					id="photoarticle" name="photoarticle" type="file">
-				<!-- TODO insérer photo dans article -->
 			</p>
 
 			<p>

@@ -77,6 +77,9 @@ public class NewArticleModel {
 
 	@Override
 	public String toString() {
-		return "NewArticleModel [articleVendu=" + articleVendu + ", categorie=" + lstCategorie + "]";
+		return "NewArticleModel [annulerVente=" + annulerVente + ", articleVendu=" + articleVendu + ", categorie="
+				+ categorie + ", retrait=" + retrait + ", lstCategorie=" + lstCategorie + "]";
 	}
+
+	
 }
