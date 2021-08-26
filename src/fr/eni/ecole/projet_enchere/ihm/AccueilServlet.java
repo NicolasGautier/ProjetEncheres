@@ -37,7 +37,7 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//Initialisation
+		// Initialisation
 		String nextPage = "/WEB-INF/accueil.jsp";
 		ErreurModel errModel = new ErreurModel();
 		LoginModel logModel = (LoginModel) request.getSession().getAttribute("logModel");
@@ -46,7 +46,7 @@ public class AccueilServlet extends HttpServlet {
 		}
 		AccueilModel accModel = null;
 		try {
-			accModel = new AccueilModel("", new Categorie(), catManager.getAllCategorie());
+			accModel = new AccueilModel("", new Categorie(-1,"Toutes"), catManager.getAllCategorie());
 		} catch (BLLException e) {
 			errModel.setErrMessages("ErrAcc", e.getMessages());
 		}
@@ -99,15 +99,23 @@ public class AccueilServlet extends HttpServlet {
 		if (request.getParameter("filtre") != null) {
 			accModel.setFiltre(request.getParameter("filtre"));
 		}
-		
-		//Traitement
+
+		// Traitement
 		try {
+			Integer catSel = null;
+			if (request.getParameter("categorieSelect") != null) {
+				catSel = Integer.parseInt(request.getParameter("categorieSelect"));
+			} else {
+				catSel = -1;
+			}
+			
 			if (logModel.getUtilisateur().getNoUtilisateur() == null) {
 
 				Boolean catChoisie = false;
 				for (Categorie categorie : accModel.getLstCategorie()) {
-					if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
-						accModel.setLstArticleVendu(artVendManager.getArticleVenduCategorieFiltre(categorie, accModel.getFiltre()));
+					if (categorie.getNoCategorie().equals(catSel)) {
+						accModel.setLstArticleVendu(
+								artVendManager.getArticleVenduCategorieFiltre(categorie, accModel.getFiltre()));
 						accModel.setCategorie(categorie);
 						catChoisie = true;
 						break;
@@ -121,7 +129,7 @@ public class AccueilServlet extends HttpServlet {
 				if (accModel.getLstRadio().get("radioAchats")) {
 					Boolean catChoisie = false;
 					for (Categorie categorie : accModel.getLstCategorie()) {
-						if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
+						if (categorie.getNoCategorie().equals(catSel)) {
 							accModel.setLstArticleVendu(artVendManager.getArticleVenduCategorieFiltreAchats(categorie,
 									accModel.getFiltre(), accModel.getLstCheckbox().get("enchOuv"),
 									accModel.getLstCheckbox().get("enchCour"),
@@ -139,7 +147,7 @@ public class AccueilServlet extends HttpServlet {
 				if (accModel.getLstRadio().get("radioVentes")) {
 					Boolean catChoisie = false;
 					for (Categorie categorie : accModel.getLstCategorie()) {
-						if (categorie.getLibelle().equals(request.getParameter("categorieSelect"))) {
+						if (categorie.getNoCategorie().equals(catSel)) {
 							accModel.setLstArticleVendu(artVendManager.getArticleVenduCategorieFiltreVentes(categorie,
 									accModel.getFiltre(), accModel.getLstCheckbox().get("ventCour"),
 									accModel.getLstCheckbox().get("ventDeb"), accModel.getLstCheckbox().get("ventTer"),
@@ -159,8 +167,8 @@ public class AccueilServlet extends HttpServlet {
 		} catch (BLLException e) {
 			errModel.setErrMessages("ErrAcc", e.getMessages());
 		}
-		
-		//Affichage
+
+		// Affichage
 		request.setAttribute("accModel", accModel);
 		request.setAttribute("errModel", errModel);
 		request.getSession().setAttribute("previousPage", "/AccueilServlet");

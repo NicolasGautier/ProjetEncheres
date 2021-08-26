@@ -19,7 +19,6 @@
 		</c:if>		
 	</c:forEach>
 	
-
 	<form action="InsererProfilServlet" method="post">
 
 	<div class="container-fluid">
@@ -104,7 +103,6 @@
 			<div class="col-2"><input type="password" name="password" required="required" /></div>
 			<div class="col-7"></div>
 		</div>
-					
 			
 	<div class="divvide"></div>
 			

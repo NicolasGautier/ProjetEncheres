@@ -18,18 +18,20 @@ public class NewArticleModel {
 	public NewArticleModel() {
 	}
 
-	public NewArticleModel(ArticleVendu articleVendu, List<Categorie> lstCategorie) {
+	public NewArticleModel(ArticleVendu articleVendu, List<Categorie> lstCategorie, Categorie categorie) {
 		super();
 		this.articleVendu = articleVendu;
 		this.lstCategorie = lstCategorie;
+		this.categorie = categorie;
 	}
 
-	public NewArticleModel(ArticleVendu articleVendu, Retrait retrait, List<Categorie> lstCategorie,
+	public NewArticleModel(ArticleVendu articleVendu, Retrait retrait, List<Categorie> lstCategorie, Categorie categorie,
 			Boolean annulerVente) {
 		super();
 		this.articleVendu = articleVendu;
 		this.retrait = retrait;
 		this.lstCategorie = lstCategorie;
+		this.categorie = categorie;
 		this.annulerVente = annulerVente;
 	}
 

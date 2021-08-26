@@ -78,6 +78,17 @@ public class CategorieManagerImpl implements CategorieManager {
 	}
 
 	@Override
+	public Categorie getCategorie(Integer id) throws BLLException {
+		BLLException exception = new BLLException();
+		try {
+			return catDao.selectById(id);
+		} catch (DALException e) {
+			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
+		}
+		throw exception;
+	}
+	
+	@Override
 	public Categorie getCategorie(Categorie categorie) throws BLLException {
 		BLLException exception = new BLLException();
 		try {

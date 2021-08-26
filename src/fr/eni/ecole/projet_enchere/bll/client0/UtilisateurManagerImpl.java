@@ -13,7 +13,7 @@ import fr.eni.ecole.projet_enchere.dal.UtilisateurDAO;
 
 public class UtilisateurManagerImpl implements UtilisateurManager {
 
-	private UtilisateurDAO dao = DalFactory.getUtilisateurDAO();
+	private UtilisateurDAO utilDao = DalFactory.getUtilisateurDAO();
 
 	@Override
 	public void addUtilisateur(Utilisateur utilisateur) throws BLLException {
@@ -53,10 +53,12 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
 		// test de l'existence du pseudo et du mail dans la liste utilisateur
 		try {
-			for (Utilisateur util : dao.selectAll()) {
-				if (util.getPseudo().equals(utilisateur.getPseudo())
-						|| util.getEmail().equals(utilisateur.getEmail())) {
-					exception.ajoutMessage("Login ou mail déjà utilisé,merci de changer de login ou de mail");
+			for (Utilisateur util : utilDao.selectAll()) {
+				if (util.getPseudo().equals(utilisateur.getPseudo())) {
+					exception.ajoutMessage("Login déjà utilisé,merci de changer de login ou de mail");
+				}
+				if (util.getEmail().equals(utilisateur.getEmail())) {
+					exception.ajoutMessage("Mail déjà utilisé,merci de changer de login ou de mail");
 				}
 			}
 		} catch (DALException e) {
@@ -70,7 +72,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
 		if (exception.estVide()) {
 			try {
-				dao.insert(utilisateur);
+				utilDao.insert(utilisateur);
 			} catch (DALException e) {
 				exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 			}
@@ -119,24 +121,28 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
 		// test de l'existence du pseudo et du mail dans la liste utilisateur
 		try {
-			for (Utilisateur util : dao.selectAll()) {
-				if (util.getPseudo().equals(utilisateur.getPseudo())
-						|| util.getEmail().equals(utilisateur.getEmail())) {
-					exception.ajoutMessage("Login ou mail déjà utilisé,merci de changer de login ou de mail");
-				}
+			for (Utilisateur util : utilDao.selectAll()) {
+				if (util.getNoUtilisateur() != utilisateur.getNoUtilisateur()) {
+					if (util.getPseudo().equals(utilisateur.getPseudo())) {
+						exception.ajoutMessage("Login déjà utilisé,merci de changer de login ou de mail");
+					}
+					if (util.getEmail().equals(utilisateur.getEmail())) {
+						exception.ajoutMessage("Mail déjà utilisé,merci de changer de login ou de mail");
+					}
+				}				
 			}
 		} catch (DALException e) {
 			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
 
 		// test de l'existence de caractères uniquement alaphanumérique
-		if (utilisateur.getPseudo().matches("[a-zA-Z0-9]*$")) {
+		if (!utilisateur.getPseudo().matches("[a-zA-Z0-9]*$")) {
 			exception.ajoutMessage("Ne rentrez que des caractères alphanumériques");
 		}
 
 		if (exception.estVide()) {
 			try {
-				dao.update(utilisateur);
+				utilDao.update(utilisateur);
 			} catch (DALException e) {
 				exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 			}
@@ -151,7 +157,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	public void removeUtilisateur(Utilisateur utilisateur) throws BLLException {
 		BLLException exception = new BLLException();
 		try {
-			dao.delete(utilisateur.getNoUtilisateur());
+			utilDao.delete(utilisateur.getNoUtilisateur());
 		} catch (DALException e) {
 			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
@@ -165,7 +171,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	public List<Utilisateur> getAllUtilisateurs() throws BLLException {
 		BLLException exception = new BLLException();
 		try {
-			return dao.selectAll();
+			return utilDao.selectAll();
 		} catch (DALException e) {
 			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
@@ -176,7 +182,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	public Utilisateur getUtilisateur(Utilisateur utilisateur) throws BLLException {
 		BLLException exception = new BLLException();
 		try {
-			return dao.selectById(utilisateur.getNoUtilisateur());
+			return utilDao.selectById(utilisateur.getNoUtilisateur());
 		} catch (DALException e) {
 			exception.ajoutMessage("Un problème d'accès à la base de donnée est apparu : " + e.getMessage());
 		}
@@ -187,7 +193,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	public boolean logAndPassChecked(Utilisateur utilisateur) throws BLLException {
 		BLLException exception = new BLLException();
 		try {
-			for (Utilisateur util : dao.selectAll()) {
+			for (Utilisateur util : utilDao.selectAll()) {
 				if ((util.getPseudo().equals(utilisateur.getPseudo()) || util.getEmail().equals(utilisateur.getEmail()))
 						&& util.getMotDePasse().equals(utilisateur.getMotDePasse()) && util.getActif()) {
 					utilisateur.setNoUtilisateur(util.getNoUtilisateur());
@@ -205,7 +211,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	public boolean passChecked(Utilisateur utilisateur) throws BLLException {
 		BLLException exception = new BLLException();
 		try {
-			for (Utilisateur util : dao.selectAll()) {
+			for (Utilisateur util : utilDao.selectAll()) {
 				if (util.getMotDePasse().equals(utilisateur.getMotDePasse())
 						&& util.getNoUtilisateur().equals(utilisateur.getNoUtilisateur()) && util.getActif()) {
 					return true;
