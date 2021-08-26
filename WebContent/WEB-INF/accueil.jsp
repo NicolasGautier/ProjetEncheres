@@ -65,6 +65,7 @@
 <c:if test="${accModel.lstArticleVendu.size() > 0}">
 
 	<br>
+	<div class="wrapper">
 	<div class="card-deck">
 		<c:forEach items="${accModel.lstArticleVendu}" var="articleVendu">
 			<div class="card" style="max-width: 25rem;">
@@ -92,7 +93,7 @@
 			</div>
 		</c:forEach>
 	</div>
-
+	</div>
 </c:if>
 
 </body>

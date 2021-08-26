@@ -4,42 +4,33 @@
 <div class="container-fluid">
   
   <div class="row">
-    <div class="col-1">
-    <input type="radio" id="radioAchats" name="menuRadio" value="radioAchats" <c:if test="${accModel.lstRadio.get('radioAchats')}">checked</c:if>>
-		<label for="radioAchats">Achats</label></div>
-    <div class="col-2"></div>
-    <div class="col-1"><input type="radio" id="radioVentes" name="menuRadio" value="radioVentes" <c:if test="${accModel.lstRadio.get('radioVentes')}">checked</c:if>>
-		<label for="radioVentes">Mes ventes</label></div>
-    <div class="col-2"></div>
+    <div class="col-2"><input type="radio" id="radioAchats" name="menuRadio" value="radioAchats" <c:if test="${accModel.lstRadio.get('radioAchats')}">checked</c:if>><label for="radioAchats">Achats</label></div>
+    <div class="col-1"></div>
+    <div class="col-2"><input type="radio" id="radioVentes" name="menuRadio" value="radioVentes" <c:if test="${accModel.lstRadio.get('radioVentes')}">checked</c:if>><label for="radioVentes">Mes ventes</label></div>
+    <div class="col-1"></div>
     <div class="col-6"></div>
   </div>
   
 <div class="row">
-    <div class="col-1"></div>
-    <div class="col-2"> <input type="checkbox" id="enchOuv" name="enchOuv" <c:if test="${accModel.lstCheckbox.get('enchOuv')}">checked</c:if>>
-	  <label for="enchOuv">enchères ouvertes</label></div>
-    <div class="col-1"></div>
-    <div class="col-2"> <input type="checkbox" id="ventCour" name="ventCour" <c:if test="${accModel.lstCheckbox.get('ventCour')}">checked</c:if>>
-	  <label for="ventCour">Mes ventes en cours</label></div>
+
+    <div class="col-3"> <input type="checkbox" id="enchOuv" name="enchOuv" <c:if test="${accModel.lstCheckbox.get('enchOuv')}">checked</c:if>><label for="enchOuv">enchères ouvertes</label></div>
+    <div class="col-3"> <input type="checkbox" id="ventCour" name="ventCour" <c:if test="${accModel.lstCheckbox.get('ventCour')}">checked</c:if>><label for="ventCour">Mes ventes en cours</label></div>
     <div class="col-6"></div>
   </div>
 
 <div class="row">
-    <div class="col-1"></div>
-    <div class="col-2">  <input type="checkbox" id="enchCour" name="enchCour" <c:if test="${accModel.lstCheckbox.get('enchCour')}">checked</c:if>>
+  
+    <div class="col-3">  <input type="checkbox" id="enchCour" name="enchCour" <c:if test="${accModel.lstCheckbox.get('enchCour')}">checked</c:if>>
 	  <label for="enchCour">mes enchères en cours</label></div>
-    <div class="col-1"></div>
-    <div class="col-2">  <input type="checkbox" id="ventDeb" name="ventDeb" <c:if test="${accModel.lstCheckbox.get('ventDeb')}">checked</c:if>>
+    <div class="col-3">  <input type="checkbox" id="ventDeb" name="ventDeb" <c:if test="${accModel.lstCheckbox.get('ventDeb')}">checked</c:if>>
 	  <label for="ventDeb">ventes non débutées</label></div>
     <div class="col-6"></div>
   </div>
   
   <div class="row">
-    <div class="col-1"></div>
-    <div class="col-2"> <input type="checkbox" id="enchRemp" name="enchRemp" <c:if test="${accModel.lstCheckbox.get('enchRemp')}">checked</c:if>>
+    <div class="col-3"> <input type="checkbox" id="enchRemp" name="enchRemp" <c:if test="${accModel.lstCheckbox.get('enchRemp')}">checked</c:if>>
 	  <label for="enchRemp">mes enchères remportées</label></div>
-    <div class="col-1"></div>
-    <div class="col-2">  <input type="checkbox" id="ventTer" name="ventTer" <c:if test="${accModel.lstCheckbox.get('ventTer')}">checked</c:if>>
+    <div class="col-3">  <input type="checkbox" id="ventTer" name="ventTer" <c:if test="${accModel.lstCheckbox.get('ventTer')}">checked</c:if>>
 	  <label for="ventTer">ventes terminées</label></div>
     <div class="col-6"></div>
   </div>

@@ -6,8 +6,7 @@
 
 <c:forEach var="key" items="${errModel.err}">
 	<c:if test="${key == 'ErrIns'}">
-		<c:forEach var="erreur"
-			items="${errModel.errMessages.get('ErrIns')}">
+		<c:forEach var="erreur" items="${errModel.errMessages.get('ErrIns')}">
 			<p style="color: red">${erreur}</p>
 		</c:forEach>
 	</c:if>
@@ -23,105 +22,120 @@
 
 	<div class="col">
 		<div>
-
 			<h2>Nouvelle vente</h2>
-
 		</div>
 
-		<form action="NewArticleServlet<c:if test="${!empty newArtModel.articleVendu.noArticle}">?id=${newArtModel.articleVendu.noArticle}</c:if>" method="post">
-			<p>
-				<label for="nomArticle">Article :</label><input id="nomArticle"
-					name="nomArticle" type="text"
-					value="${newArtModel.articleVendu.nomArticle}">
-			</p>
 
-			<p>
-				<label for="description">Description :</label>
 
-				<textarea id="description" name="description" rows="4" cols="50">
-				${newArtModel.articleVendu.description}
-				</textarea>
+		<form
+			action="NewArticleServlet<c:if test="${!empty newArtModel.articleVendu.noArticle}">?id=${newArtModel.articleVendu.noArticle}</c:if>"
+			method="post">
 
-			</p>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-3"><label for="nomArticle">Article :</label></div>
+					<div class="col-7"><input id="nomArticle" name="nomArticle" type="text" value="${newArtModel.articleVendu.nomArticle}"></div>
+					<div class="col-1"></div>
+				</div>
+					
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-3"><label for="description">Description :</label></div>
+					<div class="col-7"><textarea id="description" name="description" rows="4" cols="50">${newArtModel.articleVendu.description}</textarea></div>
+					<div class="col-1"></div>
+				</div>
 
-			<p>
-				<label for="categorieSelect">Catégorie :</label> 
-<!-- 				<select -->
-<!-- 					id="categorieSelect" name="categorieSelect"> -->
-<!-- 					<option value="Informatique">Informatique</option> -->
-<!-- 					<option value="Ameublement">Ameublement</option> -->
-<!-- 					<option value="Vêtement">Vêtement</option> -->
-<!-- 					<option value="Sport&Loisir">Sport&Loisir</option> -->
-<!-- 				</select> -->
-				<select name="categorieSelect">
-					<c:forEach var="categorie" items="${newArtModel.lstCategorie}">
-						<option value="${categorie.noCategorie}"
-							<c:if test="${newArtModel.categorie.noCategorie == categorie.noCategorie}">selected
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-3"><label for="categorieSelect">Catégorie :</label></div>
+					<div class="col-7"><select
+							name="categorieSelect">
+							<c:forEach var="categorie" items="${newArtModel.lstCategorie}">
+								<option value="${categorie.noCategorie}"
+									<c:if test="${newArtModel.categorie.noCategorie == categorie.noCategorie}">selected
 							</c:if>>${categorie.libelle}</option>
-					</c:forEach>
-				</select>
-			</p>
+							</c:forEach>
+						</select></div>
+					<div class="col-1"></div>
+				</div>					
+				
+				
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-3"><label for="photoarticle">Photo de l'article :</label></div>
+					<div class="col-7"><input id="photoarticle" name="photoarticle" type="file"></div>
+					<div class="col-1"></div>
+				</div>
+											
+						<!-- TODO insérer photo dans article -->
+						
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-3"><label for="miseaprix">Mise à prix :</label></div>
+					<div class="col-7"><input type="number"	id="miseaprix" name="sprix" min="0" placeholder="150" value="${newArtModel.articleVendu.miseAPrix}"></div>
+					<div class="col-1"></div>
+				</div>
 
-			<p>
-				<label for="photoarticle">Photo de l'article :</label> <input
-					id="photoarticle" name="photoarticle" type="file">
-				<!-- TODO insérer photo dans article -->
-			</p>
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-3"><label for="dateDebutEncheres">Début de l'enchère :</label></div>
+					<div class="col-7"><input type="datetime-local" id="dateDebutEncheres"	name="dateDebutEncheres" value="${newArtModel.articleVendu.dateDebutEncheres}"></div>
+					<div class="col-1"></div>
+				</div>
+						
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-3"><label for="dateFinEncheres">Fin de l'enchère :</label></div>
+					<div class="col-7"><input type="datetime-local" id="dateFinEncheres" name="dateFinEncheres"value="${newArtModel.articleVendu.dateFinEncheres}"></div>
+					<div class="col-1"></div>
+				</div>
 
-			<p>
-				<label for="miseaprix">Mise à prix :</label> <input type="number"
-					id="miseaprix" name="sprix" min="0" placeholder="150"
-					value="${newArtModel.articleVendu.miseAPrix}">
+									
 
-			</p>
+	<fieldset style="border: 10 px solid silver">
+			<h2>Retrait</h2>
+						
+						
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-3"><label for="rue">Rue :</label></div>
+					<div class="col-7"><input type="text" id="rue"	name="rue" placeholder="Rue des Mouettes" value="${newArtModel.retrait.rue}"></div>
+					<div class="col-1"></div>
+				</div>
+						
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-3"><label for="cp">Code postal :</label></div>
+					<div class="col-7"><input type="text" id="cp" name="code_postal" placeholder="44800" value="${newArtModel.retrait.code_postal}"></div>
+					<div class="col-1"></div>
+				</div>
+				
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-3"><label for="ville">Ville :</label></div>
+					<div class="col-7"><input type="text" id="ville" name="ville" placeholder="Saint Herblain"	value="${newArtModel.retrait.ville}"></div>
+					<div class="col-1"></div>
+				</div>
+							
+							
+							
+							
+							
+		</fieldset>
 
-			<p>
-				<label for="dateDebutEncheres">Début de l'enchère :</label> <input
-					type="datetime-local" id="dateDebutEncheres"
-					name="dateDebutEncheres"
-					value="${newArtModel.articleVendu.dateDebutEncheres}">
-			</p>
-
-			<p>
-				<label for="dateFinEncheres">Fin de l'enchère :</label> <input
-					type="datetime-local" id="dateFinEncheres" name="dateFinEncheres"
-					value="${newArtModel.articleVendu.dateFinEncheres}">
-			</p>
-
-			<fieldset style="border: 1 px solid silver">
-				<legend>Retrait</legend>
-				<p>
-					<label for="rue">Rue :</label> <input type="text" id="rue"
-						name="rue" placeholder="Rue des Mouettes"
-						value="${newArtModel.retrait.rue}">
-
-				</p>
-
-				<p>
-					<label for="cp">Code postal :</label> <input type="text" id="cp"
-						name="code_postal" placeholder="44800"
-						value="${newArtModel.retrait.code_postal}">
-				</p>
-
-				<p>
-					<label for="ville">Ville :</label> <input type="text"
-						id="ville" name="ville" placeholder="Saint Herblain"
-						value="${newArtModel.retrait.ville}">
-				</p>
-			</fieldset>
-
-			<p>
-				<button type="submit" name="enregistrer" value="enregistrer">
-					Enregistrer</button>
-				<button type="submit" name="annuler" value="annuler">
-					Annuler</button>
-				<c:if test="${newArtModel.annulerVente}">
-					<button type="submit" name="annulerLaVente" value="annulerLaVente">
-					Annuler la vente</button>
-				</c:if>
-			</p>
-			
-			
+					<p>
+						<button class="btn-secondary btn-lg btn-block" type="submit"
+							name="enregistrer" value="enregistrer">Enregistrer</button>
+						<button class="btn-secondary btn-lg btn-block" type="submit"
+							name="annuler" value="annuler">Annuler</button>
+						<c:if test="${newArtModel.annulerVente}">
+							<button class="btn-secondary btn-lg btn-block" type="submit"
+								name="annulerLaVente" value="annulerLaVente">Annuler la
+								vente</button>
+						</c:if>
+					</p>
+				</div>
 		</form>
 	</div>
 </div>

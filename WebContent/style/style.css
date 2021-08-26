@@ -74,5 +74,17 @@ insertdroit {
 }
 
 
-
-
+.card{
+        display: flex !important;
+        flex-wrap: wrap !important;
+        flex: 1 0 100% !important;
+        margin:10px !important;
+    }
+    .card>* {
+        flex: 1 1 250px !important;
+        margin: 10px important;
+    }
+ .wrapper {
+        border: 0px dotted rgb(96, 139, 168);
+        width: 100%;
+ }
