@@ -15,7 +15,9 @@
 	</c:if>
 </c:forEach>
 
-	<div class="divvide"></div>	<div class="divvide"></div>	<div class="divvide"></div>
+<div class="divvide"></div>
+<div class="divvide"></div>
+<div class="divvide"></div>
 
 
 <form action="InsererProfilServlet" method="post">
@@ -72,7 +74,7 @@
 			<div class="col-1"></div>
 		</div>
 
-			<div class="divvide"></div>
+		<div class="divvide"></div>
 
 		<div class="row">
 			<div class="col-1"></div>
@@ -108,19 +110,36 @@
 
 
 		<div class="divvide"></div>
-	<div class="divvide"></div>	<div class="divvide"></div>	<div class="divvide"></div>
-	
-	
-	<div class="row">
-		<div class="col-4"></div>
-		<div class="col-4"><button class="btn-secondary btn-lg"type="submit" name="formulaireInscription" value="creer">Créer</button></div>
-		<div class="col-2"><button class="btn-secondary btn-lg"type="submit" name="formulaireAnnulation" value="annuler">Annuler</button></div>
-		<div class="col-2"></div>
+		<div class="divvide"></div>
+		<div class="divvide"></div>
+		<div class="divvide"></div>
 	</div>
-		</div>
 
+
+	<div class="row">
+		<div class="col-5"></div>
+		<div class="col-4">
+			<button class="btn-secondary btn-lg" type="submit"
+				name="formulaireInscription" value="creer">Créer</button>
+		</div>
+	</div>
 
 </form>
+
+
+<form action="InsererProfilServlet" method="post">
+	<div class="row">
+		<div class="col-5"></div>
+		<div class="col-4">
+			<button class="btn-secondary btn-lg" type="submit"
+				name="formulaireAnnulation" value="annuler">Annuler</button>
+		</div>
+		<div class="col-3"></div>
+	</div>
+</form>
+
+
+
 
 <jsp:include page="footer.jsp" />
 
