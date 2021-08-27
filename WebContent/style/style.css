@@ -74,13 +74,13 @@ insertdroit {
 }
 
 
-.card{
+.cardaccueil{
         display: flex !important;
         flex-wrap: wrap !important;
         flex: 1 0 100% !important;
         margin:10px !important;
     }
-    .card>* {
+    .cardaccueil>* {
         flex: 1 1 250px !important;
         margin: 10px important;
     }

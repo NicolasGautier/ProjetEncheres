@@ -68,7 +68,7 @@
 	<div class="wrapper">
 	<div class="card-deck">
 		<c:forEach items="${accModel.lstArticleVendu}" var="articleVendu">
-			<div class="card" style="max-width: 25rem;">
+			<div class="card cardaccueil" style="max-width: 25rem;">
 				<div class="row align-items-center">
 					<div class="col-6">
 						<img class="card-img-left" style="width:128px;height:114px;" alt="image neutre"
