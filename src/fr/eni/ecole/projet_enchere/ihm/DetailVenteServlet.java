@@ -67,7 +67,6 @@ public class DetailVenteServlet extends HttpServlet {
 		}
 		String nextPage = "/WEB-INF/detailvente.jsp";
 		Boolean retourAccueil = false;
-		System.out.println("formEnch:" + request.getParameter("formulaireEncherir"));
 		if ("encherir".equals(request.getParameter("formulaireEncherir"))) {
 			
 			Integer proposition = null;
