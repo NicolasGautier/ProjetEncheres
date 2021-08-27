@@ -22,7 +22,7 @@
             <h2>Nouvelle vente</h2>
         </div>
 
-        <form action="NewArticleServlet<c:if test="${!empty newArtModel.articleVendu.noArticle}">?id=${newArtModel.articleVendu.noArticle}</c:if>"  method="post">
+        <form action="NewArticleServlet<c:if test="${!empty newArtModel.articleVendu.noArticle}">?id=${newArtModel.articleVendu.noArticle}</c:if>"  method="post" enctype="multipart/form-data">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-1"></div>

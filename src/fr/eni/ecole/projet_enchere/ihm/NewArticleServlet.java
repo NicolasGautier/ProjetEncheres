@@ -135,11 +135,11 @@ public class NewArticleServlet extends HttpServlet {
 
 			String fileName = null;
 			InputStream fileContent = null;
-			if (request.getPart("photoarticle") != null) {
-				Part filePart = request.getPart("photoarticle"); // Retrieves <input type="file" name="file">
-				fileName = System.currentTimeMillis() + "-"
-						+ Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-				fileContent = filePart.getInputStream();
+			Part filePart = request.getPart("photoarticle"); // Retrieves <input type="file" name="file">
+			fileName = System.currentTimeMillis() + "-"
+					+ Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+			fileContent = filePart.getInputStream();
+			if (!"".equals(Paths.get(filePart.getSubmittedFileName()).getFileName().toString())) {
 				newArtModel.getArticleVendu().setImage(fileName);
 			}
 
@@ -157,7 +157,7 @@ public class NewArticleServlet extends HttpServlet {
 
 			if (exception.estVide()) {
 				try {
-					if (request.getPart("photoarticle") != null) {
+					if (!"".equals(Paths.get(filePart.getSubmittedFileName()).getFileName().toString())) {
 						File file = new File(request.getServletContext().getRealPath("") + "/image/" + fileName);
 						copyInputStreamToFile(fileContent, file);
 					}

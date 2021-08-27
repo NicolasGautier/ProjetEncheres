@@ -111,7 +111,11 @@
 
 					<c:if
 						test="${profModel.utilisateur.noUtilisateur == logModel.utilisateur.noUtilisateur}">
-						<a class="btn btn-primary" href="ModifierProfilServlet">Modifier</a>
+						<div class="row">
+						<div class="col-1"></div>
+						<div class="col-10"><a class="btn btn-secondary btn-lg btn-block" href="ModifierProfilServlet">Modifier</a></div>
+						<div class="col-1"></div>
+						</div>
 					</c:if>
 
 				</div>
@@ -125,12 +129,6 @@
 		</div>
 	</div>
 </div>
-
-
-<c:if
-	test="${profModel.utilisateur.noUtilisateur == logModel.utilisateur.noUtilisateur}">
-	<a class="btn btn-primary" href="ModifierProfilServlet">Modifier</a>
-</c:if>
 
 <jsp:include page="footer.jsp" />
 
