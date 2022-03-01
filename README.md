@@ -2,7 +2,6 @@
     <h2>Table of contents</h2>
     <ul>
         <li>Introduction</li>
-        <li>Demo</li>
         <li>Features</li>
         <li>Technology</li>
     </ul>
@@ -10,9 +9,6 @@
 <h2>Introduction</h2>
 
  Aunction website built with JavaEE.
-
-<h2>Demo</h2>
-
 
 <h2>Features</h2>
 The application manage virtual auctions.
