@@ -17,6 +17,7 @@ Users can do the following :
     <li>Create an account</li>
     <li>Access auctions online</li>
     <li>Place a bid</li>
+    <li>Auto update auctions with a listener</li>
 </ul>
 <h2>Technology</h2>
 <ul>
